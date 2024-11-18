@@ -1,7 +1,0 @@
-(sym_lib_table
-  (version 7)
-  (lib (name "SK12D07VG4")(type "KiCad")(uri "${KIPRJMOD}/libraries/SK12D07VG4.kicad_sym")(options "")(descr ""))
-  (lib (name "msx-con")(type "KiCad")(uri "${KIPRJMOD}/libraries/msx-con.kicad_sym")(options "")(descr ""))
-  (lib (name "m29f400m")(type "KiCad")(uri "${KIPRJMOD}/libraries/m29f400m.kicad_sym")(options "")(descr ""))
-  (lib (name "EPM7064STC44-7")(type "KiCad")(uri "${KIPRJMOD}/libraries/EPM7064STC44-7.kicad_sym")(options "")(descr ""))
-)
