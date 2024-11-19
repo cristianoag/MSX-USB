@@ -6,9 +6,10 @@
 	(paper "A4")
 	(title_block
 		(title "MSX-USB")
-		(date "2024-10-12")
+		(date "2024-11-18")
 		(rev "5.0")
 		(company "The Retro Hacker")
+		(comment 1 "Suitable for the CH376S Type 1")
 		(comment 2 "New PCB version, CPLD code by The Retro Hacker")
 		(comment 3 "Original project by S0urceror")
 		(comment 4 "MSX-USB Interface")

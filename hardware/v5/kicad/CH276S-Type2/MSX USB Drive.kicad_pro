@@ -60,22 +60,8 @@
         }
       ],
       "drc_exclusions": [
-        "silk_edge_clearance|100950000|63614602|350dd193-c0b7-4875-808f-b6948667b46a|b69b9263-23c0-44dd-80d0-c1338de19941",
-        "silk_edge_clearance|108935000|121025000|cb1962cf-f02e-40fc-8378-3f62e43ebcbd|0f5192bc-2424-4e86-af89-1ed4c3ca0548",
-        "silk_edge_clearance|108935000|121025000|cb1962cf-f02e-40fc-8378-3f62e43ebcbd|33e79cbb-2270-4aba-94d0-0d0315923fad",
-        "silk_edge_clearance|108935000|128010000|cb1962cf-f02e-40fc-8378-3f62e43ebcbd|0cb14a97-4689-4021-a0c6-14acb1e848e4",
-        "silk_edge_clearance|108935000|128010000|cb1962cf-f02e-40fc-8378-3f62e43ebcbd|153d5854-c92a-4eab-8a2b-5b8ce90cb52f",
-        "silk_edge_clearance|108935000|128010000|cb1962cf-f02e-40fc-8378-3f62e43ebcbd|9cbb2d9e-3337-4b60-8426-3993afbb0084",
-        "silk_edge_clearance|108935000|128010000|cb1962cf-f02e-40fc-8378-3f62e43ebcbd|b526f27b-1cac-4423-898a-1ffc9880ccbc",
-        "silk_edge_clearance|108935000|128010000|cb1962cf-f02e-40fc-8378-3f62e43ebcbd|b8f40af4-3839-421e-bba1-8f0563ba42f3",
-        "silk_edge_clearance|142230000|63700000|02e50f06-9530-4b4d-b01e-da0715a363b1|9c440e16-a943-4209-a107-7a798ec66c54",
-        "silk_edge_clearance|173680177|128010000|4e2f055e-114c-41c3-b8c0-e47ea090652b|b6eb3960-764f-445b-bcca-c00ccabc2140",
-        "silk_edge_clearance|173680177|128010000|4e2f055e-114c-41c3-b8c0-e47ea090652b|b758675f-4b07-4755-98bb-9ff1ff488038",
-        "silk_edge_clearance|173683438|121025000|4e2f055e-114c-41c3-b8c0-e47ea090652b|1b63f19e-b568-40d7-9b45-e0a7e038649e",
-        "silk_edge_clearance|173683438|121025000|4e2f055e-114c-41c3-b8c0-e47ea090652b|87ad7ed0-ab95-46a3-8dda-ad1130f731e6",
-        "silk_edge_clearance|173705000|121025000|4e2f055e-114c-41c3-b8c0-e47ea090652b|090d2e2d-cedc-42e8-88ce-24f1471016ca",
-        "silk_edge_clearance|173705000|121025000|4e2f055e-114c-41c3-b8c0-e47ea090652b|d3ae60f2-e94e-4e3a-94aa-68c5fff6723f",
-        "silk_edge_clearance|92950000|63617432|350dd193-c0b7-4875-808f-b6948667b46a|37dd45eb-de14-48ce-be6f-5902dba1d001"
+        "lib_footprint_mismatch|112617500|78397500|56e42206-28e8-4a53-8db8-f0d7c0892238|00000000-0000-0000-0000-000000000000",
+        "lib_footprint_mismatch|179309204|106405051|63ca97c7-5019-4ac5-91f9-ec4f22b57232|00000000-0000-0000-0000-000000000000"
       ],
       "meta": {
         "filename": "board_design_settings.json",
@@ -114,7 +100,7 @@
         "padstack": "error",
         "pth_inside_courtyard": "ignore",
         "shorting_items": "error",
-        "silk_edge_clearance": "warning",
+        "silk_edge_clearance": "ignore",
         "silk_over_copper": "ignore",
         "silk_overlap": "warning",
         "skew_out_of_range": "error",

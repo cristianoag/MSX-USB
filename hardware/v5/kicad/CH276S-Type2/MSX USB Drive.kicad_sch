@@ -6,9 +6,10 @@
 	(paper "A4")
 	(title_block
 		(title "MSX-USB")
-		(date "2024-10-12")
+		(date "2024-11-18")
 		(rev "5.0")
 		(company "The Retro Hacker")
+		(comment 1 "Suitable for the CH376S Type 2")
 		(comment 2 "New PCB version, CPLD code by The Retro Hacker")
 		(comment 3 "Original project by S0urceror")
 		(comment 4 "MSX-USB Interface")
@@ -4482,12 +4483,6 @@
 		(uuid "1ca13f04-8530-49ec-a567-684e47626300")
 	)
 	(junction
-		(at 238.76 43.18)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "2846428d-39de-4eae-8ce2-64955d56c493")
-	)
-	(junction
 		(at 111.76 82.55)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -4606,10 +4601,6 @@
 		(uuid "4d586a18-26c5-441e-a9ff-8125ee516126")
 	)
 	(no_connect
-		(at 238.76 35.56)
-		(uuid "4fa10683-33cd-4dcd-8acc-2415cd63c62a")
-	)
-	(no_connect
 		(at 245.11 91.44)
 		(uuid "74087bca-70e6-4e96-9f3b-a4016eb5f9a9")
 	)
@@ -4634,6 +4625,10 @@
 		(uuid "d5b800ca-1ab6-4b66-b5f7-2dda5658b504")
 	)
 	(no_connect
+		(at 226.06 33.02)
+		(uuid "df66f5f9-bebf-4a66-b1de-a1ac4aac267a")
+	)
+	(no_connect
 		(at 245.11 93.98)
 		(uuid "f204fafc-e312-410a-83cd-12486194b9bd")
 	)
@@ -4650,16 +4645,6 @@
 			(type default)
 		)
 		(uuid "0162c030-769d-4432-b2c9-00ec4a4cc584")
-	)
-	(wire
-		(pts
-			(xy 238.76 40.64) (xy 238.76 43.18)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "071522c0-d0ed-49b9-906e-6295f67fb0dc")
 	)
 	(wire
 		(pts
@@ -5173,22 +5158,22 @@
 	)
 	(global_label "RD_"
 		(shape input)
-		(at 238.76 27.94 0)
+		(at 226.06 40.64 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left)
+			(justify right)
 		)
 		(uuid "0325ec43-0390-4ae2-b055-b1ec6ce17b1c")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 244.5986 27.94 0)
+			(at 220.2214 40.64 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 				(hide yes)
 			)
 		)
@@ -5239,22 +5224,22 @@
 	)
 	(global_label "A0"
 		(shape input)
-		(at 238.76 33.02 0)
+		(at 226.06 43.18 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left)
+			(justify right)
 		)
 		(uuid "057af6bb-cf6f-4bfb-b0c0-2e92a2c09a47")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 243.3891 33.02 0)
+			(at 221.4309 43.18 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 				(hide yes)
 			)
 		)
@@ -5610,22 +5595,22 @@
 	)
 	(global_label "D3"
 		(shape input)
-		(at 226.06 35.56 180)
+		(at 238.76 35.56 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right)
+			(justify left)
 		)
 		(uuid "20cca02e-4c4d-4961-b6b4-b40a1731b220")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 221.2495 35.56 0)
+			(at 243.5705 35.56 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 				(hide yes)
 			)
 		)
@@ -5653,22 +5638,22 @@
 	)
 	(global_label "D1"
 		(shape input)
-		(at 226.06 40.64 180)
+		(at 238.76 40.64 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right)
+			(justify left)
 		)
 		(uuid "240c10af-51b5-420e-a6f4-a2c8f5db1db5")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 221.2495 40.64 0)
+			(at 243.5705 40.64 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 				(hide yes)
 			)
 		)
@@ -6112,22 +6097,22 @@
 	)
 	(global_label "WR_"
 		(shape input)
-		(at 238.76 25.4 0)
+		(at 226.06 38.1 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left)
+			(justify right)
 		)
 		(uuid "576c6616-e95d-4f1e-8ead-dea30fcdc8c2")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 244.78 25.4 0)
+			(at 220.04 38.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 				(hide yes)
 			)
 		)
@@ -6177,66 +6162,66 @@
 	)
 	(global_label "D2"
 		(shape input)
-		(at 226.06 38.1 180)
+		(at 238.76 38.1 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right)
+			(justify left)
 		)
 		(uuid "592f25e6-a01b-47fd-8172-3da01117d00a")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 221.2495 38.1 0)
+			(at 243.5705 38.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 				(hide yes)
 			)
 		)
 	)
 	(global_label "D5"
 		(shape input)
-		(at 226.06 30.48 180)
+		(at 238.76 30.48 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right)
+			(justify left)
 		)
 		(uuid "597a11f2-5d2c-4a65-ac95-38ad106e1367")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 221.2495 30.48 0)
+			(at 243.5705 30.48 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 				(hide yes)
 			)
 		)
 	)
 	(global_label "D6"
 		(shape input)
-		(at 226.06 27.94 180)
+		(at 238.76 27.94 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right)
+			(justify left)
 		)
 		(uuid "59ec3156-036e-4049-89db-91a9dd07095f")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 221.2495 27.94 0)
+			(at 243.5705 27.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 				(hide yes)
 			)
 		)
@@ -6396,22 +6381,22 @@
 	)
 	(global_label "D7"
 		(shape input)
-		(at 226.06 25.4 180)
+		(at 238.76 25.4 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right)
+			(justify left)
 		)
 		(uuid "6a2b20ae-096c-4d9f-92f8-2087c865914f")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 221.2495 25.4 0)
+			(at 243.5705 25.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 				(hide yes)
 			)
 		)
@@ -6520,6 +6505,28 @@
 					(size 1.27 1.27)
 				)
 				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "RESET_"
+		(shape input)
+		(at 226.06 35.56 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "7c25147c-06af-434a-b457-0d0aa4d1a4f5")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 217.0163 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
 				(hide yes)
 			)
 		)
@@ -6895,22 +6902,22 @@
 	)
 	(global_label "D4"
 		(shape input)
-		(at 226.06 33.02 180)
+		(at 238.76 33.02 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right)
+			(justify left)
 		)
 		(uuid "a29f8df0-3fae-4edf-8d9c-bd5a875b13e3")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 221.2495 33.02 0)
+			(at 243.5705 33.02 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 				(hide yes)
 			)
 		)
@@ -6939,22 +6946,22 @@
 	)
 	(global_label "CS_"
 		(shape input)
-		(at 238.76 30.48 0)
+		(at 226.06 30.48 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left)
+			(justify right)
 		)
 		(uuid "a5e521b9-814e-4853-a5ac-f158785c6269")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 244.5381 30.48 0)
+			(at 220.2819 30.48 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 				(hide yes)
 			)
 		)
@@ -7260,22 +7267,22 @@
 	)
 	(global_label "D0"
 		(shape input)
-		(at 226.06 43.18 180)
+		(at 238.76 43.18 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right)
+			(justify left)
 		)
 		(uuid "c09938fd-06b9-4771-9f63-2311626243b3")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 221.2495 43.18 0)
+			(at 243.5705 43.18 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 				(hide yes)
 			)
 		)
@@ -8131,7 +8138,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 238.76 43.18 90)
+		(at 226.06 27.94 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -8139,7 +8146,7 @@
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005d2519f2")
 		(property "Reference" "#PWR011"
-			(at 245.11 43.18 0)
+			(at 219.71 27.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8148,7 +8155,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 242.0112 43.053 90)
+			(at 222.8088 28.067 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8157,7 +8164,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 238.76 43.18 0)
+			(at 226.06 27.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8166,7 +8173,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 238.76 43.18 0)
+			(at 226.06 27.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8175,7 +8182,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 238.76 43.18 0)
+			(at 226.06 27.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8197,7 +8204,7 @@
 	)
 	(symbol
 		(lib_id "power:VCC")
-		(at 238.76 38.1 270)
+		(at 226.06 25.4 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -8205,7 +8212,7 @@
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005d252457")
 		(property "Reference" "#PWR010"
-			(at 234.95 38.1 0)
+			(at 229.87 25.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8214,7 +8221,7 @@
 			)
 		)
 		(property "Value" "VCC"
-			(at 242.0112 38.5318 90)
+			(at 222.8088 24.9682 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8223,7 +8230,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 238.76 38.1 0)
+			(at 226.06 25.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8232,7 +8239,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 238.76 38.1 0)
+			(at 226.06 25.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8241,7 +8248,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 238.76 38.1 0)
+			(at 226.06 25.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9658,7 +9665,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" "SK12D07VG4"
+		(property "Footprint" "libraries:SK12D07VG4"
 			(at 106.68 168.91 0)
 			(effects
 				(font
