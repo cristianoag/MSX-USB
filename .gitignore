@@ -11,6 +11,7 @@
 /**/*.vhd
 /openmsx.xml
 /.vscode/*
-hardware/kicad-cpld-rev4/MSX USB Drive-backups/*
-hardware/kicad-cpld/MSX USB Drive-backups/*
-hardware/v5/kicad/MSX USB Drive-backups/*
+hardware/v4/kicad-cpld-rev4/MSX USB Drive-backups/*
+hardware/v3/kicad-cpld/MSX USB Drive-backups/*
+hardware/v5/kicad/CH276S-Type1/MSX USB Drive-backups/*
+hardware/v5/kicad/CH276S-Type2/MSX USB Drive-backups/*
