@@ -1,0 +1,253 @@
+ASxxxx Linker V03.00 + NoICE + sdld,  page 1.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+.  .ABS.                            00000000    00000000 =           0. bytes (ABS,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00000000  .__.ABS.                           
+     00000000  l__CABS                         
+     00000000  l__DABS                         
+     00000000  l__HEADER                       
+     00000000  l__HEAP                         
+     00000000  l__HOME                         
+     00000000  s__CABS                         
+     00000000  s__DABS                         
+     00000000  s__HEADER                       
+     00000000  s__HEADER0                      
+     00000001  l__GSFINAL                      
+     0000000F  l__GSINIT                       
+     0000004A  l__INITIALIZED                  
+     0000004A  l__INITIALIZER                  
+     00000075  l__HEADER0                      
+     000000EC  l__DATA                         
+     00000180  s__CODE                         
+     00001671  l__CODE                         
+     000017F1  s__DATA                         
+     000018DD  s__GSINIT                       
+     000018EC  s__GSFINAL                      
+     000018ED  s__HEAP                         
+     000018ED  s__INITIALIZED                  
+     00001937  s__HOME                         
+     00001937  s__INITIALIZER                  
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_CODE                               00000180    00001671 =        5745. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00000180  _clearKeyBuf                       bios
+     0000018B  _readSlot                          bios
+     00000190  _writeSlot                         bios
+     0000019D  _putRamFrame1                      bios
+     000001A5  _putRamFrame2                      bios
+     000001AD  _putSlotFrame1                     bios
+     000001B2  _putSlotFrame2                     bios
+     000001B7  _resetSystem                       bios
+     0000024C  _msxdos_init                       msxdos
+     00000276  _open                              msxdos
+     000002BE  _creat                             msxdos
+     000002F0  _close                             msxdos
+     00000305  _dup                               msxdos
+     00000319  _read                              msxdos
+     00000359  _write                             msxdos
+     00000399  _lseek                             msxdos
+     000003C5  _dos1GetFilesize                   msxdos
+     000003CD  _exit                              msxdos
+     000003D3  _getDeviceInfo                     msxdos
+     000003F4  _putchar                           conio
+     000003FB  _getchar                           conio
+     00000403  _puts                              conio
+     00000415  _puthex                            conio
+     00000459  _puthex8                           conio
+     0000046B  _puthex16                          conio
+     0000047A  _putdec                            conio
+     000004EC  _putdec8                           conio
+     000004FE  _putdec16                          conio
+     0000050D  _memcpy                            mem
+     00000554  _memset                            mem
+     0000056C  _memcmp                            mem
+     000005DD  _mpInit                            mapper
+     00000618  _numMapperPages                    mapper
+     00000656  _allocUserSegment                  mapper
+     0000065F  _allocSysSegment                   mapper
+     00000669  _freeSegment                       mapper
+     0000067B  _getCurSegFrame1                   mapper
+     0000067E  _getCurSegFrame2                   mapper
+     00000681  _putSegFrame1                      mapper
+     00000684  _putSegFrame2                      mapper
+     000006BD  _ce                                strings
+     00000C57  _detectInterface                   sdxc
+     00000CB0  _verifySwId                        sdxc
+     00000D3E  _eraseFlash                        sdxc
+     00000DA9  _writeBlock                        sdxc
+     00000ED1  _main                              main
+     00001751  __divuint                          
+     00001759  __divuchar                         
+     00001760  __divu8                            
+     00001763  __divu16                           
+ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_CODE                               00000180    00001671 =        5745. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00001792  __moduchar                         
+     0000179E  __moduint                          
+     000017A9  __divsint                          
+     000017B2  __divschar                         
+     000017B9  __div8                             
+     000017BD  __div_signexte                     
+     000017C1  __div16                            
+     000017E7  __get_remainder                    
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 4.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_HEADER0                            00000000    00000075 =         117. bytes (ABS,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+ASxxxx Linker V03.00 + NoICE + sdld,  page 5.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_DATA                               000017F1    000000EC =         236. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     000017F1  _heap_top                          
+     000017F3  _dosversion                        msxdos
+     000017F4  _last_error                        msxdos
+     0000182E  _mpSlotAddr                        mapper
+     0000182F  _mpSlotNum                         mapper
+     00001830  _mpVars                            mapper
+ASxxxx Linker V03.00 + NoICE + sdld,  page 6.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_GSINIT                             000018DD    0000000F =          15. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+ASxxxx Linker V03.00 + NoICE + sdld,  page 7.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_GSFINAL                            000018EC    00000001 =           1. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+ASxxxx Linker V03.00 + NoICE + sdld,  page 8.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_HEAP                               000018ED    00000000 =           0. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     000018ED  _HEAP_start                        
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 9.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_INITIALIZED                        000018ED    0000004A =          74. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     000018ED  _title2                            strings
+     000018EF  _usage1                            strings
+     000018F1  _usage3                            strings
+     000018F3  _crlf                              strings
+     000018F5  _whatslot                          strings
+     000018F7  _whatsubslot                       strings
+     000018F9  _searching                         strings
+     000018FB  _found3                            strings
+     000018FD  _notfound                          strings
+     000018FF  _confirmReset0                     strings
+     00001901  _confirmReset1                     strings
+     00001903  _confirmReset2                     strings
+     00001905  _confirmReset3                     strings
+     00001907  _errorNoExtBios                    strings
+     00001909  _noMemAvailable                    strings
+     0000190B  _errorAllocMapper                  strings
+     0000190D  _openingError                      strings
+     0000190F  _readingFile                       strings
+     00001911  _readingError0                     strings
+     00001913  _readingError1                     strings
+     00001915  _filesizeError                     strings
+     00001917  _errorNotNxtDrv                    strings
+     00001919  _errorWrongDrv                     strings
+     0000191B  _errorSeek                         strings
+     0000191D  _pauseMsg                          strings
+     0000191F  _erasingFlash                      strings
+     00001921  _writingFlash                      strings
+     00001923  _errorWriting                      strings
+     00001925  _ok0                               strings
+     00001927  _systemHalted                      strings
+     00001929  _anyKeyToReset                     strings
+     0000192B  _title1                            sdxc
+     0000192D  _usage2                            sdxc
+     00001931  _EXPTBL                            main
+     00001933  _DSKSLT                            main
+     00001935  _HTIMI                             main
+ASxxxx Linker V03.00 + NoICE + sdld,  page 10.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_INITIALIZER                        00001937    0000004A =          74. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+ASxxxx Linker V03.00 + NoICE + sdld,  page 11.
+
+Files Linked                              [ module(s) ]
+
+obj/crt0.rel                              [  ]
+obj/bios.rel                              [ bios ]
+obj/msxdos.rel                            [ msxdos ]
+obj/getchar.rel                           [  ]
+obj/putchar.rel                           [  ]
+obj/conio.rel                             [ conio ]
+obj/mem.rel                               [ mem ]
+obj/mapper.rel                            [ mapper ]
+obj/strings.rel                           [ strings ]
+obj/sdxc.rel                              [ sdxc ]
+obj/main.rel                              [ main ]
+
+
+Libraries Linked                          [ object file ]
+
+C:\Program Files\SDCC\bin\..\lib\z80/z80.lib
+                                          [ divunsigned.rel ]
+C:\Program Files\SDCC\bin\..\lib\z80/z80.lib
+                                          [ modunsigned.rel ]
+C:\Program Files\SDCC\bin\..\lib\z80/z80.lib
+                                          [ divsigned.rel ]
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 12.
+
+User Base Address Definitions
+
+_CODE = 0x0180
+_DATA = 0x0000
+
+

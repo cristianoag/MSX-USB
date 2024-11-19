@@ -1,0 +1,139 @@
+                              1 ;--------------------------------------------------------
+                              2 ; File Created by SDCC : free open source ANSI-C Compiler
+                              3 ; Version 3.8.0 #10562 (MINGW64)
+                              4 ;--------------------------------------------------------
+                              5 	.module bios
+                              6 	.optsdcc -mz80
+                              7 	
+                              8 ;--------------------------------------------------------
+                              9 ; Public variables in this module
+                             10 ;--------------------------------------------------------
+                             11 	.globl _clearKeyBuf
+                             12 	.globl _readSlot
+                             13 	.globl _writeSlot
+                             14 	.globl _putRamFrame1
+                             15 	.globl _putRamFrame2
+                             16 	.globl _putSlotFrame1
+                             17 	.globl _putSlotFrame2
+                             18 	.globl _resetSystem
+                             19 ;--------------------------------------------------------
+                             20 ; special function registers
+                             21 ;--------------------------------------------------------
+                             22 ;--------------------------------------------------------
+                             23 ; ram data
+                             24 ;--------------------------------------------------------
+                             25 	.area _DATA
+                             26 ;--------------------------------------------------------
+                             27 ; ram data
+                             28 ;--------------------------------------------------------
+                             29 	.area _INITIALIZED
+                             30 ;--------------------------------------------------------
+                             31 ; absolute external ram data
+                             32 ;--------------------------------------------------------
+                             33 	.area _DABS (ABS)
+                             34 ;--------------------------------------------------------
+                             35 ; global & static initialisations
+                             36 ;--------------------------------------------------------
+                             37 	.area _HOME
+                             38 	.area _GSINIT
+                             39 	.area _GSFINAL
+                             40 	.area _GSINIT
+                             41 ;--------------------------------------------------------
+                             42 ; Home
+                             43 ;--------------------------------------------------------
+                             44 	.area _HOME
+                             45 	.area _HOME
+                             46 ;--------------------------------------------------------
+                             47 ; code
+                             48 ;--------------------------------------------------------
+                             49 	.area _CODE
+                             50 ;C:\devarea\Libraries\msxclib\lib\bios.c:21: void clearKeyBuf(void) __naked {
+                             51 ;	---------------------------------
+                             52 ; Function clearKeyBuf
+                             53 ; ---------------------------------
+   0000                      54 _clearKeyBuf::
+                             55 ;C:\devarea\Libraries\msxclib\lib\bios.c:26: __endasm;
+   0000 DD 21 56 01   [14]   56 	ld	ix, #0x0156
+   0004 FD 2A C0 FC   [20]   57 	ld	iy, (0xFCC1 -1)
+   0008 C3 1C 00      [10]   58 	jp	0x001C
+                             59 ;C:\devarea\Libraries\msxclib\lib\bios.c:27: }
+                             60 ;C:\devarea\Libraries\msxclib\lib\bios.c:33: unsigned char readSlot(unsigned char slot, unsigned int addr) __naked {
+                             61 ;	---------------------------------
+                             62 ; Function readSlot
+                             63 ; ---------------------------------
+   000B                      64 _readSlot::
+                             65 ;C:\devarea\Libraries\msxclib\lib\bios.c:40: __endasm;
+                             66 ;	A = slot
+                             67 ;	DE = addr
+   000B EB            [ 4]   68 	ex	de, hl
+   000C CD 0C 00      [17]   69 	call	0x000C
+   000F C9            [10]   70 	ret	; A = return value
+                             71 ;C:\devarea\Libraries\msxclib\lib\bios.c:41: }
+                             72 ;C:\devarea\Libraries\msxclib\lib\bios.c:47: void writeSlot(unsigned char slot, unsigned int addr, unsigned char byte) __naked {
+                             73 ;	---------------------------------
+                             74 ; Function writeSlot
+                             75 ; ---------------------------------
+   0010                      76 _writeSlot::
+                             77 ;C:\devarea\Libraries\msxclib\lib\bios.c:57: __endasm;
+                             78 ;	A = slot
+                             79 ;	DE = addr
+                             80 ;	stack = byte
+   0010 EB            [ 4]   81 	ex	de, hl
+   0011 FD 21 00 00   [14]   82 	ld	iy, #0
+   0015 FD 39         [15]   83 	add	iy, sp
+   0017 FD 5E 02      [19]   84 	ld	e, 2(iy) ; byte
+   001A C3 14 00      [10]   85 	jp	0x0014
+                             86 ;C:\devarea\Libraries\msxclib\lib\bios.c:58: }
+                             87 ;C:\devarea\Libraries\msxclib\lib\bios.c:64: void putRamFrame1(void) __naked {
+                             88 ;	---------------------------------
+                             89 ; Function putRamFrame1
+                             90 ; ---------------------------------
+   001D                      91 _putRamFrame1::
+                             92 ;C:\devarea\Libraries\msxclib\lib\bios.c:69: __endasm;
+   001D 3A 42 F3      [13]   93 	ld	a, (0xF342)
+   0020 26 40         [ 7]   94 	ld	h, #0x40
+   0022 C3 24 00      [10]   95 	jp	0x0024
+                             96 ;C:\devarea\Libraries\msxclib\lib\bios.c:70: }
+                             97 ;C:\devarea\Libraries\msxclib\lib\bios.c:76: void putRamFrame2(void) __naked {
+                             98 ;	---------------------------------
+                             99 ; Function putRamFrame2
+                            100 ; ---------------------------------
+   0025                     101 _putRamFrame2::
+                            102 ;C:\devarea\Libraries\msxclib\lib\bios.c:81: __endasm;
+   0025 3A 43 F3      [13]  103 	ld	a, (0xF343)
+   0028 26 80         [ 7]  104 	ld	h, #0x80
+   002A C3 24 00      [10]  105 	jp	0x0024
+                            106 ;C:\devarea\Libraries\msxclib\lib\bios.c:82: }
+                            107 ;C:\devarea\Libraries\msxclib\lib\bios.c:88: void putSlotFrame1(unsigned char slot) __naked {
+                            108 ;	---------------------------------
+                            109 ; Function putSlotFrame1
+                            110 ; ---------------------------------
+   002D                     111 _putSlotFrame1::
+                            112 ;C:\devarea\Libraries\msxclib\lib\bios.c:93: __endasm;
+                            113 ;	A = slot
+   002D 26 40         [ 7]  114 	ld	h, #0x40
+   002F C3 24 00      [10]  115 	jp	0x0024
+                            116 ;C:\devarea\Libraries\msxclib\lib\bios.c:94: }
+                            117 ;C:\devarea\Libraries\msxclib\lib\bios.c:100: void putSlotFrame2(unsigned char slot) __naked {
+                            118 ;	---------------------------------
+                            119 ; Function putSlotFrame2
+                            120 ; ---------------------------------
+   0032                     121 _putSlotFrame2::
+                            122 ;C:\devarea\Libraries\msxclib\lib\bios.c:105: __endasm;
+                            123 ;	A = slot
+   0032 26 80         [ 7]  124 	ld	h, #0x80
+   0034 C3 24 00      [10]  125 	jp	0x0024
+                            126 ;C:\devarea\Libraries\msxclib\lib\bios.c:106: }
+                            127 ;C:\devarea\Libraries\msxclib\lib\bios.c:112: void resetSystem(void) __naked {
+                            128 ;	---------------------------------
+                            129 ; Function resetSystem
+                            130 ; ---------------------------------
+   0037                     131 _resetSystem::
+                            132 ;C:\devarea\Libraries\msxclib\lib\bios.c:117: __endasm;
+   0037 DD 21 00 00   [14]  133 	ld	ix, #0x0000
+   003B FD 2A C0 FC   [20]  134 	ld	iy, (0xFCC1 -1)
+   003F C3 1C 00      [10]  135 	jp	0x001C
+                            136 ;C:\devarea\Libraries\msxclib\lib\bios.c:118: }
+                            137 	.area _CODE
+                            138 	.area _INITIALIZER
+                            139 	.area _CABS (ABS)

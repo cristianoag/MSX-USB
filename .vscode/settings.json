@@ -7,6 +7,7 @@
         "string_view": "c",
         "vector": "c",
         "ch376s.h": "c",
-        "chrono": "cpp"
+        "chrono": "cpp",
+        "flash_v5.h": "c"
     }
 }

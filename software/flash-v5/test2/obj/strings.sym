@@ -1,0 +1,125 @@
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next), page 1.
+Hexadecimal [16-Bits]
+
+Symbol Table
+
+    .__.$$$.                                                    =  2710 L
+    .__.ABS.                                                    =  0000 G
+    .__.CPU.                                                    =  0000 L
+    .__.H$L.                                                    =  0000 L
+  0 ___str_0                                                       0005 R
+  0 ___str_1                                                       001C R
+  0 ___str_10                                                      0170 R
+  0 ___str_11                                                      0176 R
+  0 ___str_12                                                      017D R
+  0 ___str_13                                                      01A5 R
+  0 ___str_14                                                      01EF R
+  0 ___str_15                                                      0206 R
+  0 ___str_16                                                      022B R
+  0 ___str_17                                                      0241 R
+  0 ___str_18                                                      0250 R
+  0 ___str_19                                                      0262 R
+  0 ___str_2                                                       0027 R
+  0 ___str_20                                                      0266 R
+  0 ___str_21                                                      0287 R
+  0 ___str_22                                                      02AB R
+  0 ___str_23                                                      02BB R
+  0 ___str_24                                                      02CC R
+  0 ___str_25                                                      02E7 R
+  0 ___str_26                                                      02F7 R
+  0 ___str_27                                                      0307 R
+  0 ___str_28                                                      0312 R
+  0 ___str_29                                                      0317 R
+  0 ___str_3                                                       00BA R
+  0 ___str_30                                                      0326 R
+  0 ___str_4                                                       00BD R
+  0 ___str_5                                                       00DF R
+  0 ___str_6                                                       00FA R
+  0 ___str_7                                                       0114 R
+  0 ___str_8                                                       011E R
+  0 ___str_9                                                       013C R
+  7 __xinit__anyKeyToReset                                         003C R
+  7 __xinit__confirmReset0                                         0012 R
+  7 __xinit__confirmReset1                                         0014 R
+  7 __xinit__confirmReset2                                         0016 R
+  7 __xinit__confirmReset3                                         0018 R
+  7 __xinit__crlf                                                  0006 R
+  7 __xinit__erasingFlash                                          0032 R
+  7 __xinit__errorAllocMapper                                      001E R
+  7 __xinit__errorNoExtBios                                        001A R
+  7 __xinit__errorNotNxtDrv                                        002A R
+  7 __xinit__errorSeek                                             002E R
+  7 __xinit__errorWriting                                          0036 R
+  7 __xinit__errorWrongDrv                                         002C R
+  7 __xinit__filesizeError                                         0028 R
+  7 __xinit__found3                                                000E R
+  7 __xinit__noMemAvailable                                        001C R
+  7 __xinit__notfound                                              0010 R
+  7 __xinit__ok0                                                   0038 R
+  7 __xinit__openingError                                          0020 R
+  7 __xinit__pauseMsg                                              0030 R
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next), page 2.
+Hexadecimal [16-Bits]
+
+Symbol Table
+
+  7 __xinit__readingError0                                         0024 R
+  7 __xinit__readingError1                                         0026 R
+  7 __xinit__readingFile                                           0022 R
+  7 __xinit__searching                                             000C R
+  7 __xinit__systemHalted                                          003A R
+  7 __xinit__title2                                                0000 R
+  7 __xinit__usage1                                                0002 R
+  7 __xinit__usage3                                                0004 R
+  7 __xinit__whatslot                                              0008 R
+  7 __xinit__whatsubslot                                           000A R
+  7 __xinit__writingFlash                                          0034 R
+  2 _anyKeyToReset                                                 003C GR
+  0 _ce                                                            0000 GR
+  2 _confirmReset0                                                 0012 GR
+  2 _confirmReset1                                                 0014 GR
+  2 _confirmReset2                                                 0016 GR
+  2 _confirmReset3                                                 0018 GR
+  2 _crlf                                                          0006 GR
+  2 _erasingFlash                                                  0032 GR
+  2 _errorAllocMapper                                              001E GR
+  2 _errorNoExtBios                                                001A GR
+  2 _errorNotNxtDrv                                                002A GR
+  2 _errorSeek                                                     002E GR
+  2 _errorWriting                                                  0036 GR
+  2 _errorWrongDrv                                                 002C GR
+  2 _filesizeError                                                 0028 GR
+  2 _found3                                                        000E GR
+  2 _noMemAvailable                                                001C GR
+  2 _notfound                                                      0010 GR
+  2 _ok0                                                           0038 GR
+  2 _openingError                                                  0020 GR
+  2 _pauseMsg                                                      0030 GR
+  2 _readingError0                                                 0024 GR
+  2 _readingError1                                                 0026 GR
+  2 _readingFile                                                   0022 GR
+  2 _searching                                                     000C GR
+  2 _systemHalted                                                  003A GR
+  2 _title2                                                        0000 GR
+  2 _usage1                                                        0002 GR
+  2 _usage3                                                        0004 GR
+  2 _whatslot                                                      0008 GR
+  2 _whatsubslot                                                   000A GR
+  2 _writingFlash                                                  0034 GR
+
+
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next), page 3.
+Hexadecimal [16-Bits]
+
+Area Table
+
+   0 _CODE                                      size  362   flags    0
+   1 _DATA                                      size    0   flags    0
+   2 _INITIALIZED                               size   3E   flags    0
+   3 _DABS                                      size    0   flags    8
+   4 _HOME                                      size    0   flags    0
+   5 _GSINIT                                    size    0   flags    0
+   6 _GSFINAL                                   size    0   flags    0
+   7 _INITIALIZER                               size   3E   flags    0
+   8 _CABS                                      size    0   flags    8
+

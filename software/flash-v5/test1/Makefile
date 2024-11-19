@@ -1,0 +1,53 @@
+CC = sdcc
+ASM = sdasz80
+PLATFORM = -mz80
+HEXBIN = hex2bin
+
+INCLUDES = -IC:\devarea\Libraries\fusion-c\header -IC:\devarea\Libraries\fusion-c\include -IC:\devarea\Libraries\asmlib
+FUSIONLIB = C:\devarea\Libraries\fusion-c\include
+LIBS = C:\devarea\Libraries\fusion-c\lib\fusion.lib #Libraries/fusion-c/lib/fusion_min_printf.lib
+OBJECTSDIR = C:\devarea\Libraries\fusion-c\include
+SRCDIR = src
+BINDIR = dist
+
+# See startup files for the correct ADDR_CODE and ADDR_DATA
+CRT0 = crt0_msxdos_advanced.rel
+ADDR_CODE = 0x0180
+ADDR_DATA = 0
+
+VERBOSE = --verbose
+CCFLAGS = $(VERBOSE) $(PLATFORM) --code-loc $(ADDR_CODE) --data-loc $(ADDR_DATA) --no-std-crt0 --out-fmt-ihx
+OBJECTS = $(FUSIONLIB)\$(CRT0)
+SOURCES = flash-v5.c
+OUTFILE = flash-v5.com
+
+.PHONY: all compile link package clean
+
+all: clean compile link package
+
+compile: $(SOURCES)
+
+%.c:
+		@echo "Compiling $@"
+		$(CC) $(CCFLAGS) $(PLATFORM) $(INCLUDES) -c -o $(BINDIR)\$(notdir $(@:.c=.rel)) $(SRCDIR)\$@ 
+
+link:
+		@echo "Linking"
+		$(CC) $(CCFLAGS) $(LIBS) $(OBJECTS) \
+			$(addprefix $(BINDIR)\,$(SOURCES:.c=.rel)) \
+			-o $(BINDIR)\$(basename $(OUTFILE)).ihx
+
+package: 
+		@echo "Building $(OUTFILE)..."
+		@$(HEXBIN) -e com $(BINDIR)\$(basename $(OUTFILE)).ihx
+		@echo "Done."
+
+clean:
+		@echo "Cleaning ...."
+		del /F $(BINDIR)\*.asm $(BINDIR)\*.bin $(BINDIR)\*.cdb $(BINDIR)\*.ihx $(BINDIR)\*.lk $(BINDIR)\*.lst \
+			$(BINDIR)\*.map $(BINDIR)\*.mem $(BINDIR)\*.omf $(BINDIR)\*.rst $(BINDIR)\*.rel $(BINDIR)\*.sym \
+			$(BINDIR)\*.noi $(BINDIR)\*.hex $(BINDIR)\*.lnk $(BINDIR)\*.dep
+		del /F $(BINDIR)\$(OUTFILE)
+
+test:
+	@echo $(BINDIR)\$(basename $(OUTFILE)).ihx
