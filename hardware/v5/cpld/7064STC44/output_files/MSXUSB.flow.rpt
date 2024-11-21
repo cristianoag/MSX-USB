@@ -1,5 +1,5 @@
 Flow report for MSXUSB
-Mon Nov 18 20:55:56 2024
+Wed Nov 20 12:15:47 2024
 Quartus II Version 11.0 Build 208 07/03/2011 Service Pack 1 SJ Web Edition
 
 
@@ -38,7 +38,7 @@ applicable agreement for further details.
 +-----------------------------------------------------------------------+
 ; Flow Summary                                                          ;
 +-----------------------+-----------------------------------------------+
-; Flow Status           ; Successful - Mon Nov 18 20:55:56 2024         ;
+; Flow Status           ; Successful - Wed Nov 20 12:15:47 2024         ;
 ; Quartus II Version    ; 11.0 Build 208 07/03/2011 SP 1 SJ Web Edition ;
 ; Revision Name         ; MSXUSB                                        ;
 ; Top-level Entity Name ; msxusb                                        ;
@@ -55,22 +55,22 @@ applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 11/18/2024 20:55:51 ;
+; Start date & time ; 11/20/2024 12:15:43 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; MSXUSB              ;
 +-------------------+---------------------+
 
 
-+-----------------------------------------------------------------------------------------------------------+
-; Flow Non-Default Global Settings                                                                          ;
-+--------------------------+---------------------------------+---------------+-------------+----------------+
-; Assignment Name          ; Value                           ; Default Value ; Entity Name ; Section Id     ;
-+--------------------------+---------------------------------+---------------+-------------+----------------+
-; COMPILER_SIGNATURE_ID    ; 114477776557699.173197415110512 ; --            ; --          ; --             ;
-; EDA_OUTPUT_DATA_FORMAT   ; Verilog Hdl                     ; --            ; --          ; eda_simulation ;
-; EDA_SIMULATION_TOOL      ; ModelSim-Altera (Verilog)       ; <None>        ; --          ; --             ;
-; PROJECT_OUTPUT_DIRECTORY ; output_files                    ; --            ; --          ; --             ;
-+--------------------------+---------------------------------+---------------+-------------+----------------+
++--------------------------------------------------------------------------------------------------------+
+; Flow Non-Default Global Settings                                                                       ;
++--------------------------+------------------------------+---------------+-------------+----------------+
+; Assignment Name          ; Value                        ; Default Value ; Entity Name ; Section Id     ;
++--------------------------+------------------------------+---------------+-------------+----------------+
+; COMPILER_SIGNATURE_ID    ; 963355345413.173211574317488 ; --            ; --          ; --             ;
+; EDA_OUTPUT_DATA_FORMAT   ; Verilog Hdl                  ; --            ; --          ; eda_simulation ;
+; EDA_SIMULATION_TOOL      ; ModelSim-Altera (Verilog)    ; <None>        ; --          ; --             ;
+; PROJECT_OUTPUT_DIRECTORY ; output_files                 ; --            ; --          ; --             ;
++--------------------------+------------------------------+---------------+-------------+----------------+
 
 
 +-------------------------------------------------------------------------------------------------------------------------------+
@@ -79,11 +79,11 @@ applicable agreement for further details.
 ; Module Name               ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Analysis & Synthesis      ; 00:00:01     ; 1.0                     ; 270 MB              ; 00:00:01                           ;
-; Fitter                    ; 00:00:00     ; 1.0                     ; 234 MB              ; 00:00:00                           ;
-; Assembler                 ; 00:00:00     ; 1.0                     ; 234 MB              ; 00:00:00                           ;
-; TimeQuest Timing Analyzer ; 00:00:01     ; 1.0                     ; 222 MB              ; 00:00:01                           ;
-; EDA Netlist Writer        ; 00:00:00     ; 1.0                     ; 211 MB              ; 00:00:00                           ;
-; Total                     ; 00:00:02     ; --                      ; --                  ; 00:00:02                           ;
+; Fitter                    ; 00:00:01     ; 1.0                     ; 235 MB              ; 00:00:00                           ;
+; Assembler                 ; 00:00:00     ; 1.0                     ; 235 MB              ; 00:00:00                           ;
+; TimeQuest Timing Analyzer ; 00:00:00     ; 1.0                     ; 224 MB              ; 00:00:00                           ;
+; EDA Netlist Writer        ; 00:00:00     ; 1.0                     ; 212 MB              ; 00:00:00                           ;
+; Total                     ; 00:00:02     ; --                      ; --                  ; 00:00:01                           ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
@@ -92,11 +92,11 @@ applicable agreement for further details.
 +---------------------------+------------------+-----------+------------+----------------+
 ; Module Name               ; Machine Hostname ; OS Name   ; OS Version ; Processor type ;
 +---------------------------+------------------+-----------+------------+----------------+
-; Analysis & Synthesis      ; WIN-51KES31UC9J  ; Windows 7 ; 6.2        ; x86_64         ;
-; Fitter                    ; WIN-51KES31UC9J  ; Windows 7 ; 6.2        ; x86_64         ;
-; Assembler                 ; WIN-51KES31UC9J  ; Windows 7 ; 6.2        ; x86_64         ;
-; TimeQuest Timing Analyzer ; WIN-51KES31UC9J  ; Windows 7 ; 6.2        ; x86_64         ;
-; EDA Netlist Writer        ; WIN-51KES31UC9J  ; Windows 7 ; 6.2        ; x86_64         ;
+; Analysis & Synthesis      ; crisaghomepc     ; Windows 7 ; 6.2        ; x86_64         ;
+; Fitter                    ; crisaghomepc     ; Windows 7 ; 6.2        ; x86_64         ;
+; Assembler                 ; crisaghomepc     ; Windows 7 ; 6.2        ; x86_64         ;
+; TimeQuest Timing Analyzer ; crisaghomepc     ; Windows 7 ; 6.2        ; x86_64         ;
+; EDA Netlist Writer        ; crisaghomepc     ; Windows 7 ; 6.2        ; x86_64         ;
 +---------------------------+------------------+-----------+------------+----------------+
 
 
