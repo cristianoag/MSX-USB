@@ -6,8 +6,8 @@
 	(paper "A4")
 	(title_block
 		(title "MSX-USB")
-		(date "2024-11-20")
-		(rev "5.0")
+		(date "2024-12-20")
+		(rev "5.1")
 		(company "The Retro Hacker")
 		(comment 1 "Suitable for the CH376S Type 2")
 		(comment 2 "New PCB version by The Retro Hacker")
@@ -4333,6 +4333,10 @@
 		(uuid "4d586a18-26c5-441e-a9ff-8125ee516126")
 	)
 	(no_connect
+		(at 226.06 35.56)
+		(uuid "c21dbf85-b050-4c3a-9fba-f1f1bc9203be")
+	)
+	(no_connect
 		(at 55.88 101.6)
 		(uuid "cff34251-839c-4da9-a0ad-85d0fc4e32af")
 	)
@@ -6195,28 +6199,6 @@
 					(size 1.27 1.27)
 				)
 				(justify left)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "RESET_"
-		(shape input)
-		(at 226.06 35.56 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "7c25147c-06af-434a-b457-0d0aa4d1a4f5")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 217.0163 35.56 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
 				(hide yes)
 			)
 		)
