@@ -3,22 +3,23 @@ ASM = sdasz80
 PLATFORM = -mz80
 HEXBIN = hex2bin
 
-INCLUDES = -I../../../Libraries/fusion-c/header -I../../../Libraries/fusion-c/include -I../../../Libraries/asmlib
-FUSIONLIB = ../../../Libraries/fusion-c/include
-#LIBS = ../../../Libraries/fusion-c/lib/fusion.lib ../../../Libraries/asmlib/asm.lib
-LIBS = ../../../Libraries/fusion-c/lib/fusion_min_printf.lib
-OBJECTSDIR = ../../../Libraries/fusion-c/include
+INCLUDES =  -IC:\DevArea\libraries\fusion-c\header -IC:\DevArea\libraries\fusion-c\include -IC:\DevArea\libraries\asmlib
+FUSIONLIB = C:\DevArea\libraries\fusion-c\include
+LIBS = "C:\DevArea\libraries\fusion-c\lib\fusion-min-printf.lib"
+OBJECTSDIR = C:\DevArea\libraries\fusion-c\include
 SRCDIR = src
 BINDIR = dist
 
 # See startup files for the correct ADDR_CODE and ADDR_DATA
 CRT0 = crt0_msxdos_advanced.rel
 ADDR_CODE = 0x0180
+#CRT0 = crt0_msxdos.rel
+#ADDR_CODE = 0x106
 ADDR_DATA = 0
 
-VERBOSE = --verbose
-CCFLAGS = $(VERBOSE) $(PLATFORM) --code-loc $(ADDR_CODE) --data-loc $(ADDR_DATA) --no-std-crt0 --out-fmt-ihx
-OBJECTS = $(FUSIONLIB)/$(CRT0)
+VERBOSE = --verbose -V
+CCFLAGS = $(VERBOSE) $(PLATFORM) --code-loc $(ADDR_CODE) --data-loc $(ADDR_DATA) --no-std-crt0 --out-fmt-ihx --legacy-banking
+OBJECTS = $(FUSIONLIB)\$(CRT0)
 SOURCES = flash.c
 OUTFILE = flash.com
 
@@ -30,26 +31,23 @@ compile: $(SOURCES)
 
 %.c:
 		@echo "Compiling $@"
-		@[ -f $(SRCDIR)/$@ ] && $(CC) $(CCFLAGS) $(PLATFORM) $(INCLUDES) -c -o $(BINDIR)/$(notdir $(@:.c=.rel)) $(SRCDIR)/$@ || true
+		$(CC) $(CCFLAGS) $(PLATFORM) $(INCLUDES) -c -o $(BINDIR)\$(notdir $(@:.c=.rel)) $(SRCDIR)\$@ 
 
 link:
 		@echo "Linking"
-		$(CC) $(CCFLAGS) $(LIBS) $(OBJECTS) \
-			$(addprefix $(BINDIR)/,$(SOURCES:.c=.rel)) \
-			-o $(BINDIR)/$(basename $(OUTFILE)).ihx
+		$(CC) $(CCFLAGS) $(OBJECTS) $(addprefix $(BINDIR)\,$(SOURCES:.c=.rel)) $(LIBS) -o $(BINDIR)\$(basename $(OUTFILE)).ihx
 
 package: 
 		@echo "Building $(OUTFILE)..."
-		@$(HEXBIN) -e com $(BINDIR)/$(basename $(OUTFILE)).ihx
-		# ./symbol_gen.py $(BINDIR) flash
+		@$(HEXBIN) -e com $(BINDIR)\$(basename $(OUTFILE)).ihx
 		@echo "Done."
 
 clean:
 		@echo "Cleaning ...."
-		rm -f $(BINDIR)/*.asm $(BINDIR)/*.bin $(BINDIR)/*.cdb $(BINDIR)/*.ihx $(BINDIR)/*.lk $(BINDIR)/*.lst \
-			$(BINDIR)/*.map $(BINDIR)/*.mem $(BINDIR)/*.omf $(BINDIR)/*.rst $(BINDIR)/*.rel $(BINDIR)/*.sym \
-			$(BINDIR)/*.noi $(BINDIR)/*.hex $(BINDIR)/*.lnk $(BINDIR)/*.dep
-		rm -f $(BINDIR)/$(OUTFILE)
+		del /f $(BINDIR)\*.asm $(BINDIR)\*.bin $(BINDIR)\*.cdb $(BINDIR)\*.ihx $(BINDIR)\*.lk $(BINDIR)\*.lst \
+			$(BINDIR)\*.map $(BINDIR)\*.mem $(BINDIR)\*.omf $(BINDIR)\*.rst $(BINDIR)\*.rel $(BINDIR)\*.sym \
+			$(BINDIR)\*.noi $(BINDIR)\*.hex $(BINDIR)\*.lnk $(BINDIR)\*.dep
+		del /f $(BINDIR)\$(OUTFILE)
 
 test:
-	@echo $(BINDIR)/$(basename $(OUTFILE)).ihx
+	@echo $(BINDIR)\$(basename $(OUTFILE)).ihx

@@ -1,19 +1,10 @@
 /*
 ; flash.c - flash the ROM in the MSXUSB cartridge
 ; Copyright (c) 2020 Mario Smit (S0urceror)
+; Copyright (c) 2024 Cristiano Goncalves (The Retro Hacker)
 ; 
-; This program is free software: you can redistribute it and/or modify  
-; it under the terms of the GNU General Public License as published by  
-; the Free Software Foundation, version 3.
-;
-; This program is distributed in the hope that it will be useful, but 
-; WITHOUT ANY WARRANTY; without even the implied warranty of 
-; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU 
-; General Public License for more details.
-;
-; You should have received a copy of the GNU General Public License 
-; along with this program. If not, see <http://www.gnu.org/licenses/>.
-;
+; This program writes a KonamiSCC ROM to a flash ROM in the MSXUSB cartridge
+; 
 */
 #include <msx_fusion.h>
 #include <io.h>
@@ -47,26 +38,6 @@ void FT_SetName( FCB *p_fcb, const char *p_name )  // Routine servant à vérifi
   }
 }
 
-void press_any_key ()
-{
-    printf ("Press any key to continue\r\n");
-    bios_chget ();
-}
-
-uint8_t bios_chget ()
-{
-    __asm
-    push ix
-    ld iy, #0
-    ld ix, #BIOS_CHGET ;CHGET
-    call BIOS_CALSLT ;CALSLT
-    pop ix
-    ld h, #0
-    ld l,a
-    ret
-    __endasm;
-}
-
 int putchar (int character)
 {
     __asm
@@ -88,7 +59,8 @@ int main(char *argv[], int argc)
 {   
     uint8_t slot=0;
     uint8_t argnr=0;
-    printf ("MSXUSB Flash, (c) 2020 S0urceror\r\n\r\n");
+    printf ("MSXUSB Flash Loader, (c) 2024 The Retro Hacker\r\n");
+    printf ("Based on the original code by S0urceror\r\n\r\n");
     if (argc < 1)
     {
         printf ("FLASH.COM [flags] [romfile]\r\n\r\nOptions:\r\n/T - perform tests\r\n/S0 - skip flash detection and select slot 0\r\n/S1 - skip flash detection and select slot 1\r\n/S2 - skip flash detection and select slot 2\r\n/S3 - skip flash detection and select slot 3\r\n");
@@ -129,17 +101,50 @@ int main(char *argv[], int argc)
     }
     // open file
     FCB fcb;
+    FCB fcb1;
     FT_SetName (&fcb,argv[argnr]);
-    if(fcb_open( &fcb ) != FCB_SUCCESS) 
+    if(fcb_open( &fcb) != FCB_SUCCESS) 
     {
         printf ("Error: opening file\r\n");
         return (0);   
     }
     printf ("Opened: %s\r\n",argv[0]);
 
+    // for some reazon fcb.file_size is always zero in fusion-c 1.2
+    // using an alternative method
     // get ROM size
-    unsigned long romsize = fcb.file_size;
-    printf ("Filesize is %d bytes\r\n",romsize);
+    // unsigned long romsize = fcb.file_size;
+    // printf ("Filesize is %d bytes\r\n",romsize);
+
+    // calculate ROM size manually
+    unsigned long romsize = 0;
+    int bytes_read = 0;
+
+    while (1)
+    {
+        MemFill(file_segment, 0xff, SEGMENT_SIZE);
+        bytes_read = fcb_read(&fcb, file_segment, SEGMENT_SIZE);
+        romsize += bytes_read;
+
+        if (bytes_read < SEGMENT_SIZE)
+        {
+            break; // EOF reached
+        }
+    }
+
+    // Reset file pointer to the beginning
+    fcb_close(&fcb);
+
+    printf("Filesize is %ld bytes\r\n", romsize);
+
+    // also noticed that we need a second file as fusion-c is returning zero bytes when trying to read from the
+    // file descriptor we used before to calculate size :()
+    FT_SetName (&fcb1,argv[argnr]);
+    if (fcb_open(&fcb1) != FCB_SUCCESS)
+    {
+        printf("Error: reopening file\r\n");
+        return (0);
+    }
 
     // erase flash sectors
     float endsector = romsize;
@@ -147,29 +152,42 @@ int main(char *argv[], int argc)
     endsector = ceilf (endsector);
     if (!erase_flash_sectors (slot,0,(uint8_t)endsector)) // 64Kb sectors
         return (0); 
-    press_any_key();
+    
 
-    // read file from beginning to end
-    int bytes_read=0;
-    BOOL not_ready = TRUE;
+    // read file from beginning to end and write to flash
+    unsigned long total_bytes_written = 0;
     uint8_t segmentnr = 0;
     // for each 8k segment
-    while (not_ready)
+    while ( total_bytes_written < romsize) 
     {
         // read 8k segment
         MemFill (file_segment,0xff,SEGMENT_SIZE);
-        printf ("Reading ");
-        bytes_read = fcb_read( &fcb, file_segment,SEGMENT_SIZE);
-        // ready?
-        if (bytes_read<SEGMENT_SIZE)
-            not_ready=FALSE;
-        printf ("%d bytes, segment %d\r\n",bytes_read,segmentnr);
-        // write 8k segment
-        if (!write_flash_segment (slot,segmentnr))
+        bytes_read = fcb_read( &fcb1, file_segment,SEGMENT_SIZE);
+       //printf ("Reading %d bytes, segment %d\r\n",bytes_read,segmentnr);
+
+        if (bytes_read > 0) {
+            // Gauge display
+            int progress = (int)((total_bytes_written + bytes_read) * 20 / romsize); // Scale to 50 chars
+            printf("[%-20s] %ld/%ld bytes\r", "####################" + (20 - progress), total_bytes_written + bytes_read, romsize); // write 8k segment (or partial segment)
+            
+            // write 8k segment (or partial segment)
+            if (!write_flash_segment(slot, segmentnr))
+                break;
+
+            total_bytes_written += bytes_read;
+            segmentnr++;
+        }
+        else
+        {
+            printf("Error reading file or end of file reached\r\n");
             break;
-        segmentnr++;
+        }
+        
     }
-    fcb_close (&fcb);
+
+    printf("\nWrite operation complete!\r\n");
+
+    fcb_close (&fcb1);
     return(0);
 }
 
@@ -191,7 +209,7 @@ void do_tests (uint8_t slot)
             flash_segment[0x30]==0xff)
             break;
         */
-        press_any_key();
+        
     }
     select_ramslot_40 ();
 }
@@ -231,10 +249,12 @@ BOOL flash_ident ()
     // read response
     uint8_t manufacturer = flash_segment[0];
     uint8_t device = flash_segment[1];
-    printf ("M: %x, D: %x\r\n",manufacturer,device);
+    //printf ("M: %x, D: %x\r\n",manufacturer,device);
     // AMD_AM29F040 = A4
     // SST_SST39SF040 = B7
     // AMIC_A29040B = 86
+    // AMD_AM29F010 = 20
+    // AMD_29F002B = 2F
     if (device==0xA4)  // device ID is correct
     {
         printf ("Found device: AMD_AM29F040\r\n");
@@ -252,6 +272,20 @@ BOOL flash_ident ()
     if (device==0x86)  // device ID is correct
     {
         printf ("Found device: AMIC_A29040B\r\n");
+        // reset
+        flash_segment[0] = 0xf0;
+        return TRUE;
+    }
+    if (device==0x20)  // device ID is correct
+    {
+        printf ("Found device: AMD_AM29F010\r\n");
+        // reset
+        flash_segment[0] = 0xf0;
+        return TRUE;
+    }
+    if (device==0x2F)  // device ID is correct
+    {
+        printf ("Found device: AMD_29F002B\r\n");
         // reset
         flash_segment[0] = 0xf0;
         return TRUE;
