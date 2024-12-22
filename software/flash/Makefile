@@ -5,7 +5,7 @@ HEXBIN = hex2bin
 
 INCLUDES =  -IC:\DevArea\libraries\fusion-c\header -IC:\DevArea\libraries\fusion-c\include -IC:\DevArea\libraries\asmlib
 FUSIONLIB = C:\DevArea\libraries\fusion-c\include
-LIBS = "C:\DevArea\libraries\fusion-c\lib\fusion-min-printf.lib"
+LIBS = "C:\DevArea\libraries\fusion-c\lib\fusion_min_printf.lib" #fusion-c-1.3 minus printf
 OBJECTSDIR = C:\DevArea\libraries\fusion-c\include
 SRCDIR = src
 BINDIR = dist
@@ -35,7 +35,7 @@ compile: $(SOURCES)
 
 link:
 		@echo "Linking"
-		$(CC) $(CCFLAGS) $(OBJECTS) $(addprefix $(BINDIR)\,$(SOURCES:.c=.rel)) $(LIBS) -o $(BINDIR)\$(basename $(OUTFILE)).ihx
+		$(CC) $(CCFLAGS) $(addprefix $(BINDIR)\,$(SOURCES:.c=.rel)) $(LIBS) $(OBJECTS) -o $(BINDIR)\$(basename $(OUTFILE)).ihx
 
 package: 
 		@echo "Building $(OUTFILE)..."

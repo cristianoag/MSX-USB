@@ -30,7 +30,6 @@ BOOL erase_flash_sectors (uint8_t slot,uint8_t sector_start,uint8_t sector_end);
 BOOL write_flash_segment (uint8_t slot,uint8_t segment);
 BOOL flash_command_okay (uint16_t address,uint8_t expected_value);
 void press_any_key ();
-void do_tests(uint8_t slot);
 void print_hex_buffer (uint8_t* start, uint8_t* end);
 
 int format_string(const char* buf, const char *fmt, va_list ap);

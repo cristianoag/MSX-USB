@@ -1,18 +1,11 @@
-MAKE := make
+SJASM = .\tools\sjasm
+DIST_OUTPUT_DIR = .\dist
+ROM := $(DIST_OUTPUT_DIR)\USBFDD.rom
 
-.PHONY: Linux
-Linux:
-	$(MAKE) -f -C linux all
+all: clean $(ROM)
 
-.PHONY: Teensy
-Teensy:
-	$(MAKE) -f -C teensy all
+$(ROM): msxusbfdd.asm
+	$(SJASM) $< $(ROM)
 
-.PHONY: MacOS
-MacOS: 
-	$(MAKE) -C macos all
-	
-.PHONY: MSX
-MSX: 
-	$(MAKE) -C msx all
-	
+clean:
+	del /f $(ROM)
