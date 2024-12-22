@@ -1,16 +1,15 @@
-module msxusb (rom_sl,in_a7_a0,in_a15_a13_a12,data,iorq_n,rd_n,wr_n,sltsl_n,reset_n,cs_ch376s_n,busdir,out_a13_a18);
+module msxusb (in_a7_a0,in_a15_a13_a12,data,iorq_n,rd_n,wr_n,sltsl_n,reset_n,cs_ch376s_n,busdir,out_a13_a18);
 	input [7:0] in_a7_a0;
 	input [2:0] in_a15_a13_a12;
 	input [5:0] data;
 	input iorq_n,rd_n,wr_n,sltsl_n,reset_n;
-	input rom_sl; //this is the rom toggle to select first or second 128K on the flash memory (crisag)
 	
 	output cs_ch376s_n;
 	output busdir;
 	output [5:0] out_a13_a18;
 	
 	ch376 CH376 (in_a7_a0,iorq_n,rd_n,cs_ch376s_n,busdir);
-	scc_rom_mapper ROM_MAPPER (rom_sl,rd_n,wr_n,sltsl_n,reset_n,in_a7_a0,in_a15_a13_a12,data,out_a13_a18);
+	scc_rom_mapper ROM_MAPPER (rd_n,wr_n,sltsl_n,reset_n,in_a7_a0,in_a15_a13_a12,data,out_a13_a18);
 endmodule
 
 module ch376 (io_address,iorq_n,rd_n,cs_ch376s_n,busdir);
@@ -30,12 +29,11 @@ Page (8kB)							Switching address				Initial segment
 8000h~9FFFh (mirror: 0000h~1FFFh)	9000h (mirrors: 9x00h)			2
 A000h~BFFFh (mirror: 2000h~3FFFh)	B000h (mirrors: Bx00h)			3
 */
-module scc_rom_mapper (rom_sl,rd_n,wr_n,sltsl_n,reset_n,a7_a0,a15_a13_a12,data,address_upper);
+module scc_rom_mapper (rd_n,wr_n,sltsl_n,reset_n,a7_a0,a15_a13_a12,data,address_upper);
 	input [2:0] a15_a13_a12;
 	input [7:0] a7_a0;
 	input [5:0] data;
 	input rd_n,wr_n,sltsl_n,reset_n;
-	input rom_sl;
 	
 	output reg [5:0] address_upper = 0;
 	
@@ -46,19 +44,18 @@ module scc_rom_mapper (rom_sl,rd_n,wr_n,sltsl_n,reset_n,a7_a0,a15_a13_a12,data,a
 	reg [5:0] mem3;
 
 	initial begin
-			mem0 = 6'b000000;
-			mem1 = 6'b000001;
-			mem2 = 6'b000010;
-			mem3 = 6'b000011;
+		mem0 = 6'b000000;
+		mem1 = 6'b000001;
+		mem2 = 6'b000010;
+		mem3 = 6'b000011;
 	end
 
 	wire WE = !reset_n || (!sltsl_n && !wr_n);
 	wire ADDR_SEL = !sltsl_n && (!wr_n || !rd_n);
-			
+
 	// read memory
 	////////////////////////
 	always @(posedge ADDR_SEL) begin
-		
 		// always select correct bank when reading or writing
 		case(a15_a13_a12[2:1])
 			2'b00: address_upper = mem0;
@@ -71,19 +68,18 @@ module scc_rom_mapper (rom_sl,rd_n,wr_n,sltsl_n,reset_n,a7_a0,a15_a13_a12,data,a
 	//////////////////
 	always @(posedge WE) begin
 		if (!reset_n) begin
-				mem0 = 6'b000000;
-				mem1 = 6'b000001;
-				mem2 = 6'b000010;
-				mem3 = 6'b000011;
+			mem0 = 6'b000000;
+			mem1 = 6'b000001;
+			mem2 = 6'b000010;
+			mem3 = 6'b000011;
 		end
 		if (!sltsl_n && (a7_a0==8'h00)) begin
 			// store only when upper 4k is selected
-			// changing ma17 memX[4] to control the use of first 128K or second 128k stored on the flash memory (crisag)
 			case(a15_a13_a12)
-				3'b001: begin mem0 = data; mem0[4] = rom_sl; end
-				3'b011: begin mem1 = data; mem1[4] = rom_sl; end
-				3'b101: begin mem2 = data; mem2[4] = rom_sl; end
-				3'b111: begin mem3 = data; mem3[4] = rom_sl; end
+				3'b001: mem0 = data;
+				3'b011: mem1 = data;
+				3'b101: mem2 = data;
+				3'b111: mem3 = data;
 				// memory not updated when addressing lower 4k
 				default: ;
 			endcase   
