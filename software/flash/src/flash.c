@@ -64,7 +64,7 @@ int main(char *argv[], int argc)
 {   
     uint8_t slot=0;
     uint8_t argnr=0;
-    printf ("MSXUSB Flash Loader 1.0\r\n");
+    printf ("MSXUSB Flash Loader 1.1\r\n");
     printf ("(c) 2024 The Retro Hacker\r\n");
     printf ("Based on the original code by S0urceror\r\n\r\n");
     if (argc < 1)
@@ -101,9 +101,8 @@ int main(char *argv[], int argc)
     }
     printf ("Found flash in slot: %d\r\n",slot);
    
-    // files
+    // file
     FCB fcb;
-    FCB fcb1;
 
     FT_SetName (&fcb,argv[argnr]);
     if(fcb_open( &fcb ) != FCB_SUCCESS) 
@@ -113,41 +112,8 @@ int main(char *argv[], int argc)
     }
     printf ("Opened: %s\r\n",argv[0]);
 
-    // for some reazon fcb.file_size is always zero in fusion-c 1.2 (and with fusion-c 1.3)
-    // using an alternative method to get the rom file size
-    // get ROM size
-    // unsigned long romsize_test = fcb.file_size;
-    // printf ("Filesize is %d bytes\r\n",romsize_test);
-
-    // calculate ROM size manually due to the fusion-c bug with FCB.file_size
-    unsigned long romsize = 0;
-    int bytes_read = 0;
-
-    while (1)
-    {
-        MemFill(file_segment, 0xff, SEGMENT_SIZE);
-        bytes_read = fcb_read(&fcb, file_segment, SEGMENT_SIZE);
-        romsize += bytes_read;
-
-        if (bytes_read < SEGMENT_SIZE)
-        {
-            break; // EOF reached
-        }
-    }
-
-    // Reset file pointer to the beginning
-    fcb_close(&fcb);
-
+    unsigned long romsize = fcb.file_size;
     printf("Filesize is %ld bytes\r\n", romsize);
-
-    // also noticed that we need a second FCB file as fusion-c is returning zero bytes when trying to read from the
-    // file descriptor we used before to calculate size :(
-    FT_SetName (&fcb1,argv[argnr]);
-    if (fcb_open(&fcb1) != FCB_SUCCESS)
-    {
-        printf("Error: reopening file\r\n");
-        return (0);
-    }
 
     // erase flash sectors
     float endsector = romsize;
@@ -159,12 +125,14 @@ int main(char *argv[], int argc)
     // read file from beginning to end and write to flash
     unsigned long total_bytes_written = 0;
     uint8_t segmentnr = 0;
+    int bytes_read = 0;
+
     // while we haven't written the entire file
     while ( total_bytes_written < romsize) 
     {
         // read 8k segment
         MemFill (file_segment,0xff,SEGMENT_SIZE);
-        bytes_read = fcb_read( &fcb1, file_segment,SEGMENT_SIZE);
+        bytes_read = fcb_read( &fcb, file_segment,SEGMENT_SIZE);
         //printf ("Reading %d bytes, segment %d\r\n",bytes_read,segmentnr);
 
         // check if we read something
@@ -191,7 +159,7 @@ int main(char *argv[], int argc)
 
     // close file
     printf("\nWrite operation complete!\r\n");
-    fcb_close (&fcb1);
+    fcb_close (&fcb);
     return(0);
 }
 

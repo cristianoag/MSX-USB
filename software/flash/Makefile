@@ -3,39 +3,33 @@ ASM = sdasz80
 PLATFORM = -mz80
 HEXBIN = hex2bin
 
-INCLUDES =  -IC:\DevArea\libraries\fusion-c\header -IC:\DevArea\libraries\fusion-c\include -IC:\DevArea\libraries\asmlib
-FUSIONLIB = C:\DevArea\libraries\fusion-c\include
-LIBS = "C:\DevArea\libraries\fusion-c\lib\fusion_min_printf.lib" #fusion-c-1.3 minus printf
-OBJECTSDIR = C:\DevArea\libraries\fusion-c\include
+
+FUSIONINC = C:\DevArea\libraries\fusion-c\include
+FUSIONHEADER = C:\DevArea\libraries\fusion-c\header
+FUSIONLIBDIR = C:\DevArea\libraries\fusion-c\lib
+FUSIONLIB = $(FUSIONLIBDIR)\fusion_min_printf.lib
+CRT0 = $(FUSIONINC)\crt0_msxdos_advanced.rel
 SRCDIR = src
 BINDIR = dist
 
 # See startup files for the correct ADDR_CODE and ADDR_DATA
-CRT0 = crt0_msxdos_advanced.rel
 ADDR_CODE = 0x0180
-#CRT0 = crt0_msxdos.rel
-#ADDR_CODE = 0x106
 ADDR_DATA = 0
 
-VERBOSE = --verbose -V
-CCFLAGS = $(VERBOSE) $(PLATFORM) --code-loc $(ADDR_CODE) --data-loc $(ADDR_DATA) --no-std-crt0 --out-fmt-ihx --legacy-banking
-OBJECTS = $(FUSIONLIB)\$(CRT0)
+VERBOSE = --verbose 
+CCFLAGS = $(VERBOSE) --code-loc $(ADDR_CODE) --data-loc $(ADDR_DATA) --disable-warning 196 --no-std-crt0 --opt-code-size  
 SOURCES = flash.c
 OUTFILE = flash.com
 
-.PHONY: all compile link package clean
+.PHONY: all compile package clean
 
-all: clean compile link package
+all: clean compile package
 
 compile: $(SOURCES)
 
 %.c:
 		@echo "Compiling $@"
-		$(CC) $(CCFLAGS) $(PLATFORM) $(INCLUDES) -c -o $(BINDIR)\$(notdir $(@:.c=.rel)) $(SRCDIR)\$@ 
-
-link:
-		@echo "Linking"
-		$(CC) $(CCFLAGS) $(addprefix $(BINDIR)\,$(SOURCES:.c=.rel)) $(LIBS) $(OBJECTS) -o $(BINDIR)\$(basename $(OUTFILE)).ihx
+		$(CC) $(CCFLAGS) $(PLATFORM) $(FUSIONLIB) ${CRT0} -L $(FUSIONLIBDIR) -I $(FUSIONHEADER) $(SRCDIR)\$@ -o $(BINDIR)\$(notdir $(@:.c=.ihx))
 
 package: 
 		@echo "Building $(OUTFILE)..."

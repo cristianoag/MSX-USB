@@ -14,63 +14,85 @@ USB was designed in the 90's to do something similar. To standardize the connect
 What if the MSX would have an USB connection? And if the BIOS/MSX DOS would automatically recognize devices connected to it?
 
 ## Meet MSX-USB
-Inspired by the work of Xavirompe and his [RookieDrive](http://rookiedrive.com/en/) I set out to do exactly this. And since I'm a big believer of open standards and open source I'm opening up my work to everyone.
+Inspired by the work of Xavirompe and his [RookieDrive](http://rookiedrive.com/en/) S0urceror set out to do build an open source project that would add USB to the MSX. The project is called MSX-USB and is hosted on GitHub. 
+
+The project had contributions of many people in the MSX community. With people contributing to improve the hardware, firmware, drivers, and documentation.
 
 On this GitHub page you can find:
 * Schematics (KiCAD), that interfaces a cheap USB CH376s board to the MSX cartridge port.
 * Drivers, currently Flash drives on Nextor and HID keyboards are supported.
 * Debugging tools, to connect a test board to your PC/MAC and assist in debugging.
 
-On my GitHub I also have forks of OpenMSX and CocoaMSX that either emulate or connect to a test board via serial to assist in development and debugging.
+## Hardware
 
-## Schematics
-This connects the CH376s board you can find on eBay or AliExpress for around 4 Euro to the MSX. 
+This project connects the CH376s board you can find on eBay or AliExpress for around 4 USD to the MSX.  The CH376s board is a USB host controller that can handle USB devices. The board is connected to the MSX cartridge port and is controlled by a CPLD. The CPLD is programmed to handle the MSX bus protocol and to interface with the CH376s board.
 
 Circuitry is added to correctly handle the _BUSDIR signal. Make sure you select parallel by setting the jumper on the CH376s board correctly.
 
-The CH376s board will be visible on port 10h and 11h on the MSX. Port 11h is the command port and 10h is the data port. Specifics on how to program for the CH376s are scattered around the Internet:
-* https://www.mpja.com/download/ch376ds1.pdf
-* https://arduinobasics.blogspot.com/2015/05/ch376s-usb-readwrite-module.html
+The CH376s board is accessible via ports 10h and 11h on the MSX, where port 11h serves as the command port and port 10h as the data port. 
+
+Programming details for the CH376s can be found in various online resources:
+* [CH376s Datasheet](https://www.mpja.com/download/ch376ds1.pdf)
+* [Arduino Basics: CH376s USB Read/Write Module](https://arduinobasics.blogspot.com/2015/05/ch376s-usb-readwrite-module.html)
 
 Most information is available on how to use the higher-order API for flash drives. 
 
 If you want to use other USB devices you have to go low-level. As it turns out Konamiman already did some work there and after some researching I got USB HID Keyboards, Ethernet, Serial working as well. Check out my source-code or these great pages for more information:
+
 * http://www.usbmadesimple.co.uk/index.html
 * https://www.beyondlogic.org/usbnutshell/usb1.shtml
 
-## PCB
+### PCB
 
-If you prefer using PLCC versions of the CPLD and flash memory chips, I recommend the v4 PCB by @cristianoag. This version fits into a Konami-style cartridge case and includes a switch to toggle between two ROM images. Be sure to use the rev4 CPLD code to enable this functionality. You can find the Gerber files and CPLD code for v4 at these links: [Gerber Files](hardware/v4/kicad-cpld-rev4/production) and [CPLD Code](hardware/v4/quartus-rev4).
+If you prefer using PLCC versions of the CPLD and flash memory chips, it is recommended to use the v4 PCB by @cristianoag. This version fits into a Konami-style cartridge case and includes a switch to toggle between two ROM images. Be sure to use the rev4 CPLD code to enable this functionality. You can find the Gerber files and CPLD code for v4 at these links: [Gerber Files](hardware/v4/kicad-cpld-rev4/production) and [CPLD Code](hardware/v4/quartus-rev4).
 
-If you’re comfortable with SMD soldering and want to avoid the challenges of sourcing 7064SLC without JTAG locks, use the v5 CPLD code and PCBs instead. The files for these are available at: [CPLD Code](hardware/v5/cpld) and [PCB Files](hardware/v5/kicad).
+If you’re comfortable with SMD soldering and want to avoid the challenges of sourcing 7064SLC without JTAG locks, use the v5 CPLD code and PCBs instead. The files for these are available at: [CPLD Code](hardware/v5/cpld) and [PCB Files](hardware/v5/kicad). The v5 CPLD verilog code also includes support to the additional 20h and 21h ports so enabling the use of new drivers that were developed for those ports by Konamiman.
 
-Please note: there are two folders for the PCBs because there are different types of CH376 modules available. Depending on the module you have, you’ll need to use a specific version of the PCB. Compare the signals of your module with those on the PCBs to ensure you select the correct one.
+Please note that for v5 there are two folders for the PCBs because there are different types of CH376 modules available. Depending on the module you have, you’ll need to use a specific version of the PCB. Compare the signals of your module with those on the PCBs to ensure you select the correct one.
 
-## UNAPI USB
-I wrote a UNAPI USB specification and implemented the Usb Host driver according to this. The next version of this Host driver will also implement the Usb Hub specification and enumerate and initialise all devices connected.
+## Firmware and Drivers
 
-## USB HID Keyboard
-The Usb Keyboard driver connects to Unapi Usb driver and hooks itself to H.CHGE. From that moment on it replaces your trusted MSX keyboard by a shiny new USB Keyboard. Or a wireless one if you have inserted the appropriate Logitech receiver.
+### USB Host Firmware
+S0urceror wrote a UNAPI USB specification and implemented the Usb Host driver according to this. The next version of this Host driver will also implement the Usb Hub specification and enumerate and initialise all devices connected.
 
-## USB CDC ECM Ethernet
-The USB CDC ECM Ethernet driver is finished. It uses the Unapi USB and conforms to the Unapi Ethernet standard. Internestor Lite can now connect and use your USB Ethernet device. Please note that currently we only support USB CDC ECM. Make sure your Ethernet device supports this.
+* **USB HID Keyboard Driver** The Usb Keyboard driver connects to Unapi Usb driver and hooks itself to H.CHGE. From that moment on it replaces your trusted MSX keyboard by a shiny new USB Keyboard. Or a wireless one if you have inserted the appropriate Logitech receiver.
 
-All USB Ethernet devices built around the **RTL8153** chipset support USB CDC ECM. They usually cost around 20 euro.
+* **USB CDC ECM Ethernet Driver** The USB CDC ECM Ethernet driver is finished. It uses the Unapi USB and conforms to the Unapi Ethernet standard. Internestor Lite can now connect and use your USB Ethernet device. Please note that currently we only support USB CDC ECM. Make sure your Ethernet device supports this. All USB Ethernet devices built around the **RTL8153** chipset support USB CDC ECM. They usually cost around 20 euro.
 
-## USB Storage
-A low level USB driver is created to connect to storage devices like thumb drives, portable hard disks, etc. 
+### USB Storage NEXT
 
-## USB Hub
-The USB Hub driver will interrogate an USB Hub and all devices connected to it.
+This is a firmware developed in C that implements a menu that is capable to mount DSK files or boot the computer from a connected USB stick.
 
-# Installation instructions
+### Konamiman USB FDD Firmware
+
+Konamiman developed a firmware that allows you to mount DSK 360K/720K images stored on a USB floppy drive and use them as if they were real floppy disks. This version of the firmware also allows you to boot the computer from a connected USB floppy drive compatible with the UFI standard.
+
+## Installation instructions
 Check [this page](INSTALL.md) for installation instructions and links to the various binaries that have been developed.
 
-# Build your own (DIY)
+## Build your own (DIY)
 Check [this page](DIY.md) for information on how to make the PCB, program the CPLD device, flash the ROM, etc.
 
-# Collaboration
+## User guides
+Check [this page](USERGUIDE.md) for user guides on how to use the various drivers and firmware.
+
+## Collaboration
 Do you want to help with the development of MSX USB? Write drivers for other devices? Or contribute in other ways?
 
 Please drop me line on sourceror at neximus.nl or meet me on the msx.org forum.
 
+## License
+
+![Open Hardware](images/ccans.png)
+
+This work is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/).
+
+* If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.
+* You may not use the material for commercial purposes.
+* You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
+
+**ATTENTION**
+
+This project was made for the retro community and not for commercial purposes. So only retro hardware forums and individual people can build this project.
+
+THE SALE OF ANY PART OF THIS PROJECT WITHOUT EXPRESS AUTHORIZATION IS PROHIBITED!
