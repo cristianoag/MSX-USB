@@ -9,6 +9,7 @@
 ; - SDCC compiler 3.9 (only!)
 ; - Fusion-C library 1.3 (also works with 1.2)
 ; - MSXUSB cartridge with flash ROM
+; - KonamiSCC ROM file
 ;
 */
 #include <msx_fusion.h>
@@ -60,6 +61,13 @@ int putchar (int character)
     return character;
 }
 
+/*
+    ; main
+    ; input: argv, argc
+    ; output: none
+
+    ; This program writes a KonamiSCC ROM to a flash ROM in the MSXUSB cartridge
+*/
 int main(char *argv[], int argc)
 {   
     uint8_t slot=0;
@@ -119,7 +127,7 @@ int main(char *argv[], int argc)
     float endsector = romsize;
     endsector = endsector / 65536;
     endsector = ceilf (endsector);
-    if (!erase_flash_sectors (slot,0,(uint8_t)endsector)) // 64Kb sectors
+    if (!erase_flash (slot)) 
         return (0); 
     
     // read file from beginning to end and write to flash
@@ -163,6 +171,11 @@ int main(char *argv[], int argc)
     return(0);
 }
 
+/*
+    ; select slot 40
+    ; input: slot
+    ; output: none
+*/
 void select_slot_40 (uint8_t slot)
 {
     slot;
@@ -176,7 +189,11 @@ void select_slot_40 (uint8_t slot)
     __endasm;
 }
 
-// select ram slot 40
+/*
+    ; select ram slot 40
+    ; input: none
+    ; output: none
+*/
 void select_ramslot_40 ()
 {
     __asm
@@ -186,7 +203,11 @@ void select_ramslot_40 ()
     __endasm;
 }
 
-// flash identification
+/*
+    ; flash identification
+    ; input: none
+    ; output: TRUE if flash is found, FALSE if not
+*/
 BOOL flash_ident ()
 {
     uint8_t dummy;
@@ -202,39 +223,21 @@ BOOL flash_ident ()
     // read response
     uint8_t manufacturer = flash_segment[0];
     uint8_t device = flash_segment[1];
-    //printf ("M: %x, D: %x\r\n",manufacturer,device);
+    
+    // debug line to identify new flash chips
+    // printf ("M: %x, D: %x\r\n",manufacturer,device);
     
     // The following flash chips are supported:
     // AMD_AM29F040 = A4
-    // SST_SST39SF040 = B7
-    // AMIC_A29040B = 86
-    // AMD_AM29F010 = 20
-    // AMD_29F002B = 2F
-
-    // check if flash is supported
+    // AMS_AM29F010 = 20
     switch (device) {
         case 0xA4:
             printf("Found device: AMD_AM29F040\r\n");
             flash_segment[0] = 0xf0;
             return TRUE;
             break;
-        case 0xB7:
-            printf("Found device: SST_SST39SF040\r\n");
-            flash_segment[0] = 0xf0;
-            return TRUE;
-            break;
-        case 0x86:
-            printf("Found device: AMIC_A29040B\r\n");
-            flash_segment[0] = 0xf0;
-            return TRUE;
-            break;
         case 0x20:
             printf("Found device: AMD_AM29F010\r\n");
-            flash_segment[0] = 0xf0;
-            return TRUE;
-            break;
-        case 0x2F:
-            printf("Found device: AMD_29F002B\r\n");
             flash_segment[0] = 0xf0;
             return TRUE;
             break;
@@ -244,7 +247,11 @@ BOOL flash_ident ()
     
 }
 
-// find flash
+/*
+    ; find flash in slot 40
+    ; input: none
+    ; output: slot number
+*/
 uint8_t find_flash ()
 {
     uint8_t i;
@@ -261,6 +268,11 @@ uint8_t find_flash ()
     return highest_slot;
 }
 
+/*
+    ; print hex buffer
+    ; input: start, end
+    ; output: none
+*/
 void print_hex_buffer (uint8_t* start, uint8_t* end)
 {
     char str[3];
@@ -285,44 +297,42 @@ void print_hex_buffer (uint8_t* start, uint8_t* end)
     }
 }
 
-BOOL erase_flash_sectors (uint8_t slot,uint8_t sector_start,uint8_t sector_end)
+/*
+    ; erase flash chip
+    ; input: slot
+    ; output: TRUE if successful, FALSE if not
+
+    ; supports the following flash chips:
+    ; AMD_AM29F040 = A4
+    ; AMD_AM29F010 = 20
+*/
+BOOL erase_flash(uint8_t slot)
 {
     // select flash in slot
     select_slot_40 (slot);
-    // main loop
-    int i;
-    for (i=sector_start;i<sector_end;i++)
+
+    printf ("Erasing flash: ");
+    // sequence to activate the chip erase
+    flash_segment[0x555] = 0xaa;
+    flash_segment[0x2aa] = 0x55;
+    flash_segment[0x555] = 0x80;
+    flash_segment[0x555] = 0xaa;
+    flash_segment[0x2aa] = 0x55;
+    flash_segment[0x555] = 0x10;
+
+    if (!flash_command_okay (0,0xff))
     {
-        printf ("Erasing sector: %d\r\n",i);
-        // select start segment in sector
-        flash_segment[0x1000] = i*8;
-        // debug purposes
-        // print_hex_buffer (flash_segment, flash_segment+16);
-        // write autoselect code
-        flash_segment[0x555] = 0xaa;
-        flash_segment[0x2aa] = 0x55;
-        flash_segment[0x555] = 0x80;
-        flash_segment[0x555] = 0xaa;
-        flash_segment[0x2aa] = 0x55;
-        flash_segment[0] = 0x30;
-        // check if ready
-        if (!flash_command_okay (0,0xff))
-        {
             // reset
             flash_segment[0] = 0xf0;
-            printf ("Error erasing sector: %d, segment: %d\r\n",i,i*8);
-            break;   
-        }
-        // debug purposes
-        // print_hex_buffer (flash_segment, flash_segment+16);
+            printf ("error erasing flash!\r\n");
+            return FALSE;
     }
-    // select ram in slot
-    select_ramslot_40 ();
-    if (i<sector_start)
-        return FALSE;
-    else
-        return TRUE;
+
+    printf ("done!\r\n");
+    return TRUE;
 }
+
+
 BOOL flash_command_okay (uint16_t address,uint8_t expected_value)
 {
     uint8_t value=0;
@@ -343,6 +353,7 @@ BOOL flash_command_okay (uint16_t address,uint8_t expected_value)
         return FALSE;
     }
 }
+
 BOOL write_flash_segment (uint8_t slot,uint8_t segment)
 {
     // select flash in slot

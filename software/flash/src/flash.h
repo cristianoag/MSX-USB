@@ -26,6 +26,7 @@ uint8_t find_flash ();
 BOOL flash_ident ();
 void select_ramslot_40 ();
 void select_slot_40 (uint8_t slot);
+BOOL erase_flash(uint8_t slot);
 BOOL erase_flash_sectors (uint8_t slot,uint8_t sector_start,uint8_t sector_end);
 BOOL write_flash_segment (uint8_t slot,uint8_t segment);
 BOOL flash_command_okay (uint16_t address,uint8_t expected_value);
