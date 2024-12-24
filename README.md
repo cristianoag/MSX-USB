@@ -46,26 +46,45 @@ If you want to use other USB devices you have to go low-level. As it turns out K
 
 If you prefer using PLCC versions of the CPLD and flash memory chips, it is recommended to use the v4 PCB by @cristianoag. This version fits into a Konami-style cartridge case and includes a switch to toggle between two ROM images. Be sure to use the rev4 CPLD code to enable this functionality. You can find the Gerber files and CPLD code for v4 at these links: [Gerber Files](hardware/v4/kicad-cpld-rev4/production) and [CPLD Code](hardware/v4/quartus-rev4).
 
-If you’re comfortable with SMD soldering and want to avoid the challenges of sourcing 7064SLC without JTAG locks, use the v5 CPLD code and PCBs instead. The files for these are available at: [CPLD Code](hardware/v5/cpld) and [PCB Files](hardware/v5/kicad). The v5 CPLD verilog code also includes support to the additional 20h and 21h ports so enabling the use of new drivers that were developed for those ports by Konamiman.
+If you’re comfortable with SMD soldering and want to avoid the challenges of sourcing 7064SLC without JTAG locks, use the v5 CPLD code and PCBs instead (also created by @cristianoag). The files for these are available at: [CPLD Code](hardware/v5/cpld) and [PCB Files](hardware/v5/kicad). The v5 CPLD verilog code also includes support to the additional 20h and 21h ports so enabling the use of new drivers that were developed for those ports by Konamiman.
 
 Please note that for v5 there are two folders for the PCBs because there are different types of CH376 modules available. Depending on the module you have, you’ll need to use a specific version of the PCB. Compare the signals of your module with those on the PCBs to ensure you select the correct one.
 
-## Firmware and Drivers
+## BIOS and Drivers
 
-### USB Host Firmware
-S0urceror wrote a UNAPI USB specification and implemented the Usb Host driver according to this. The next version of this Host driver will also implement the Usb Hub specification and enumerate and initialise all devices connected.
+The project has several bios and drivers that have been developed. You can use a flash programmer or the MSX itself to flash the bios options to the flash chip on the cartridge. To do that use the flash.com tool that is available in the software folder. 
 
-* **USB HID Keyboard Driver** The Usb Keyboard driver connects to Unapi Usb driver and hooks itself to H.CHGE. From that moment on it replaces your trusted MSX keyboard by a shiny new USB Keyboard. Or a wireless one if you have inserted the appropriate Logitech receiver.
+The flash.com command has the following syntax:
+
+```
+flash.com <filename>.rom
+```
+
+The flash.com program can only detect M29F040 or M29F010 flash chips. If you have a different flash chip (assuming it is compatible) you will need a flash programmer to flash the bios.
+
+### USB Host BIOS (USBHOST.ROM)
+
+S0urceror wrote a UNAPI USB specification and implemented the Usb Host driver according to it. The next version of this Host driver will also implement the Usb Hub specification and enumerate and initialise all devices connected.
+
+* **USB HID Keyboard Driver** The Usb Keyboard driver is a program that connects to Unapi Usb driver and hooks itself to H.CHGE. From that moment on it replaces your trusted MSX keyboard by a shiny new USB Keyboard. Or a wireless one if you have inserted the appropriate Logitech receiver.
 
 * **USB CDC ECM Ethernet Driver** The USB CDC ECM Ethernet driver is finished. It uses the Unapi USB and conforms to the Unapi Ethernet standard. Internestor Lite can now connect and use your USB Ethernet device. Please note that currently we only support USB CDC ECM. Make sure your Ethernet device supports this. All USB Ethernet devices built around the **RTL8153** chipset support USB CDC ECM. They usually cost around 20 euro.
 
-### USB Storage NEXT
+### USB Storage NEXT (USBNEXT.ROM)
 
-This is a firmware developed in C that implements a menu that is capable to mount DSK files or boot the computer from a connected USB stick.
+This is a firmware developed in C that implements a menu that is capable to mount DSK files or boot the computer from a connected USB stick. It also is a Nextor driver that allows you to use the USB stick as a hard disk. 
 
-### Konamiman USB FDD Firmware
+You can choose between (1) to initialize via floppy disk, (2) to initialize via USB stick, or use letters correspondent to files and folders located on the root of the USB stick connected to the cartridge to navigate and mount DSK files.
 
-Konamiman developed a firmware that allows you to mount DSK 360K/720K images stored on a USB floppy drive and use them as if they were real floppy disks. This version of the firmware also allows you to boot the computer from a connected USB floppy drive compatible with the UFI standard.
+This BIOS allows mounting DSK files that are bigger than 720KB, respecting the limitations imposed by the Nextor OS.
+
+### Konamiman USB FDD Firmware (USBFDD.ROM)
+
+Konamiman developed a BIOS that allows you to mount DSK 360K/720K images stored on a USB floppy drive and use them as if they were real floppy disks. This version also allows you to boot the computer from a connected USB floppy drive compatible with the UFI standard.
+
+You can check the [Konamiman's Floppy Disk Controller ROM](https://github.com/Konamiman/RookieDrive-FDD-ROM) GitHub repository for more information. He also provides a full manual page describing how to use the BIOS in the [Disk Image Mode](https://github.com/Konamiman/RookieDrive-FDD-ROM/blob/master/DISK_IMAGE_MODE.md).
+
+@cristianoag adapted the original BIOS to work with the MSX-USB project. You can find the adapted version in the [MsxUSBFDD](/drivers/MsxUSBFDD) folder. 
 
 ## Installation instructions
 Check [this page](INSTALL.md) for installation instructions and links to the various binaries that have been developed.
@@ -73,13 +92,8 @@ Check [this page](INSTALL.md) for installation instructions and links to the var
 ## Build your own (DIY)
 Check [this page](DIY.md) for information on how to make the PCB, program the CPLD device, flash the ROM, etc.
 
-## User guides
-Check [this page](USERGUIDE.md) for user guides on how to use the various drivers and firmware.
-
 ## Collaboration
-Do you want to help with the development of MSX USB? Write drivers for other devices? Or contribute in other ways?
-
-Please drop me line on sourceror at neximus.nl or meet me on the msx.org forum.
+Interested in contributing to the MSX-USB project? Whether you want to develop drivers for additional devices or assist in other areas, your help is welcome. Clone the repository and start contributing by filing issues, submitting pull requests, or sharing your ideas.
 
 ## License
 
