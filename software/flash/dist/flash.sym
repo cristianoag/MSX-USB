@@ -1,0 +1,88 @@
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 1.
+Hexadecimal [16-Bits]
+
+Symbol Table
+
+    .__.$$$.                                                    =  2710 L
+    .__.ABS.                                                    =  0000 G
+    .__.CPU.                                                    =  0000 L
+    .__.H$L.                                                    =  0000 L
+  0 _Done_Version_tag                                              00D3 R
+  0 _FALSE                                                         0101 GR
+  0 _FT_SetName                                                    0000 GR
+    _FcbClose                                                      **** GX
+    _FcbOpen                                                       **** GX
+    _FcbRead                                                       **** GX
+    _MemFill                                                       **** GX
+    _ReadSP                                                        **** GX
+  0 _TRUE                                                          0100 GR
+    ___fsdiv                                                       **** GX
+    ___sdcc_enter_ix                                               **** GX
+  0 ___str_10                                                      0506 R
+  0 ___str_11                                                      050A R
+  0 ___str_12                                                      050E R
+  0 ___str_13                                                      0512 R
+  0 ___str_15                                                      0516 R
+  0 ___str_16                                                      0533 R
+  0 ___str_18                                                      054D R
+  0 ___str_19                                                      0562 R
+  0 ___str_20                                                      056F R
+  0 ___str_21                                                      0587 R
+  0 ___str_22                                                      0599 R
+  0 ___str_24                                                      05AE R
+  0 ___str_26                                                      05D9 R
+  0 ___str_28                                                      05F5 R
+  0 ___str_30                                                      06C9 R
+  0 ___str_32                                                      06E5 R
+  0 ___str_34                                                      07F2 R
+  0 ___str_36                                                      07F5 R
+  0 ___str_37                                                      085B R
+  0 ___str_39                                                      086B R
+  0 ___str_41                                                      0881 R
+  0 ___str_42                                                      08E4 R
+  0 ___str_43                                                      09D9 R
+  0 ___str_8                                                       0416 R
+  0 ___str_9                                                       04DF R
+    ___ulong2fs                                                    **** GX
+    __divulong                                                     **** GX
+    __mullong                                                      **** GX
+    _ceilf                                                         **** GX
+  0 _erase_flash                                                   07F7 GR
+    _file_segment                                               =  8000 G
+  0 _find_flash                                                    0701 GR
+  0 _flash_command_okay                                            0888 GR
+  0 _flash_ident                                                   066C GR
+    _flash_segment                                              =  4000 G
+  0 _main                                                          011B GR
+  0 _print_hex_buffer                                              0720 GR
+    _printf                                                        **** GX
+  0 _putchar                                                       0102 GR
+    _puts                                                          **** GX
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 2.
+Hexadecimal [16-Bits]
+
+Symbol Table
+
+  0 _select_ramslot_40                                             0663 GR
+  0 _select_slot_40                                                0654 GR
+    _sprintf                                                       **** GX
+    _strcat                                                        **** GX
+    _strcmp                                                        **** GX
+  0 _write_flash_segment                                           090E GR
+
+
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 3.
+Hexadecimal [16-Bits]
+
+Area Table
+
+   0 _CODE                                      size  A01   flags    0
+   1 _DATA                                      size    0   flags    0
+   2 _INITIALIZED                               size    0   flags    0
+   3 _DABS                                      size    0   flags    8
+   4 _HOME                                      size    0   flags    0
+   5 _GSINIT                                    size    0   flags    0
+   6 _GSFINAL                                   size    0   flags    0
+   7 _INITIALIZER                               size    0   flags    0
+   8 _CABS                                      size    0   flags    8
+

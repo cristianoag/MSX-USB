@@ -1,19 +1,29 @@
-/**/dist/*
-/**/build/*
-/**/objs/*
+# For PCBs designed using KiCad: http://www.kicad-pcb.org/
+# Format documentation: http://kicad-pcb.org/help/file-formats/
+
+# Temporary files
 .DS_Store
-!/**/dist/README.md
-!/**/dist/*.com
-!/**/dist/*.sys
-!/**/dist/*.rom
-!/**/dist/*.bin
-!/**/dist/*.zip
-/**/*.vhd
-/openmsx.xml
-/.vscode/*
-hardware/v4/kicad-cpld-rev4/MSX USB Drive-backups/*
-hardware/v3/kicad-cpld/MSX USB Drive-backups/*
-hardware/v5/kicad/CH276S-Type1/MSX USB Drive-backups/*
-hardware/v5/kicad/CH276S-Type1/production/backups/*
-hardware/v5/kicad/CH276S-Type2/MSX USB Drive-backups/*
-hardware/v5/kicad/CH276S-Type2/production/backups/*
+*.000
+*.bak
+*.bck
+*.kicad_pcb-bak
+*~
+_autosave-*
+*.tmp
+*-rescue.lib
+*-save.pro
+*-save.kicad_pcb
+*-backups
+*backups
+**/build/
+**/objs/*
+**/.vscode/
+
+# Netlist files (exported from Eeschema)
+*.net
+
+# Autorouter files (exported from Pcbnew)
+*.dsn
+*.ses
+
+*openmsx.xml
