@@ -1,5 +1,5 @@
 EDA Netlist Writer report for MSXUSB
-Sat Dec 21 14:21:05 2024
+Mon Dec 30 11:25:05 2024
 Quartus II Version 11.0 Build 208 07/03/2011 Service Pack 1 SJ Web Edition
 
 
@@ -36,7 +36,7 @@ applicable agreement for further details.
 +-------------------------------------------------------------------+
 ; EDA Netlist Writer Summary                                        ;
 +---------------------------+---------------------------------------+
-; EDA Netlist Writer Status ; Successful - Sat Dec 21 14:21:05 2024 ;
+; EDA Netlist Writer Status ; Successful - Mon Dec 30 11:25:05 2024 ;
 ; Revision Name             ; MSXUSB                                ;
 ; Top-level Entity Name     ; msxusb                                ;
 ; Family                    ; MAX7000S                              ;
@@ -66,14 +66,14 @@ applicable agreement for further details.
 +---------------------------------------------------------------------------------------------------+---------------------------+
 
 
-+---------------------------------------------------------------------------------------------------------------------------------+
-; Simulation Generated Files                                                                                                      ;
-+---------------------------------------------------------------------------------------------------------------------------------+
-; Generated Files                                                                                                                 ;
-+---------------------------------------------------------------------------------------------------------------------------------+
-; C:/Users/Cristiano/OneDrive/Personal/11. Electronics/MSXUSB/GitHub/MSX-USB/hardware/v3/quartus/simulation/modelsim/MSXUSB.vo    ;
-; C:/Users/Cristiano/OneDrive/Personal/11. Electronics/MSXUSB/GitHub/MSX-USB/hardware/v3/quartus/simulation/modelsim/MSXUSB_v.sdo ;
-+---------------------------------------------------------------------------------------------------------------------------------+
++------------------------------------------------------------------------------------------------------------------------------------+
+; Simulation Generated Files                                                                                                         ;
++------------------------------------------------------------------------------------------------------------------------------------+
+; Generated Files                                                                                                                    ;
++------------------------------------------------------------------------------------------------------------------------------------+
+; C:/Users/crist/OneDrive/Personal/11. Electronics/MSXUSB/GitHub/MSX-USB/hardware/v5/cpld/7064STC44/simulation/modelsim/MSXUSB.vo    ;
+; C:/Users/crist/OneDrive/Personal/11. Electronics/MSXUSB/GitHub/MSX-USB/hardware/v5/cpld/7064STC44/simulation/modelsim/MSXUSB_v.sdo ;
++------------------------------------------------------------------------------------------------------------------------------------+
 
 
 +-----------------------------+
@@ -82,12 +82,12 @@ applicable agreement for further details.
 Info: *******************************************************************
 Info: Running Quartus II EDA Netlist Writer
     Info: Version 11.0 Build 208 07/03/2011 Service Pack 1 SJ Web Edition
-    Info: Processing started: Sat Dec 21 14:21:05 2024
+    Info: Processing started: Mon Dec 30 11:25:05 2024
 Info: Command: quartus_eda --read_settings_files=off --write_settings_files=off MSXUSB -c MSXUSB
-Info: Generated files "MSXUSB.vo" and "MSXUSB_v.sdo" in directory "C:/Users/Cristiano/OneDrive/Personal/11. Electronics/MSXUSB/GitHub/MSX-USB/hardware/v3/quartus/simulation/modelsim/" for EDA simulation tool
+Info: Generated files "MSXUSB.vo" and "MSXUSB_v.sdo" in directory "C:/Users/crist/OneDrive/Personal/11. Electronics/MSXUSB/GitHub/MSX-USB/hardware/v5/cpld/7064STC44/simulation/modelsim/" for EDA simulation tool
 Info: Quartus II EDA Netlist Writer was successful. 0 errors, 0 warnings
-    Info: Peak virtual memory: 223 megabytes
-    Info: Processing ended: Sat Dec 21 14:21:05 2024
+    Info: Peak virtual memory: 224 megabytes
+    Info: Processing ended: Mon Dec 30 11:25:05 2024
     Info: Elapsed time: 00:00:00
     Info: Total CPU time (on all processors): 00:00:00
 

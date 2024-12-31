@@ -1,6 +1,6 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
-; Version 4.0.0 #11528 (Linux)
+; Version 3.9.0 #11195 (MINGW64)
 ;--------------------------------------------------------
 	.module driver
 	.optsdcc -mz80
@@ -192,25 +192,25 @@ _onCallMOUNTDSK::
 ;driver.c:117: workarea_t* workarea = get_workarea();
 	call	_get_workarea
 ;driver.c:118: workarea->disk_change = true;
-	ld	c,l
-	ld	b,h
-	inc	hl
-	ld	(hl), #0x01
-;driver.c:119: usbdisk_init ();
-	push	bc
-	call	_usbdisk_init
-	ld	hl, #___str_7
 	push	hl
+	pop	iy
+	inc	iy
+	ld	0 (iy), #0x01
+;driver.c:119: usbdisk_init ();
+	push	hl
+	call	_usbdisk_init
+	pop	hl
+;driver.c:120: workarea->mount_mode = usbdisk_select_dsk_file ("/");
+	ld	bc, #___str_7+0
+	push	hl
+	push	bc
 	call	_usbdisk_select_dsk_file
 	pop	af
 	ld	a, l
-	pop	bc
-	ld	(bc), a
+	pop	hl
+	ld	(hl), a
 ;driver.c:121: switch (workarea->mount_mode)
-	push	af
-	ld	a, (bc)
-	ld	c, a
-	pop	af
+	ld	c, (hl)
 	dec	a
 	jr	Z,00102$
 	ld	a, c
@@ -291,17 +291,19 @@ _get_drive_config::
 ; ---------------------------------
 _get_lun_info::
 ;driver.c:219: if (nr_lun==1 && nr_device==1)
-	ld	iy, #2
-	add	iy, sp
-	ld	a, 0 (iy)
+	ld	hl, #2+0
+	add	hl, sp
+	ld	a, (hl)
 	dec	a
 	jr	NZ,00102$
-	inc	iy
-	ld	a, 0 (iy)
+	ld	hl, #3+0
+	add	hl, sp
+	ld	a, (hl)
 	dec	a
 	jr	NZ,00102$
 ;driver.c:221: memset (luninfo,0,sizeof (luninfo_t));
-	inc	iy
+	ld	iy, #4
+	add	iy, sp
 	ld	l, 0 (iy)
 	ld	h, 1 (iy)
 	ld	b, #0x0c
@@ -441,13 +443,14 @@ ___str_16:
 ; ---------------------------------
 _get_device_status::
 ;driver.c:338: if (nr_device!=1 || nr_lun!=1)
-	ld	iy, #3
-	add	iy, sp
-	ld	a, 0 (iy)
+	ld	hl, #3+0
+	add	hl, sp
+	ld	a, (hl)
 	dec	a
 	jr	NZ,00101$
-	dec	iy
-	ld	a, 0 (iy)
+	ld	hl, #2+0
+	add	hl, sp
+	ld	a, (hl)
 	dec	a
 	jr	Z,00102$
 00101$:
@@ -527,14 +530,18 @@ _read_or_write_sector::
 	sub	a, #0x02
 	jr	NZ,00109$
 ;driver.c:435: if (!read_write_file_sectors (read_or_write_flag & Z80_CARRY_MASK,nr_sectors,sector,sector_buffer))
+	ld	b, c
 	ld	l, 10 (ix)
 	ld	h, 11 (ix)
 	push	hl
 	ld	l, 8 (ix)
 	ld	h, 9 (ix)
 	push	hl
-	ld	b, 7 (ix)
+	ld	a, 7 (ix)
+	push	af
+	inc	sp
 	push	bc
+	inc	sp
 	call	_read_write_file_sectors
 	pop	af
 	pop	af
@@ -546,14 +553,18 @@ _read_or_write_sector::
 	jr	00111$
 00109$:
 ;driver.c:449: if (!read_write_disk_sectors (read_or_write_flag & Z80_CARRY_MASK,nr_sectors,sector,sector_buffer))
+	ld	b, c
 	ld	l, 10 (ix)
 	ld	h, 11 (ix)
 	push	hl
 	ld	l, 8 (ix)
 	ld	h, 9 (ix)
 	push	hl
-	ld	b, 7 (ix)
+	ld	a, 7 (ix)
+	push	af
+	inc	sp
 	push	bc
+	inc	sp
 	call	_read_write_disk_sectors
 	pop	af
 	pop	af

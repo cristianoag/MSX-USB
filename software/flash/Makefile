@@ -3,7 +3,6 @@ ASM = sdasz80
 PLATFORM = -mz80
 HEXBIN = hex2bin
 
-
 FUSIONINC = C:\DevArea\libraries\fusion-c\include
 FUSIONHEADER = C:\DevArea\libraries\fusion-c\header
 FUSIONLIBDIR = C:\DevArea\libraries\fusion-c\lib

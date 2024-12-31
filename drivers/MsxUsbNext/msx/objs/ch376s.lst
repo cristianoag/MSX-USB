@@ -1,6 +1,6 @@
                               1 ;--------------------------------------------------------
                               2 ; File Created by SDCC : free open source ANSI-C Compiler
-                              3 ; Version 4.0.0 #11528 (Linux)
+                              3 ; Version 3.9.0 #11195 (MINGW64)
                               4 ;--------------------------------------------------------
                               5 	.module ch376s
                               6 	.optsdcc -mz80
@@ -66,640 +66,660 @@
                              66 ; code
                              67 ;--------------------------------------------------------
                              68 	.area _CODE
-                             69 ;../generic/ch376s.c:16: void ch376_reset_all()
+                             69 ;..\generic\ch376s.c:16: void ch376_reset_all()
                              70 ;	---------------------------------
                              71 ; Function ch376_reset_all
                              72 ; ---------------------------------
    0000                      73 _ch376_reset_all::
-                             74 ;../generic/ch376s.c:18: write_command (CMD_RESET_ALL);
+                             74 ;..\generic\ch376s.c:18: write_command (CMD_RESET_ALL);
    0000 2E 05         [ 7]   75 	ld	l, #0x05
    0002 CDr00r00      [17]   76 	call	_write_command
-                             77 ;../generic/ch376s.c:19: delay_ms (100);
+                             77 ;..\generic\ch376s.c:19: delay_ms (100);
    0005 21 64 00      [10]   78 	ld	hl, #0x0064
    0008 E5            [11]   79 	push	hl
    0009 CDr00r00      [17]   80 	call	_delay_ms
    000C F1            [10]   81 	pop	af
-                             82 ;../generic/ch376s.c:20: }
+                             82 ;..\generic\ch376s.c:20: }
    000D C9            [10]   83 	ret
-                             84 ;../generic/ch376s.c:22: bool ch376_plugged_in()
+                             84 ;..\generic\ch376s.c:22: bool ch376_plugged_in()
                              85 ;	---------------------------------
                              86 ; Function ch376_plugged_in
                              87 ; ---------------------------------
    000E                      88 _ch376_plugged_in::
-                             89 ;../generic/ch376s.c:27: write_command (CMD_CHECK_EXIST);
+                             89 ;..\generic\ch376s.c:27: write_command (CMD_CHECK_EXIST);
    000E 2E 06         [ 7]   90 	ld	l, #0x06
    0010 CDr00r00      [17]   91 	call	_write_command
-                             92 ;../generic/ch376s.c:28: write_data(value);
+                             92 ;..\generic\ch376s.c:28: write_data(value);
    0013 2E BE         [ 7]   93 	ld	l, #0xbe
    0015 CDr00r00      [17]   94 	call	_write_data
-                             95 ;../generic/ch376s.c:29: new_value = read_data ();
+                             95 ;..\generic\ch376s.c:29: new_value = read_data ();
    0018 CDr00r00      [17]   96 	call	_read_data
    001B 7D            [ 4]   97 	ld	a, l
-                             98 ;../generic/ch376s.c:32: if (new_value != value)
+                             98 ;..\generic\ch376s.c:32: if (new_value != value)
    001C D6 41         [ 7]   99 	sub	a, #0x41
-                            100 ;../generic/ch376s.c:33: return false;
-                            101 ;../generic/ch376s.c:34: return true;
-   001E 2E 00         [ 7]  102 	ld	l, #0x00
-   0020 C0            [11]  103 	ret	NZ
-   0021 2E 01         [ 7]  104 	ld	l, #0x01
-                            105 ;../generic/ch376s.c:35: }
-   0023 C9            [10]  106 	ret
-                            107 ;../generic/ch376s.c:36: bool ch376_set_usb_host_mode(uint8_t mode)
-                            108 ;	---------------------------------
-                            109 ; Function ch376_set_usb_host_mode
-                            110 ; ---------------------------------
-   0024                     111 _ch376_set_usb_host_mode::
-                            112 ;../generic/ch376s.c:38: write_command(CMD_SET_USB_MODE);
-   0024 2E 15         [ 7]  113 	ld	l, #0x15
-   0026 CDr00r00      [17]  114 	call	_write_command
-                            115 ;../generic/ch376s.c:39: write_data(mode);
-   0029 FD 21 02 00   [14]  116 	ld	iy, #2
-   002D FD 39         [15]  117 	add	iy, sp
-   002F FD 6E 00      [19]  118 	ld	l, 0 (iy)
-   0032 CDr00r00      [17]  119 	call	_write_data
-                            120 ;../generic/ch376s.c:40: delay_ms (250);
-   0035 21 FA 00      [10]  121 	ld	hl, #0x00fa
-   0038 E5            [11]  122 	push	hl
-   0039 CDr00r00      [17]  123 	call	_delay_ms
-   003C F1            [10]  124 	pop	af
-                            125 ;../generic/ch376s.c:42: value = read_data();
-   003D CDr00r00      [17]  126 	call	_read_data
-   0040 7D            [ 4]  127 	ld	a, l
-                            128 ;../generic/ch376s.c:43: if ( value == CMD_RET_SUCCESS )
-   0041 D6 51         [ 7]  129 	sub	a, #0x51
-                            130 ;../generic/ch376s.c:44: return true;
-                            131 ;../generic/ch376s.c:45: return false;
-   0043 2E 01         [ 7]  132 	ld	l, #0x01
-   0045 C8            [11]  133 	ret	Z
-   0046 2E 00         [ 7]  134 	ld	l, #0x00
-                            135 ;../generic/ch376s.c:46: }
-   0048 C9            [10]  136 	ret
-                            137 ;../generic/ch376s.c:47: bool ch376_connect_disk ()
-                            138 ;	---------------------------------
-                            139 ; Function ch376_connect_disk
-                            140 ; ---------------------------------
-   0049                     141 _ch376_connect_disk::
-                            142 ;../generic/ch376s.c:49: write_command (CMD_DISK_CONNECT);
-   0049 2E 30         [ 7]  143 	ld	l, #0x30
-   004B CDr00r00      [17]  144 	call	_write_command
-                            145 ;../generic/ch376s.c:50: if (ch376_wait_status ()!=USB_INT_SUCCESS)
-   004E CDr6Br00      [17]  146 	call	_ch376_wait_status
-   0051 7D            [ 4]  147 	ld	a, l
-   0052 D6 14         [ 7]  148 	sub	a, #0x14
-                            149 ;../generic/ch376s.c:51: return false;
-                            150 ;../generic/ch376s.c:52: return true;
-   0054 2E 00         [ 7]  151 	ld	l, #0x00
-   0056 C0            [11]  152 	ret	NZ
-   0057 2E 01         [ 7]  153 	ld	l, #0x01
-                            154 ;../generic/ch376s.c:53: }
-   0059 C9            [10]  155 	ret
-                            156 ;../generic/ch376s.c:54: bool ch376_mount_disk ()
-                            157 ;	---------------------------------
-                            158 ; Function ch376_mount_disk
-                            159 ; ---------------------------------
-   005A                     160 _ch376_mount_disk::
-                            161 ;../generic/ch376s.c:56: write_command (CMD_DISK_MOUNT);
-   005A 2E 31         [ 7]  162 	ld	l, #0x31
-   005C CDr00r00      [17]  163 	call	_write_command
-                            164 ;../generic/ch376s.c:57: if (ch376_wait_status ()!=USB_INT_SUCCESS)
-   005F CDr6Br00      [17]  165 	call	_ch376_wait_status
-   0062 7D            [ 4]  166 	ld	a, l
-   0063 D6 14         [ 7]  167 	sub	a, #0x14
-                            168 ;../generic/ch376s.c:58: return false;
-                            169 ;../generic/ch376s.c:59: return true;
-   0065 2E 00         [ 7]  170 	ld	l, #0x00
-   0067 C0            [11]  171 	ret	NZ
-   0068 2E 01         [ 7]  172 	ld	l, #0x01
-                            173 ;../generic/ch376s.c:60: }
-   006A C9            [10]  174 	ret
-                            175 ;../generic/ch376s.c:62: uint8_t ch376_wait_status ()
-                            176 ;	---------------------------------
-                            177 ; Function ch376_wait_status
-                            178 ; ---------------------------------
-   006B                     179 _ch376_wait_status::
-                            180 ;../generic/ch376s.c:67: while (true)
-   006B                     181 00104$:
-                            182 ;../generic/ch376s.c:69: interrupt=read_status();
-   006B CDr00r00      [17]  183 	call	_read_status
-   006E 7D            [ 4]  184 	ld	a, l
-                            185 ;../generic/ch376s.c:70: if ((interrupt&0x80)==0)
-   006F 07            [ 4]  186 	rlca
-   0070 38 F9         [12]  187 	jr	C,00104$
-                            188 ;../generic/ch376s.c:77: write_command(CMD_GET_STATUS);
-   0072 2E 22         [ 7]  189 	ld	l, #0x22
-   0074 CDr00r00      [17]  190 	call	_write_command
-                            191 ;../generic/ch376s.c:78: return read_data ();
-                            192 ;../generic/ch376s.c:79: }
-   0077 C3r00r00      [10]  193 	jp	_read_data
-                            194 ;../generic/ch376s.c:81: uint8_t ch376_get_register_value (uint8_t reg)
-                            195 ;	---------------------------------
-                            196 ; Function ch376_get_register_value
-                            197 ; ---------------------------------
-   007A                     198 _ch376_get_register_value::
-                            199 ;../generic/ch376s.c:83: write_command (CMD_GET_REGISTER);
-   007A 2E 0A         [ 7]  200 	ld	l, #0x0a
-   007C CDr00r00      [17]  201 	call	_write_command
-                            202 ;../generic/ch376s.c:84: write_data (reg); 
-   007F FD 21 02 00   [14]  203 	ld	iy, #2
-   0083 FD 39         [15]  204 	add	iy, sp
-   0085 FD 6E 00      [19]  205 	ld	l, 0 (iy)
-   0088 CDr00r00      [17]  206 	call	_write_data
-                            207 ;../generic/ch376s.c:85: return read_data ();
-                            208 ;../generic/ch376s.c:86: }
-   008B C3r00r00      [10]  209 	jp	_read_data
-                            210 ;../generic/ch376s.c:88: void ch376_set_filename (char* name)
-                            211 ;	---------------------------------
-                            212 ; Function ch376_set_filename
-                            213 ; ---------------------------------
-   008E                     214 _ch376_set_filename::
-                            215 ;../generic/ch376s.c:90: write_command (CMD_SET_FILE_NAME);
-   008E 2E 2F         [ 7]  216 	ld	l, #0x2f
-   0090 CDr00r00      [17]  217 	call	_write_command
-                            218 ;../generic/ch376s.c:91: write_data_multiple ((uint8_t*) name,strlen(name));
-   0093 C1            [10]  219 	pop	bc
-   0094 E1            [10]  220 	pop	hl
-   0095 E5            [11]  221 	push	hl
-   0096 C5            [11]  222 	push	bc
-   0097 E5            [11]  223 	push	hl
-   0098 CDr00r00      [17]  224 	call	_strlen
-   009B F1            [10]  225 	pop	af
-   009C 7D            [ 4]  226 	ld	a, l
-   009D F5            [11]  227 	push	af
-   009E 33            [ 6]  228 	inc	sp
-   009F 21 03 00      [10]  229 	ld	hl, #3
-   00A2 39            [11]  230 	add	hl, sp
-   00A3 4E            [ 7]  231 	ld	c, (hl)
-   00A4 23            [ 6]  232 	inc	hl
-   00A5 46            [ 7]  233 	ld	b, (hl)
-   00A6 C5            [11]  234 	push	bc
-   00A7 CDr00r00      [17]  235 	call	_write_data_multiple
-   00AA F1            [10]  236 	pop	af
-   00AB 33            [ 6]  237 	inc	sp
-                            238 ;../generic/ch376s.c:92: write_data (0);
-   00AC 2E 00         [ 7]  239 	ld	l, #0x00
-                            240 ;../generic/ch376s.c:93: }
-   00AE C3r00r00      [10]  241 	jp	_write_data
-                            242 ;../generic/ch376s.c:94: bool ch376_open_file ()
-                            243 ;	---------------------------------
-                            244 ; Function ch376_open_file
-                            245 ; ---------------------------------
-   00B1                     246 _ch376_open_file::
-                            247 ;../generic/ch376s.c:96: write_command (CMD_OPEN_FILE);
-   00B1 2E 32         [ 7]  248 	ld	l, #0x32
-   00B3 CDr00r00      [17]  249 	call	_write_command
-                            250 ;../generic/ch376s.c:97: if (ch376_wait_status ()!=USB_INT_SUCCESS)
-   00B6 CDr6Br00      [17]  251 	call	_ch376_wait_status
-   00B9 7D            [ 4]  252 	ld	a, l
-   00BA D6 14         [ 7]  253 	sub	a, #0x14
-                            254 ;../generic/ch376s.c:98: return false;
-                            255 ;../generic/ch376s.c:99: return true;
-   00BC 2E 00         [ 7]  256 	ld	l, #0x00
-   00BE C0            [11]  257 	ret	NZ
-   00BF 2E 01         [ 7]  258 	ld	l, #0x01
-                            259 ;../generic/ch376s.c:100: }
-   00C1 C9            [10]  260 	ret
-                            261 ;../generic/ch376s.c:101: bool ch376_close_file ()
-                            262 ;	---------------------------------
-                            263 ; Function ch376_close_file
-                            264 ; ---------------------------------
-   00C2                     265 _ch376_close_file::
-                            266 ;../generic/ch376s.c:103: write_command (CMD_CLOSE_FILE);
-   00C2 2E 36         [ 7]  267 	ld	l, #0x36
-   00C4 CDr00r00      [17]  268 	call	_write_command
-                            269 ;../generic/ch376s.c:104: write_data (0);
-   00C7 2E 00         [ 7]  270 	ld	l, #0x00
-   00C9 CDr00r00      [17]  271 	call	_write_data
-                            272 ;../generic/ch376s.c:105: if (ch376_wait_status ()!=USB_INT_SUCCESS)
-   00CC CDr6Br00      [17]  273 	call	_ch376_wait_status
-   00CF 7D            [ 4]  274 	ld	a, l
-   00D0 D6 14         [ 7]  275 	sub	a, #0x14
-                            276 ;../generic/ch376s.c:106: return false;
-                            277 ;../generic/ch376s.c:107: return true;
-   00D2 2E 00         [ 7]  278 	ld	l, #0x00
-   00D4 C0            [11]  279 	ret	NZ
-   00D5 2E 01         [ 7]  280 	ld	l, #0x01
-                            281 ;../generic/ch376s.c:108: }
-   00D7 C9            [10]  282 	ret
-                            283 ;../generic/ch376s.c:109: bool ch376_open_directory ()
-                            284 ;	---------------------------------
-                            285 ; Function ch376_open_directory
-                            286 ; ---------------------------------
-   00D8                     287 _ch376_open_directory::
-                            288 ;../generic/ch376s.c:111: write_command (CMD_OPEN_FILE);
-   00D8 2E 32         [ 7]  289 	ld	l, #0x32
-   00DA CDr00r00      [17]  290 	call	_write_command
-                            291 ;../generic/ch376s.c:112: if (ch376_wait_status ()!=USB_ERR_OPEN_DIR)
-   00DD CDr6Br00      [17]  292 	call	_ch376_wait_status
-   00E0 7D            [ 4]  293 	ld	a, l
-   00E1 D6 41         [ 7]  294 	sub	a, #0x41
-                            295 ;../generic/ch376s.c:113: return false;
-                            296 ;../generic/ch376s.c:114: return true;
-   00E3 2E 00         [ 7]  297 	ld	l, #0x00
-   00E5 C0            [11]  298 	ret	NZ
-   00E6 2E 01         [ 7]  299 	ld	l, #0x01
-                            300 ;../generic/ch376s.c:115: }
-   00E8 C9            [10]  301 	ret
-                            302 ;../generic/ch376s.c:116: bool ch376_open_search ()
-                            303 ;	---------------------------------
-                            304 ; Function ch376_open_search
-                            305 ; ---------------------------------
-   00E9                     306 _ch376_open_search::
-                            307 ;../generic/ch376s.c:119: write_command (CMD_OPEN_FILE);
-   00E9 2E 32         [ 7]  308 	ld	l, #0x32
-   00EB CDr00r00      [17]  309 	call	_write_command
-                            310 ;../generic/ch376s.c:120: if (ch376_wait_status ()!=USB_INT_DISK_READ)
-   00EE CDr6Br00      [17]  311 	call	_ch376_wait_status
-   00F1 7D            [ 4]  312 	ld	a, l
-   00F2 D6 1D         [ 7]  313 	sub	a, #0x1d
-                            314 ;../generic/ch376s.c:121: return false;
-                            315 ;../generic/ch376s.c:122: return true;
-   00F4 2E 00         [ 7]  316 	ld	l, #0x00
-   00F6 C0            [11]  317 	ret	NZ
-   00F7 2E 01         [ 7]  318 	ld	l, #0x01
-                            319 ;../generic/ch376s.c:123: }
-   00F9 C9            [10]  320 	ret
-                            321 ;../generic/ch376s.c:124: bool ch376_next_search ()
-                            322 ;	---------------------------------
-                            323 ; Function ch376_next_search
-                            324 ; ---------------------------------
-   00FA                     325 _ch376_next_search::
-                            326 ;../generic/ch376s.c:127: write_command (CMD_FILE_ENUM_GO);
-   00FA 2E 33         [ 7]  327 	ld	l, #0x33
-   00FC CDr00r00      [17]  328 	call	_write_command
-                            329 ;../generic/ch376s.c:128: if (ch376_wait_status ()!=USB_INT_DISK_READ)
-   00FF CDr6Br00      [17]  330 	call	_ch376_wait_status
-   0102 7D            [ 4]  331 	ld	a, l
-   0103 D6 1D         [ 7]  332 	sub	a, #0x1d
-                            333 ;../generic/ch376s.c:129: return false;
-                            334 ;../generic/ch376s.c:130: return true;
-   0105 2E 00         [ 7]  335 	ld	l, #0x00
-   0107 C0            [11]  336 	ret	NZ
-   0108 2E 01         [ 7]  337 	ld	l, #0x01
-                            338 ;../generic/ch376s.c:131: }
-   010A C9            [10]  339 	ret
-                            340 ;../generic/ch376s.c:132: void ch376_get_fat_info (fat_dir_info_t* info)
-                            341 ;	---------------------------------
-                            342 ; Function ch376_get_fat_info
-                            343 ; ---------------------------------
-   010B                     344 _ch376_get_fat_info::
-                            345 ;../generic/ch376s.c:135: write_command(CMD_RD_USB_DATA);
-   010B 2E 27         [ 7]  346 	ld	l, #0x27
-   010D CDr00r00      [17]  347 	call	_write_command
-                            348 ;../generic/ch376s.c:136: uint8_t len = read_data();
-   0110 CDr00r00      [17]  349 	call	_read_data
-   0113 65            [ 4]  350 	ld	h, l
-                            351 ;../generic/ch376s.c:137: read_data_multiple ((uint8_t*) info,len);
-   0114 D1            [10]  352 	pop	de
-   0115 C1            [10]  353 	pop	bc
-   0116 C5            [11]  354 	push	bc
-   0117 D5            [11]  355 	push	de
-   0118 E5            [11]  356 	push	hl
-   0119 33            [ 6]  357 	inc	sp
-   011A C5            [11]  358 	push	bc
-   011B CDr00r00      [17]  359 	call	_read_data_multiple
-   011E F1            [10]  360 	pop	af
-   011F 33            [ 6]  361 	inc	sp
-                            362 ;../generic/ch376s.c:138: }
-   0120 C9            [10]  363 	ret
-                            364 ;../generic/ch376s.c:140: bool ch376_locate_sector (uint8_t* sector)
-                            365 ;	---------------------------------
-                            366 ; Function ch376_locate_sector
-                            367 ; ---------------------------------
-   0121                     368 _ch376_locate_sector::
-                            369 ;../generic/ch376s.c:142: write_command (CMD_SEC_LOCATE);
-   0121 2E 4A         [ 7]  370 	ld	l, #0x4a
-   0123 CDr00r00      [17]  371 	call	_write_command
-                            372 ;../generic/ch376s.c:143: write_data (sector[0]);
-   0126 D1            [10]  373 	pop	de
-   0127 C1            [10]  374 	pop	bc
-   0128 C5            [11]  375 	push	bc
-   0129 D5            [11]  376 	push	de
-   012A 0A            [ 7]  377 	ld	a, (bc)
-   012B 6F            [ 4]  378 	ld	l, a
-   012C C5            [11]  379 	push	bc
-   012D CDr00r00      [17]  380 	call	_write_data
-   0130 C1            [10]  381 	pop	bc
-                            382 ;../generic/ch376s.c:144: write_data (sector[1]);
-   0131 69            [ 4]  383 	ld	l, c
-   0132 60            [ 4]  384 	ld	h, b
-   0133 23            [ 6]  385 	inc	hl
-   0134 6E            [ 7]  386 	ld	l, (hl)
-   0135 C5            [11]  387 	push	bc
-   0136 CDr00r00      [17]  388 	call	_write_data
-   0139 C1            [10]  389 	pop	bc
-                            390 ;../generic/ch376s.c:145: write_data (sector[2]);
-   013A 69            [ 4]  391 	ld	l, c
-   013B 60            [ 4]  392 	ld	h, b
-   013C 23            [ 6]  393 	inc	hl
-   013D 23            [ 6]  394 	inc	hl
-   013E 6E            [ 7]  395 	ld	l, (hl)
-   013F C5            [11]  396 	push	bc
-   0140 CDr00r00      [17]  397 	call	_write_data
-                            398 ;../generic/ch376s.c:146: write_data (sector[3]);
-   0143 E1            [10]  399 	pop	hl
-   0144 23            [ 6]  400 	inc	hl
-   0145 23            [ 6]  401 	inc	hl
-   0146 23            [ 6]  402 	inc	hl
-   0147 6E            [ 7]  403 	ld	l, (hl)
-   0148 CDr00r00      [17]  404 	call	_write_data
-                            405 ;../generic/ch376s.c:148: if (ch376_wait_status ()!=USB_INT_SUCCESS)
-   014B CDr6Br00      [17]  406 	call	_ch376_wait_status
-   014E 7D            [ 4]  407 	ld	a, l
-   014F D6 14         [ 7]  408 	sub	a, #0x14
-                            409 ;../generic/ch376s.c:149: return false;
-                            410 ;../generic/ch376s.c:150: return true;    
-   0151 2E 00         [ 7]  411 	ld	l, #0x00
-   0153 C0            [11]  412 	ret	NZ
-   0154 2E 01         [ 7]  413 	ld	l, #0x01
-                            414 ;../generic/ch376s.c:151: }
-   0156 C9            [10]  415 	ret
-                            416 ;../generic/ch376s.c:153: bool ch376_get_sector_LBA (uint8_t nr_sectors,uint8_t* sectors_allowed_lba)
-                            417 ;	---------------------------------
-                            418 ; Function ch376_get_sector_LBA
-                            419 ; ---------------------------------
-   0157                     420 _ch376_get_sector_LBA::
-                            421 ;../generic/ch376s.c:155: write_command (CMD_SEC_READ);
-   0157 2E 4B         [ 7]  422 	ld	l, #0x4b
-   0159 CDr00r00      [17]  423 	call	_write_command
-                            424 ;../generic/ch376s.c:156: write_data (nr_sectors);
-   015C FD 21 02 00   [14]  425 	ld	iy, #2
-   0160 FD 39         [15]  426 	add	iy, sp
-   0162 FD 6E 00      [19]  427 	ld	l, 0 (iy)
-   0165 CDr00r00      [17]  428 	call	_write_data
-                            429 ;../generic/ch376s.c:157: if (ch376_wait_status ()!=USB_INT_SUCCESS)
-   0168 CDr6Br00      [17]  430 	call	_ch376_wait_status
-   016B 7D            [ 4]  431 	ld	a, l
-   016C D6 14         [ 7]  432 	sub	a, #0x14
-   016E 28 03         [12]  433 	jr	Z,00102$
-                            434 ;../generic/ch376s.c:158: return false;
-   0170 2E 00         [ 7]  435 	ld	l, #0x00
-   0172 C9            [10]  436 	ret
-   0173                     437 00102$:
-                            438 ;../generic/ch376s.c:163: write_command(CMD_RD_USB_DATA);
-   0173 2E 27         [ 7]  439 	ld	l, #0x27
-   0175 CDr00r00      [17]  440 	call	_write_command
-                            441 ;../generic/ch376s.c:164: uint8_t len = read_data();
-   0178 CDr00r00      [17]  442 	call	_read_data
-   017B 7D            [ 4]  443 	ld	a, l
-                            444 ;../generic/ch376s.c:168: read_data_multiple (sectors_allowed_lba,len);
-   017C F5            [11]  445 	push	af
-   017D 33            [ 6]  446 	inc	sp
-   017E 21 04 00      [10]  447 	ld	hl, #4
-   0181 39            [11]  448 	add	hl, sp
-   0182 4E            [ 7]  449 	ld	c, (hl)
-   0183 23            [ 6]  450 	inc	hl
-   0184 46            [ 7]  451 	ld	b, (hl)
-   0185 C5            [11]  452 	push	bc
-   0186 CDr00r00      [17]  453 	call	_read_data_multiple
-   0189 F1            [10]  454 	pop	af
-   018A 33            [ 6]  455 	inc	sp
-                            456 ;../generic/ch376s.c:170: return true;
-   018B 2E 01         [ 7]  457 	ld	l, #0x01
-                            458 ;../generic/ch376s.c:171: }
-   018D C9            [10]  459 	ret
-                            460 ;../generic/ch376s.c:173: bool ch376s_disk_read (uint8_t nr_sectors,uint8_t* lba,uint8_t* sector_buffer)
-                            461 ;	---------------------------------
-                            462 ; Function ch376s_disk_read
-                            463 ; ---------------------------------
-   018E                     464 _ch376s_disk_read::
-                            465 ;../generic/ch376s.c:175: write_command (CMD_DISK_READ);
-   018E 2E 54         [ 7]  466 	ld	l, #0x54
-   0190 CDr00r00      [17]  467 	call	_write_command
-                            468 ;../generic/ch376s.c:176: write_data (lba[0]);
-   0193 21 03 00      [10]  469 	ld	hl, #3
-   0196 39            [11]  470 	add	hl, sp
-   0197 4E            [ 7]  471 	ld	c, (hl)
-   0198 23            [ 6]  472 	inc	hl
-   0199 46            [ 7]  473 	ld	b, (hl)
-   019A 0A            [ 7]  474 	ld	a, (bc)
-   019B 6F            [ 4]  475 	ld	l, a
-   019C C5            [11]  476 	push	bc
-   019D CDr00r00      [17]  477 	call	_write_data
-   01A0 C1            [10]  478 	pop	bc
-                            479 ;../generic/ch376s.c:177: write_data (lba[1]);
-   01A1 69            [ 4]  480 	ld	l, c
-   01A2 60            [ 4]  481 	ld	h, b
-   01A3 23            [ 6]  482 	inc	hl
-   01A4 6E            [ 7]  483 	ld	l, (hl)
-   01A5 C5            [11]  484 	push	bc
-   01A6 CDr00r00      [17]  485 	call	_write_data
-   01A9 C1            [10]  486 	pop	bc
-                            487 ;../generic/ch376s.c:178: write_data (lba[2]);
-   01AA 69            [ 4]  488 	ld	l, c
-   01AB 60            [ 4]  489 	ld	h, b
-   01AC 23            [ 6]  490 	inc	hl
-   01AD 23            [ 6]  491 	inc	hl
-   01AE 6E            [ 7]  492 	ld	l, (hl)
-   01AF C5            [11]  493 	push	bc
-   01B0 CDr00r00      [17]  494 	call	_write_data
-                            495 ;../generic/ch376s.c:179: write_data (lba[3]);
-   01B3 E1            [10]  496 	pop	hl
-   01B4 23            [ 6]  497 	inc	hl
-   01B5 23            [ 6]  498 	inc	hl
-   01B6 23            [ 6]  499 	inc	hl
-   01B7 6E            [ 7]  500 	ld	l, (hl)
-   01B8 CDr00r00      [17]  501 	call	_write_data
-                            502 ;../generic/ch376s.c:180: write_data (nr_sectors);
-   01BB FD 21 02 00   [14]  503 	ld	iy, #2
-   01BF FD 39         [15]  504 	add	iy, sp
-   01C1 FD 6E 00      [19]  505 	ld	l, 0 (iy)
-   01C4 CDr00r00      [17]  506 	call	_write_data
-                            507 ;../generic/ch376s.c:186: do
-   01C7                     508 00105$:
-                            509 ;../generic/ch376s.c:188: uint8_t status = ch376_wait_status ();
-   01C7 CDr6Br00      [17]  510 	call	_ch376_wait_status
-   01CA 7D            [ 4]  511 	ld	a, l
-                            512 ;../generic/ch376s.c:189: if (status==USB_INT_SUCCESS)
-   01CB FE 14         [ 7]  513 	cp	a, #0x14
-   01CD 20 03         [12]  514 	jr	NZ,00102$
-                            515 ;../generic/ch376s.c:190: return true;
-   01CF 2E 01         [ 7]  516 	ld	l, #0x01
-   01D1 C9            [10]  517 	ret
-   01D2                     518 00102$:
-                            519 ;../generic/ch376s.c:191: if (status!=USB_INT_DISK_READ)
-   01D2 D6 1D         [ 7]  520 	sub	a, #0x1d
-   01D4 28 03         [12]  521 	jr	Z,00104$
-                            522 ;../generic/ch376s.c:192: return false;
-   01D6 2E 00         [ 7]  523 	ld	l, #0x00
-   01D8 C9            [10]  524 	ret
-   01D9                     525 00104$:
-                            526 ;../generic/ch376s.c:194: write_command(CMD_RD_USB_DATA);
-   01D9 2E 27         [ 7]  527 	ld	l, #0x27
-   01DB CDr00r00      [17]  528 	call	_write_command
-                            529 ;../generic/ch376s.c:195: uint8_t len = read_data();
-   01DE CDr00r00      [17]  530 	call	_read_data
-   01E1 45            [ 4]  531 	ld	b, l
-                            532 ;../generic/ch376s.c:202: read_data_multiple (sector_buffer,len);
-   01E2 C5            [11]  533 	push	bc
-   01E3 C5            [11]  534 	push	bc
-   01E4 33            [ 6]  535 	inc	sp
-   01E5 21 08 00      [10]  536 	ld	hl, #8
-   01E8 39            [11]  537 	add	hl, sp
-   01E9 4E            [ 7]  538 	ld	c, (hl)
-   01EA 23            [ 6]  539 	inc	hl
-   01EB 46            [ 7]  540 	ld	b, (hl)
-   01EC C5            [11]  541 	push	bc
-   01ED CDr00r00      [17]  542 	call	_read_data_multiple
-   01F0 F1            [10]  543 	pop	af
-   01F1 33            [ 6]  544 	inc	sp
-   01F2 C1            [10]  545 	pop	bc
-                            546 ;../generic/ch376s.c:203: sector_buffer+=len;
-   01F3 21 05 00      [10]  547 	ld	hl, #5
-   01F6 39            [11]  548 	add	hl, sp
-   01F7 7E            [ 7]  549 	ld	a, (hl)
-   01F8 80            [ 4]  550 	add	a, b
-   01F9 77            [ 7]  551 	ld	(hl), a
-   01FA 30 02         [12]  552 	jr	NC,00128$
-   01FC 23            [ 6]  553 	inc	hl
-   01FD 34            [11]  554 	inc	(hl)
-   01FE                     555 00128$:
-                            556 ;../generic/ch376s.c:205: write_command (CMD_DISK_RD_GO);
-   01FE 2E 55         [ 7]  557 	ld	l, #0x55
-   0200 CDr00r00      [17]  558 	call	_write_command
-                            559 ;../generic/ch376s.c:207: while (true);
-                            560 ;../generic/ch376s.c:211: }
-   0203 18 C2         [12]  561 	jr	00105$
-                            562 ;../generic/ch376s.c:213: bool ch376s_disk_write (uint8_t nr_sectors,uint8_t* lba,uint8_t* sector_buffer)
-                            563 ;	---------------------------------
-                            564 ; Function ch376s_disk_write
-                            565 ; ---------------------------------
-   0205                     566 _ch376s_disk_write::
-   0205 DD E5         [15]  567 	push	ix
-   0207 DD 21 00 00   [14]  568 	ld	ix,#0
-   020B DD 39         [15]  569 	add	ix,sp
-                            570 ;../generic/ch376s.c:215: write_command (CMD_DISK_WRITE);
-   020D 2E 56         [ 7]  571 	ld	l, #0x56
-   020F CDr00r00      [17]  572 	call	_write_command
-                            573 ;../generic/ch376s.c:216: write_data (lba[0]);
-   0212 DD 4E 05      [19]  574 	ld	c, 5 (ix)
-   0215 DD 46 06      [19]  575 	ld	b, 6 (ix)
-   0218 0A            [ 7]  576 	ld	a, (bc)
-   0219 6F            [ 4]  577 	ld	l, a
-   021A C5            [11]  578 	push	bc
-   021B CDr00r00      [17]  579 	call	_write_data
-   021E C1            [10]  580 	pop	bc
-                            581 ;../generic/ch376s.c:217: write_data (lba[1]);
-   021F 69            [ 4]  582 	ld	l, c
-   0220 60            [ 4]  583 	ld	h, b
-   0221 23            [ 6]  584 	inc	hl
-   0222 6E            [ 7]  585 	ld	l, (hl)
-   0223 C5            [11]  586 	push	bc
-   0224 CDr00r00      [17]  587 	call	_write_data
-   0227 C1            [10]  588 	pop	bc
-                            589 ;../generic/ch376s.c:218: write_data (lba[2]);
-   0228 69            [ 4]  590 	ld	l, c
-   0229 60            [ 4]  591 	ld	h, b
-   022A 23            [ 6]  592 	inc	hl
-   022B 23            [ 6]  593 	inc	hl
-   022C 6E            [ 7]  594 	ld	l, (hl)
-   022D C5            [11]  595 	push	bc
-   022E CDr00r00      [17]  596 	call	_write_data
-                            597 ;../generic/ch376s.c:219: write_data (lba[3]);
-   0231 E1            [10]  598 	pop	hl
-   0232 23            [ 6]  599 	inc	hl
-   0233 23            [ 6]  600 	inc	hl
-   0234 23            [ 6]  601 	inc	hl
-   0235 6E            [ 7]  602 	ld	l, (hl)
-   0236 CDr00r00      [17]  603 	call	_write_data
-                            604 ;../generic/ch376s.c:220: write_data (nr_sectors);
-   0239 DD 6E 04      [19]  605 	ld	l, 4 (ix)
-   023C CDr00r00      [17]  606 	call	_write_data
-                            607 ;../generic/ch376s.c:223: uint8_t blocks = nr_sectors*(512/MAX_PACKET_LENGTH);
-   023F DD 7E 04      [19]  608 	ld	a, 4 (ix)
-   0242 87            [ 4]  609 	add	a, a
-   0243 87            [ 4]  610 	add	a, a
-   0244 87            [ 4]  611 	add	a, a
-   0245 4F            [ 4]  612 	ld	c, a
-                            613 ;../generic/ch376s.c:224: for (cnt_write = 0;cnt_write < blocks;cnt_write++)
-   0246 DD 6E 07      [19]  614 	ld	l, 7 (ix)
-   0249 DD 66 08      [19]  615 	ld	h, 8 (ix)
-   024C 06 00         [ 7]  616 	ld	b, #0x00
-   024E                     617 00107$:
-   024E 78            [ 4]  618 	ld	a, b
-   024F 91            [ 4]  619 	sub	a, c
-   0250 30 44         [12]  620 	jr	NC,00105$
-                            621 ;../generic/ch376s.c:226: uint8_t status = ch376_wait_status ();
-   0252 E5            [11]  622 	push	hl
-   0253 C5            [11]  623 	push	bc
-   0254 CDr6Br00      [17]  624 	call	_ch376_wait_status
-   0257 7D            [ 4]  625 	ld	a, l
-   0258 C1            [10]  626 	pop	bc
-   0259 E1            [10]  627 	pop	hl
-                            628 ;../generic/ch376s.c:227: if (status==USB_INT_SUCCESS)
-   025A FE 14         [ 7]  629 	cp	a, #0x14
-   025C 20 04         [12]  630 	jr	NZ,00102$
-                            631 ;../generic/ch376s.c:228: return true;
-   025E 2E 01         [ 7]  632 	ld	l, #0x01
-   0260 18 36         [12]  633 	jr	00109$
-   0262                     634 00102$:
-                            635 ;../generic/ch376s.c:229: if (status!=USB_INT_DISK_WRITE)
-   0262 D6 1E         [ 7]  636 	sub	a, #0x1e
-   0264 28 04         [12]  637 	jr	Z,00104$
-                            638 ;../generic/ch376s.c:230: return false;
-   0266 2E 00         [ 7]  639 	ld	l, #0x00
-   0268 18 2E         [12]  640 	jr	00109$
-   026A                     641 00104$:
-                            642 ;../generic/ch376s.c:232: write_command(CMD_WR_HOST_DATA);
-   026A E5            [11]  643 	push	hl
-   026B C5            [11]  644 	push	bc
-   026C 2E 2C         [ 7]  645 	ld	l, #0x2c
-   026E CDr00r00      [17]  646 	call	_write_command
-   0271 2E 40         [ 7]  647 	ld	l, #0x40
-   0273 CDr00r00      [17]  648 	call	_write_data
-   0276 C1            [10]  649 	pop	bc
-   0277 E1            [10]  650 	pop	hl
-                            651 ;../generic/ch376s.c:234: write_data_multiple (sector_buffer,MAX_PACKET_LENGTH);
-   0278 E5            [11]  652 	push	hl
-   0279 C5            [11]  653 	push	bc
-   027A 3E 40         [ 7]  654 	ld	a, #0x40
-   027C F5            [11]  655 	push	af
-   027D 33            [ 6]  656 	inc	sp
-   027E E5            [11]  657 	push	hl
-   027F CDr00r00      [17]  658 	call	_write_data_multiple
-   0282 F1            [10]  659 	pop	af
-   0283 33            [ 6]  660 	inc	sp
-   0284 C1            [10]  661 	pop	bc
-   0285 E1            [10]  662 	pop	hl
-                            663 ;../generic/ch376s.c:235: sector_buffer+=MAX_PACKET_LENGTH;
-   0286 11 40 00      [10]  664 	ld	de, #0x0040
-   0289 19            [11]  665 	add	hl, de
-                            666 ;../generic/ch376s.c:236: write_command (CMD_DISK_WR_GO);
-   028A E5            [11]  667 	push	hl
-   028B C5            [11]  668 	push	bc
-   028C 2E 57         [ 7]  669 	ld	l, #0x57
-   028E CDr00r00      [17]  670 	call	_write_command
-   0291 C1            [10]  671 	pop	bc
-   0292 E1            [10]  672 	pop	hl
-                            673 ;../generic/ch376s.c:224: for (cnt_write = 0;cnt_write < blocks;cnt_write++)
-   0293 04            [ 4]  674 	inc	b
-   0294 18 B8         [12]  675 	jr	00107$
-   0296                     676 00105$:
-                            677 ;../generic/ch376s.c:238: return true;
-   0296 2E 01         [ 7]  678 	ld	l, #0x01
-   0298                     679 00109$:
-                            680 ;../generic/ch376s.c:239: }
-   0298 DD E1         [14]  681 	pop	ix
-   029A C9            [10]  682 	ret
-                            683 ;../generic/ch376s.c:242: uint8_t ch376_get_ic_version()
-                            684 ;	---------------------------------
-                            685 ; Function ch376_get_ic_version
-                            686 ; ---------------------------------
-   029B                     687 _ch376_get_ic_version::
-                            688 ;../generic/ch376s.c:244: write_command(CMD_GET_IC_VER);
-   029B 2E 01         [ 7]  689 	ld	l, #0x01
-   029D CDr00r00      [17]  690 	call	_write_command
-                            691 ;../generic/ch376s.c:245: delay_ms (100);
-   02A0 21 64 00      [10]  692 	ld	hl, #0x0064
-   02A3 E5            [11]  693 	push	hl
-   02A4 CDr00r00      [17]  694 	call	_delay_ms
-   02A7 F1            [10]  695 	pop	af
-                            696 ;../generic/ch376s.c:246: return read_data() & 0x1f;
-   02A8 CDr00r00      [17]  697 	call	_read_data
-   02AB 7D            [ 4]  698 	ld	a, l
-   02AC E6 1F         [ 7]  699 	and	a, #0x1f
-   02AE 6F            [ 4]  700 	ld	l, a
-                            701 ;../generic/ch376s.c:247: }
-   02AF C9            [10]  702 	ret
-                            703 	.area _CODE
-                            704 	.area _INITIALIZER
-                            705 	.area _CABS (ABS)
+   001E 28 03         [12]  100 	jr	Z,00102$
+                            101 ;..\generic\ch376s.c:33: return false;
+   0020 2E 00         [ 7]  102 	ld	l, #0x00
+   0022 C9            [10]  103 	ret
+   0023                     104 00102$:
+                            105 ;..\generic\ch376s.c:34: return true;
+   0023 2E 01         [ 7]  106 	ld	l, #0x01
+                            107 ;..\generic\ch376s.c:35: }
+   0025 C9            [10]  108 	ret
+                            109 ;..\generic\ch376s.c:36: bool ch376_set_usb_host_mode(uint8_t mode)
+                            110 ;	---------------------------------
+                            111 ; Function ch376_set_usb_host_mode
+                            112 ; ---------------------------------
+   0026                     113 _ch376_set_usb_host_mode::
+                            114 ;..\generic\ch376s.c:38: write_command(CMD_SET_USB_MODE);
+   0026 2E 15         [ 7]  115 	ld	l, #0x15
+   0028 CDr00r00      [17]  116 	call	_write_command
+                            117 ;..\generic\ch376s.c:39: write_data(mode);
+   002B FD 21 02 00   [14]  118 	ld	iy, #2
+   002F FD 39         [15]  119 	add	iy, sp
+   0031 FD 6E 00      [19]  120 	ld	l, 0 (iy)
+   0034 CDr00r00      [17]  121 	call	_write_data
+                            122 ;..\generic\ch376s.c:40: delay_ms (250);
+   0037 21 FA 00      [10]  123 	ld	hl, #0x00fa
+   003A E5            [11]  124 	push	hl
+   003B CDr00r00      [17]  125 	call	_delay_ms
+   003E F1            [10]  126 	pop	af
+                            127 ;..\generic\ch376s.c:42: value = read_data();
+   003F CDr00r00      [17]  128 	call	_read_data
+   0042 7D            [ 4]  129 	ld	a, l
+                            130 ;..\generic\ch376s.c:43: if ( value == CMD_RET_SUCCESS )
+   0043 D6 51         [ 7]  131 	sub	a, #0x51
+   0045 20 03         [12]  132 	jr	NZ,00102$
+                            133 ;..\generic\ch376s.c:44: return true;
+   0047 2E 01         [ 7]  134 	ld	l, #0x01
+   0049 C9            [10]  135 	ret
+   004A                     136 00102$:
+                            137 ;..\generic\ch376s.c:45: return false;
+   004A 2E 00         [ 7]  138 	ld	l, #0x00
+                            139 ;..\generic\ch376s.c:46: }
+   004C C9            [10]  140 	ret
+                            141 ;..\generic\ch376s.c:47: bool ch376_connect_disk ()
+                            142 ;	---------------------------------
+                            143 ; Function ch376_connect_disk
+                            144 ; ---------------------------------
+   004D                     145 _ch376_connect_disk::
+                            146 ;..\generic\ch376s.c:49: write_command (CMD_DISK_CONNECT);
+   004D 2E 30         [ 7]  147 	ld	l, #0x30
+   004F CDr00r00      [17]  148 	call	_write_command
+                            149 ;..\generic\ch376s.c:50: if (ch376_wait_status ()!=USB_INT_SUCCESS)
+   0052 CDr73r00      [17]  150 	call	_ch376_wait_status
+   0055 7D            [ 4]  151 	ld	a, l
+   0056 D6 14         [ 7]  152 	sub	a, #0x14
+   0058 28 03         [12]  153 	jr	Z,00102$
+                            154 ;..\generic\ch376s.c:51: return false;
+   005A 2E 00         [ 7]  155 	ld	l, #0x00
+   005C C9            [10]  156 	ret
+   005D                     157 00102$:
+                            158 ;..\generic\ch376s.c:52: return true;
+   005D 2E 01         [ 7]  159 	ld	l, #0x01
+                            160 ;..\generic\ch376s.c:53: }
+   005F C9            [10]  161 	ret
+                            162 ;..\generic\ch376s.c:54: bool ch376_mount_disk ()
+                            163 ;	---------------------------------
+                            164 ; Function ch376_mount_disk
+                            165 ; ---------------------------------
+   0060                     166 _ch376_mount_disk::
+                            167 ;..\generic\ch376s.c:56: write_command (CMD_DISK_MOUNT);
+   0060 2E 31         [ 7]  168 	ld	l, #0x31
+   0062 CDr00r00      [17]  169 	call	_write_command
+                            170 ;..\generic\ch376s.c:57: if (ch376_wait_status ()!=USB_INT_SUCCESS)
+   0065 CDr73r00      [17]  171 	call	_ch376_wait_status
+   0068 7D            [ 4]  172 	ld	a, l
+   0069 D6 14         [ 7]  173 	sub	a, #0x14
+   006B 28 03         [12]  174 	jr	Z,00102$
+                            175 ;..\generic\ch376s.c:58: return false;
+   006D 2E 00         [ 7]  176 	ld	l, #0x00
+   006F C9            [10]  177 	ret
+   0070                     178 00102$:
+                            179 ;..\generic\ch376s.c:59: return true;
+   0070 2E 01         [ 7]  180 	ld	l, #0x01
+                            181 ;..\generic\ch376s.c:60: }
+   0072 C9            [10]  182 	ret
+                            183 ;..\generic\ch376s.c:62: uint8_t ch376_wait_status ()
+                            184 ;	---------------------------------
+                            185 ; Function ch376_wait_status
+                            186 ; ---------------------------------
+   0073                     187 _ch376_wait_status::
+                            188 ;..\generic\ch376s.c:67: while (true)
+   0073                     189 00104$:
+                            190 ;..\generic\ch376s.c:69: interrupt=read_status();
+   0073 CDr00r00      [17]  191 	call	_read_status
+   0076 7D            [ 4]  192 	ld	a, l
+                            193 ;..\generic\ch376s.c:70: if ((interrupt&0x80)==0)
+   0077 07            [ 4]  194 	rlca
+   0078 38 F9         [12]  195 	jr	C,00104$
+                            196 ;..\generic\ch376s.c:77: write_command(CMD_GET_STATUS);
+   007A 2E 22         [ 7]  197 	ld	l, #0x22
+   007C CDr00r00      [17]  198 	call	_write_command
+                            199 ;..\generic\ch376s.c:78: return read_data ();
+                            200 ;..\generic\ch376s.c:79: }
+   007F C3r00r00      [10]  201 	jp  _read_data
+                            202 ;..\generic\ch376s.c:81: uint8_t ch376_get_register_value (uint8_t reg)
+                            203 ;	---------------------------------
+                            204 ; Function ch376_get_register_value
+                            205 ; ---------------------------------
+   0082                     206 _ch376_get_register_value::
+                            207 ;..\generic\ch376s.c:83: write_command (CMD_GET_REGISTER);
+   0082 2E 0A         [ 7]  208 	ld	l, #0x0a
+   0084 CDr00r00      [17]  209 	call	_write_command
+                            210 ;..\generic\ch376s.c:84: write_data (reg); 
+   0087 FD 21 02 00   [14]  211 	ld	iy, #2
+   008B FD 39         [15]  212 	add	iy, sp
+   008D FD 6E 00      [19]  213 	ld	l, 0 (iy)
+   0090 CDr00r00      [17]  214 	call	_write_data
+                            215 ;..\generic\ch376s.c:85: return read_data ();
+                            216 ;..\generic\ch376s.c:86: }
+   0093 C3r00r00      [10]  217 	jp  _read_data
+                            218 ;..\generic\ch376s.c:88: void ch376_set_filename (char* name)
+                            219 ;	---------------------------------
+                            220 ; Function ch376_set_filename
+                            221 ; ---------------------------------
+   0096                     222 _ch376_set_filename::
+                            223 ;..\generic\ch376s.c:90: write_command (CMD_SET_FILE_NAME);
+   0096 2E 2F         [ 7]  224 	ld	l, #0x2f
+   0098 CDr00r00      [17]  225 	call	_write_command
+                            226 ;..\generic\ch376s.c:91: write_data_multiple ((uint8_t*) name,strlen(name));
+   009B C1            [10]  227 	pop	bc
+   009C E1            [10]  228 	pop	hl
+   009D E5            [11]  229 	push	hl
+   009E C5            [11]  230 	push	bc
+   009F E5            [11]  231 	push	hl
+   00A0 CDr00r00      [17]  232 	call	_strlen
+   00A3 F1            [10]  233 	pop	af
+   00A4 45            [ 4]  234 	ld	b, l
+   00A5 C5            [11]  235 	push	bc
+   00A6 33            [ 6]  236 	inc	sp
+   00A7 21 03 00      [10]  237 	ld	hl, #3
+   00AA 39            [11]  238 	add	hl, sp
+   00AB 4E            [ 7]  239 	ld	c, (hl)
+   00AC 23            [ 6]  240 	inc	hl
+   00AD 46            [ 7]  241 	ld	b, (hl)
+   00AE C5            [11]  242 	push	bc
+   00AF CDr00r00      [17]  243 	call	_write_data_multiple
+   00B2 F1            [10]  244 	pop	af
+   00B3 33            [ 6]  245 	inc	sp
+                            246 ;..\generic\ch376s.c:92: write_data (0);
+   00B4 2E 00         [ 7]  247 	ld	l, #0x00
+                            248 ;..\generic\ch376s.c:93: }
+   00B6 C3r00r00      [10]  249 	jp  _write_data
+                            250 ;..\generic\ch376s.c:94: bool ch376_open_file ()
+                            251 ;	---------------------------------
+                            252 ; Function ch376_open_file
+                            253 ; ---------------------------------
+   00B9                     254 _ch376_open_file::
+                            255 ;..\generic\ch376s.c:96: write_command (CMD_OPEN_FILE);
+   00B9 2E 32         [ 7]  256 	ld	l, #0x32
+   00BB CDr00r00      [17]  257 	call	_write_command
+                            258 ;..\generic\ch376s.c:97: if (ch376_wait_status ()!=USB_INT_SUCCESS)
+   00BE CDr73r00      [17]  259 	call	_ch376_wait_status
+   00C1 7D            [ 4]  260 	ld	a, l
+   00C2 D6 14         [ 7]  261 	sub	a, #0x14
+   00C4 28 03         [12]  262 	jr	Z,00102$
+                            263 ;..\generic\ch376s.c:98: return false;
+   00C6 2E 00         [ 7]  264 	ld	l, #0x00
+   00C8 C9            [10]  265 	ret
+   00C9                     266 00102$:
+                            267 ;..\generic\ch376s.c:99: return true;
+   00C9 2E 01         [ 7]  268 	ld	l, #0x01
+                            269 ;..\generic\ch376s.c:100: }
+   00CB C9            [10]  270 	ret
+                            271 ;..\generic\ch376s.c:101: bool ch376_close_file ()
+                            272 ;	---------------------------------
+                            273 ; Function ch376_close_file
+                            274 ; ---------------------------------
+   00CC                     275 _ch376_close_file::
+                            276 ;..\generic\ch376s.c:103: write_command (CMD_CLOSE_FILE);
+   00CC 2E 36         [ 7]  277 	ld	l, #0x36
+   00CE CDr00r00      [17]  278 	call	_write_command
+                            279 ;..\generic\ch376s.c:104: write_data (0);
+   00D1 2E 00         [ 7]  280 	ld	l, #0x00
+   00D3 CDr00r00      [17]  281 	call	_write_data
+                            282 ;..\generic\ch376s.c:105: if (ch376_wait_status ()!=USB_INT_SUCCESS)
+   00D6 CDr73r00      [17]  283 	call	_ch376_wait_status
+   00D9 7D            [ 4]  284 	ld	a, l
+   00DA D6 14         [ 7]  285 	sub	a, #0x14
+   00DC 28 03         [12]  286 	jr	Z,00102$
+                            287 ;..\generic\ch376s.c:106: return false;
+   00DE 2E 00         [ 7]  288 	ld	l, #0x00
+   00E0 C9            [10]  289 	ret
+   00E1                     290 00102$:
+                            291 ;..\generic\ch376s.c:107: return true;
+   00E1 2E 01         [ 7]  292 	ld	l, #0x01
+                            293 ;..\generic\ch376s.c:108: }
+   00E3 C9            [10]  294 	ret
+                            295 ;..\generic\ch376s.c:109: bool ch376_open_directory ()
+                            296 ;	---------------------------------
+                            297 ; Function ch376_open_directory
+                            298 ; ---------------------------------
+   00E4                     299 _ch376_open_directory::
+                            300 ;..\generic\ch376s.c:111: write_command (CMD_OPEN_FILE);
+   00E4 2E 32         [ 7]  301 	ld	l, #0x32
+   00E6 CDr00r00      [17]  302 	call	_write_command
+                            303 ;..\generic\ch376s.c:112: if (ch376_wait_status ()!=USB_ERR_OPEN_DIR)
+   00E9 CDr73r00      [17]  304 	call	_ch376_wait_status
+   00EC 7D            [ 4]  305 	ld	a, l
+   00ED D6 41         [ 7]  306 	sub	a, #0x41
+   00EF 28 03         [12]  307 	jr	Z,00102$
+                            308 ;..\generic\ch376s.c:113: return false;
+   00F1 2E 00         [ 7]  309 	ld	l, #0x00
+   00F3 C9            [10]  310 	ret
+   00F4                     311 00102$:
+                            312 ;..\generic\ch376s.c:114: return true;
+   00F4 2E 01         [ 7]  313 	ld	l, #0x01
+                            314 ;..\generic\ch376s.c:115: }
+   00F6 C9            [10]  315 	ret
+                            316 ;..\generic\ch376s.c:116: bool ch376_open_search ()
+                            317 ;	---------------------------------
+                            318 ; Function ch376_open_search
+                            319 ; ---------------------------------
+   00F7                     320 _ch376_open_search::
+                            321 ;..\generic\ch376s.c:119: write_command (CMD_OPEN_FILE);
+   00F7 2E 32         [ 7]  322 	ld	l, #0x32
+   00F9 CDr00r00      [17]  323 	call	_write_command
+                            324 ;..\generic\ch376s.c:120: if (ch376_wait_status ()!=USB_INT_DISK_READ)
+   00FC CDr73r00      [17]  325 	call	_ch376_wait_status
+   00FF 7D            [ 4]  326 	ld	a, l
+   0100 D6 1D         [ 7]  327 	sub	a, #0x1d
+   0102 28 03         [12]  328 	jr	Z,00102$
+                            329 ;..\generic\ch376s.c:121: return false;
+   0104 2E 00         [ 7]  330 	ld	l, #0x00
+   0106 C9            [10]  331 	ret
+   0107                     332 00102$:
+                            333 ;..\generic\ch376s.c:122: return true;
+   0107 2E 01         [ 7]  334 	ld	l, #0x01
+                            335 ;..\generic\ch376s.c:123: }
+   0109 C9            [10]  336 	ret
+                            337 ;..\generic\ch376s.c:124: bool ch376_next_search ()
+                            338 ;	---------------------------------
+                            339 ; Function ch376_next_search
+                            340 ; ---------------------------------
+   010A                     341 _ch376_next_search::
+                            342 ;..\generic\ch376s.c:127: write_command (CMD_FILE_ENUM_GO);
+   010A 2E 33         [ 7]  343 	ld	l, #0x33
+   010C CDr00r00      [17]  344 	call	_write_command
+                            345 ;..\generic\ch376s.c:128: if (ch376_wait_status ()!=USB_INT_DISK_READ)
+   010F CDr73r00      [17]  346 	call	_ch376_wait_status
+   0112 7D            [ 4]  347 	ld	a, l
+   0113 D6 1D         [ 7]  348 	sub	a, #0x1d
+   0115 28 03         [12]  349 	jr	Z,00102$
+                            350 ;..\generic\ch376s.c:129: return false;
+   0117 2E 00         [ 7]  351 	ld	l, #0x00
+   0119 C9            [10]  352 	ret
+   011A                     353 00102$:
+                            354 ;..\generic\ch376s.c:130: return true;
+   011A 2E 01         [ 7]  355 	ld	l, #0x01
+                            356 ;..\generic\ch376s.c:131: }
+   011C C9            [10]  357 	ret
+                            358 ;..\generic\ch376s.c:132: void ch376_get_fat_info (fat_dir_info_t* info)
+                            359 ;	---------------------------------
+                            360 ; Function ch376_get_fat_info
+                            361 ; ---------------------------------
+   011D                     362 _ch376_get_fat_info::
+                            363 ;..\generic\ch376s.c:135: write_command(CMD_RD_USB_DATA);
+   011D 2E 27         [ 7]  364 	ld	l, #0x27
+   011F CDr00r00      [17]  365 	call	_write_command
+                            366 ;..\generic\ch376s.c:136: uint8_t len = read_data();
+   0122 CDr00r00      [17]  367 	call	_read_data
+   0125 65            [ 4]  368 	ld	h, l
+                            369 ;..\generic\ch376s.c:137: read_data_multiple ((uint8_t*) info,len);
+   0126 D1            [10]  370 	pop	de
+   0127 C1            [10]  371 	pop	bc
+   0128 C5            [11]  372 	push	bc
+   0129 D5            [11]  373 	push	de
+   012A E5            [11]  374 	push	hl
+   012B 33            [ 6]  375 	inc	sp
+   012C C5            [11]  376 	push	bc
+   012D CDr00r00      [17]  377 	call	_read_data_multiple
+   0130 F1            [10]  378 	pop	af
+   0131 33            [ 6]  379 	inc	sp
+                            380 ;..\generic\ch376s.c:138: }
+   0132 C9            [10]  381 	ret
+                            382 ;..\generic\ch376s.c:140: bool ch376_locate_sector (uint8_t* sector)
+                            383 ;	---------------------------------
+                            384 ; Function ch376_locate_sector
+                            385 ; ---------------------------------
+   0133                     386 _ch376_locate_sector::
+                            387 ;..\generic\ch376s.c:142: write_command (CMD_SEC_LOCATE);
+   0133 2E 4A         [ 7]  388 	ld	l, #0x4a
+   0135 CDr00r00      [17]  389 	call	_write_command
+                            390 ;..\generic\ch376s.c:143: write_data (sector[0]);
+   0138 D1            [10]  391 	pop	de
+   0139 C1            [10]  392 	pop	bc
+   013A C5            [11]  393 	push	bc
+   013B D5            [11]  394 	push	de
+   013C 0A            [ 7]  395 	ld	a, (bc)
+   013D 6F            [ 4]  396 	ld	l, a
+   013E C5            [11]  397 	push	bc
+   013F CDr00r00      [17]  398 	call	_write_data
+   0142 C1            [10]  399 	pop	bc
+                            400 ;..\generic\ch376s.c:144: write_data (sector[1]);
+   0143 69            [ 4]  401 	ld	l, c
+   0144 60            [ 4]  402 	ld	h, b
+   0145 23            [ 6]  403 	inc	hl
+   0146 6E            [ 7]  404 	ld	l, (hl)
+   0147 C5            [11]  405 	push	bc
+   0148 CDr00r00      [17]  406 	call	_write_data
+   014B C1            [10]  407 	pop	bc
+                            408 ;..\generic\ch376s.c:145: write_data (sector[2]);
+   014C 69            [ 4]  409 	ld	l, c
+   014D 60            [ 4]  410 	ld	h, b
+   014E 23            [ 6]  411 	inc	hl
+   014F 23            [ 6]  412 	inc	hl
+   0150 6E            [ 7]  413 	ld	l, (hl)
+   0151 C5            [11]  414 	push	bc
+   0152 CDr00r00      [17]  415 	call	_write_data
+                            416 ;..\generic\ch376s.c:146: write_data (sector[3]);
+   0155 E1            [10]  417 	pop	hl
+   0156 23            [ 6]  418 	inc	hl
+   0157 23            [ 6]  419 	inc	hl
+   0158 23            [ 6]  420 	inc	hl
+   0159 6E            [ 7]  421 	ld	l, (hl)
+   015A CDr00r00      [17]  422 	call	_write_data
+                            423 ;..\generic\ch376s.c:148: if (ch376_wait_status ()!=USB_INT_SUCCESS)
+   015D CDr73r00      [17]  424 	call	_ch376_wait_status
+   0160 7D            [ 4]  425 	ld	a, l
+   0161 D6 14         [ 7]  426 	sub	a, #0x14
+   0163 28 03         [12]  427 	jr	Z,00102$
+                            428 ;..\generic\ch376s.c:149: return false;
+   0165 2E 00         [ 7]  429 	ld	l, #0x00
+   0167 C9            [10]  430 	ret
+   0168                     431 00102$:
+                            432 ;..\generic\ch376s.c:150: return true;    
+   0168 2E 01         [ 7]  433 	ld	l, #0x01
+                            434 ;..\generic\ch376s.c:151: }
+   016A C9            [10]  435 	ret
+                            436 ;..\generic\ch376s.c:153: bool ch376_get_sector_LBA (uint8_t nr_sectors,uint8_t* sectors_allowed_lba)
+                            437 ;	---------------------------------
+                            438 ; Function ch376_get_sector_LBA
+                            439 ; ---------------------------------
+   016B                     440 _ch376_get_sector_LBA::
+                            441 ;..\generic\ch376s.c:155: write_command (CMD_SEC_READ);
+   016B 2E 4B         [ 7]  442 	ld	l, #0x4b
+   016D CDr00r00      [17]  443 	call	_write_command
+                            444 ;..\generic\ch376s.c:156: write_data (nr_sectors);
+   0170 FD 21 02 00   [14]  445 	ld	iy, #2
+   0174 FD 39         [15]  446 	add	iy, sp
+   0176 FD 6E 00      [19]  447 	ld	l, 0 (iy)
+   0179 CDr00r00      [17]  448 	call	_write_data
+                            449 ;..\generic\ch376s.c:157: if (ch376_wait_status ()!=USB_INT_SUCCESS)
+   017C CDr73r00      [17]  450 	call	_ch376_wait_status
+   017F 7D            [ 4]  451 	ld	a, l
+   0180 D6 14         [ 7]  452 	sub	a, #0x14
+   0182 28 03         [12]  453 	jr	Z,00102$
+                            454 ;..\generic\ch376s.c:158: return false;
+   0184 2E 00         [ 7]  455 	ld	l, #0x00
+   0186 C9            [10]  456 	ret
+   0187                     457 00102$:
+                            458 ;..\generic\ch376s.c:163: write_command(CMD_RD_USB_DATA);
+   0187 2E 27         [ 7]  459 	ld	l, #0x27
+   0189 CDr00r00      [17]  460 	call	_write_command
+                            461 ;..\generic\ch376s.c:164: uint8_t len = read_data();
+   018C CDr00r00      [17]  462 	call	_read_data
+   018F 7D            [ 4]  463 	ld	a, l
+                            464 ;..\generic\ch376s.c:168: read_data_multiple (sectors_allowed_lba,len);
+   0190 F5            [11]  465 	push	af
+   0191 33            [ 6]  466 	inc	sp
+   0192 21 04 00      [10]  467 	ld	hl, #4
+   0195 39            [11]  468 	add	hl, sp
+   0196 4E            [ 7]  469 	ld	c, (hl)
+   0197 23            [ 6]  470 	inc	hl
+   0198 46            [ 7]  471 	ld	b, (hl)
+   0199 C5            [11]  472 	push	bc
+   019A CDr00r00      [17]  473 	call	_read_data_multiple
+   019D F1            [10]  474 	pop	af
+   019E 33            [ 6]  475 	inc	sp
+                            476 ;..\generic\ch376s.c:170: return true;
+   019F 2E 01         [ 7]  477 	ld	l, #0x01
+                            478 ;..\generic\ch376s.c:171: }
+   01A1 C9            [10]  479 	ret
+                            480 ;..\generic\ch376s.c:173: bool ch376s_disk_read (uint8_t nr_sectors,uint8_t* lba,uint8_t* sector_buffer)
+                            481 ;	---------------------------------
+                            482 ; Function ch376s_disk_read
+                            483 ; ---------------------------------
+   01A2                     484 _ch376s_disk_read::
+                            485 ;..\generic\ch376s.c:175: write_command (CMD_DISK_READ);
+   01A2 2E 54         [ 7]  486 	ld	l, #0x54
+   01A4 CDr00r00      [17]  487 	call	_write_command
+                            488 ;..\generic\ch376s.c:176: write_data (lba[0]);
+   01A7 21 03 00      [10]  489 	ld	hl, #3
+   01AA 39            [11]  490 	add	hl, sp
+   01AB 4E            [ 7]  491 	ld	c, (hl)
+   01AC 23            [ 6]  492 	inc	hl
+   01AD 46            [ 7]  493 	ld	b, (hl)
+   01AE 0A            [ 7]  494 	ld	a, (bc)
+   01AF 6F            [ 4]  495 	ld	l, a
+   01B0 C5            [11]  496 	push	bc
+   01B1 CDr00r00      [17]  497 	call	_write_data
+   01B4 C1            [10]  498 	pop	bc
+                            499 ;..\generic\ch376s.c:177: write_data (lba[1]);
+   01B5 69            [ 4]  500 	ld	l, c
+   01B6 60            [ 4]  501 	ld	h, b
+   01B7 23            [ 6]  502 	inc	hl
+   01B8 6E            [ 7]  503 	ld	l, (hl)
+   01B9 C5            [11]  504 	push	bc
+   01BA CDr00r00      [17]  505 	call	_write_data
+   01BD C1            [10]  506 	pop	bc
+                            507 ;..\generic\ch376s.c:178: write_data (lba[2]);
+   01BE 69            [ 4]  508 	ld	l, c
+   01BF 60            [ 4]  509 	ld	h, b
+   01C0 23            [ 6]  510 	inc	hl
+   01C1 23            [ 6]  511 	inc	hl
+   01C2 6E            [ 7]  512 	ld	l, (hl)
+   01C3 C5            [11]  513 	push	bc
+   01C4 CDr00r00      [17]  514 	call	_write_data
+                            515 ;..\generic\ch376s.c:179: write_data (lba[3]);
+   01C7 E1            [10]  516 	pop	hl
+   01C8 23            [ 6]  517 	inc	hl
+   01C9 23            [ 6]  518 	inc	hl
+   01CA 23            [ 6]  519 	inc	hl
+   01CB 6E            [ 7]  520 	ld	l, (hl)
+   01CC CDr00r00      [17]  521 	call	_write_data
+                            522 ;..\generic\ch376s.c:180: write_data (nr_sectors);
+   01CF FD 21 02 00   [14]  523 	ld	iy, #2
+   01D3 FD 39         [15]  524 	add	iy, sp
+   01D5 FD 6E 00      [19]  525 	ld	l, 0 (iy)
+   01D8 CDr00r00      [17]  526 	call	_write_data
+                            527 ;..\generic\ch376s.c:186: do
+   01DB                     528 00105$:
+                            529 ;..\generic\ch376s.c:188: uint8_t status = ch376_wait_status ();
+   01DB CDr73r00      [17]  530 	call	_ch376_wait_status
+   01DE 7D            [ 4]  531 	ld	a, l
+                            532 ;..\generic\ch376s.c:189: if (status==USB_INT_SUCCESS)
+   01DF FE 14         [ 7]  533 	cp	a, #0x14
+   01E1 20 03         [12]  534 	jr	NZ,00102$
+                            535 ;..\generic\ch376s.c:190: return true;
+   01E3 2E 01         [ 7]  536 	ld	l, #0x01
+   01E5 C9            [10]  537 	ret
+   01E6                     538 00102$:
+                            539 ;..\generic\ch376s.c:191: if (status!=USB_INT_DISK_READ)
+   01E6 D6 1D         [ 7]  540 	sub	a, #0x1d
+   01E8 28 03         [12]  541 	jr	Z,00104$
+                            542 ;..\generic\ch376s.c:192: return false;
+   01EA 2E 00         [ 7]  543 	ld	l, #0x00
+   01EC C9            [10]  544 	ret
+   01ED                     545 00104$:
+                            546 ;..\generic\ch376s.c:194: write_command(CMD_RD_USB_DATA);
+   01ED 2E 27         [ 7]  547 	ld	l, #0x27
+   01EF CDr00r00      [17]  548 	call	_write_command
+                            549 ;..\generic\ch376s.c:195: uint8_t len = read_data();
+   01F2 CDr00r00      [17]  550 	call	_read_data
+   01F5 45            [ 4]  551 	ld	b, l
+                            552 ;..\generic\ch376s.c:202: read_data_multiple (sector_buffer,len);
+   01F6 C5            [11]  553 	push	bc
+   01F7 C5            [11]  554 	push	bc
+   01F8 33            [ 6]  555 	inc	sp
+   01F9 21 08 00      [10]  556 	ld	hl, #8
+   01FC 39            [11]  557 	add	hl, sp
+   01FD 4E            [ 7]  558 	ld	c, (hl)
+   01FE 23            [ 6]  559 	inc	hl
+   01FF 46            [ 7]  560 	ld	b, (hl)
+   0200 C5            [11]  561 	push	bc
+   0201 CDr00r00      [17]  562 	call	_read_data_multiple
+   0204 F1            [10]  563 	pop	af
+   0205 33            [ 6]  564 	inc	sp
+   0206 C1            [10]  565 	pop	bc
+                            566 ;..\generic\ch376s.c:203: sector_buffer+=len;
+   0207 21 05 00      [10]  567 	ld	hl, #5
+   020A 39            [11]  568 	add	hl, sp
+   020B 7E            [ 7]  569 	ld	a, (hl)
+   020C 80            [ 4]  570 	add	a, b
+   020D 77            [ 7]  571 	ld	(hl), a
+   020E 30 02         [12]  572 	jr	NC,00128$
+   0210 23            [ 6]  573 	inc	hl
+   0211 34            [11]  574 	inc	(hl)
+   0212                     575 00128$:
+                            576 ;..\generic\ch376s.c:205: write_command (CMD_DISK_RD_GO);
+   0212 2E 55         [ 7]  577 	ld	l, #0x55
+   0214 CDr00r00      [17]  578 	call	_write_command
+                            579 ;..\generic\ch376s.c:207: while (true);
+                            580 ;..\generic\ch376s.c:211: }
+   0217 18 C2         [12]  581 	jr	00105$
+                            582 ;..\generic\ch376s.c:213: bool ch376s_disk_write (uint8_t nr_sectors,uint8_t* lba,uint8_t* sector_buffer)
+                            583 ;	---------------------------------
+                            584 ; Function ch376s_disk_write
+                            585 ; ---------------------------------
+   0219                     586 _ch376s_disk_write::
+   0219 DD E5         [15]  587 	push	ix
+   021B DD 21 00 00   [14]  588 	ld	ix,#0
+   021F DD 39         [15]  589 	add	ix,sp
+                            590 ;..\generic\ch376s.c:215: write_command (CMD_DISK_WRITE);
+   0221 2E 56         [ 7]  591 	ld	l, #0x56
+   0223 CDr00r00      [17]  592 	call	_write_command
+                            593 ;..\generic\ch376s.c:216: write_data (lba[0]);
+   0226 DD 4E 05      [19]  594 	ld	c, 5 (ix)
+   0229 DD 46 06      [19]  595 	ld	b, 6 (ix)
+   022C 0A            [ 7]  596 	ld	a, (bc)
+   022D 6F            [ 4]  597 	ld	l, a
+   022E C5            [11]  598 	push	bc
+   022F CDr00r00      [17]  599 	call	_write_data
+   0232 C1            [10]  600 	pop	bc
+                            601 ;..\generic\ch376s.c:217: write_data (lba[1]);
+   0233 69            [ 4]  602 	ld	l, c
+   0234 60            [ 4]  603 	ld	h, b
+   0235 23            [ 6]  604 	inc	hl
+   0236 6E            [ 7]  605 	ld	l, (hl)
+   0237 C5            [11]  606 	push	bc
+   0238 CDr00r00      [17]  607 	call	_write_data
+   023B C1            [10]  608 	pop	bc
+                            609 ;..\generic\ch376s.c:218: write_data (lba[2]);
+   023C 69            [ 4]  610 	ld	l, c
+   023D 60            [ 4]  611 	ld	h, b
+   023E 23            [ 6]  612 	inc	hl
+   023F 23            [ 6]  613 	inc	hl
+   0240 6E            [ 7]  614 	ld	l, (hl)
+   0241 C5            [11]  615 	push	bc
+   0242 CDr00r00      [17]  616 	call	_write_data
+                            617 ;..\generic\ch376s.c:219: write_data (lba[3]);
+   0245 E1            [10]  618 	pop	hl
+   0246 23            [ 6]  619 	inc	hl
+   0247 23            [ 6]  620 	inc	hl
+   0248 23            [ 6]  621 	inc	hl
+   0249 6E            [ 7]  622 	ld	l, (hl)
+   024A CDr00r00      [17]  623 	call	_write_data
+                            624 ;..\generic\ch376s.c:220: write_data (nr_sectors);
+   024D DD 6E 04      [19]  625 	ld	l, 4 (ix)
+   0250 CDr00r00      [17]  626 	call	_write_data
+                            627 ;..\generic\ch376s.c:223: uint8_t blocks = nr_sectors*(512/MAX_PACKET_LENGTH);
+   0253 DD 7E 04      [19]  628 	ld	a, 4 (ix)
+   0256 87            [ 4]  629 	add	a, a
+   0257 87            [ 4]  630 	add	a, a
+   0258 87            [ 4]  631 	add	a, a
+   0259 4F            [ 4]  632 	ld	c, a
+                            633 ;..\generic\ch376s.c:224: for (cnt_write = 0;cnt_write < blocks;cnt_write++)
+   025A DD 6E 07      [19]  634 	ld	l, 7 (ix)
+   025D DD 66 08      [19]  635 	ld	h, 8 (ix)
+   0260 06 00         [ 7]  636 	ld	b, #0x00
+   0262                     637 00107$:
+   0262 78            [ 4]  638 	ld	a, b
+   0263 91            [ 4]  639 	sub	a, c
+   0264 30 44         [12]  640 	jr	NC,00105$
+                            641 ;..\generic\ch376s.c:226: uint8_t status = ch376_wait_status ();
+   0266 E5            [11]  642 	push	hl
+   0267 C5            [11]  643 	push	bc
+   0268 CDr73r00      [17]  644 	call	_ch376_wait_status
+   026B 7D            [ 4]  645 	ld	a, l
+   026C C1            [10]  646 	pop	bc
+   026D E1            [10]  647 	pop	hl
+                            648 ;..\generic\ch376s.c:227: if (status==USB_INT_SUCCESS)
+   026E FE 14         [ 7]  649 	cp	a, #0x14
+   0270 20 04         [12]  650 	jr	NZ,00102$
+                            651 ;..\generic\ch376s.c:228: return true;
+   0272 2E 01         [ 7]  652 	ld	l, #0x01
+   0274 18 36         [12]  653 	jr	00109$
+   0276                     654 00102$:
+                            655 ;..\generic\ch376s.c:229: if (status!=USB_INT_DISK_WRITE)
+   0276 D6 1E         [ 7]  656 	sub	a, #0x1e
+   0278 28 04         [12]  657 	jr	Z,00104$
+                            658 ;..\generic\ch376s.c:230: return false;
+   027A 2E 00         [ 7]  659 	ld	l, #0x00
+   027C 18 2E         [12]  660 	jr	00109$
+   027E                     661 00104$:
+                            662 ;..\generic\ch376s.c:232: write_command(CMD_WR_HOST_DATA);
+   027E E5            [11]  663 	push	hl
+   027F C5            [11]  664 	push	bc
+   0280 2E 2C         [ 7]  665 	ld	l, #0x2c
+   0282 CDr00r00      [17]  666 	call	_write_command
+   0285 2E 40         [ 7]  667 	ld	l, #0x40
+   0287 CDr00r00      [17]  668 	call	_write_data
+   028A C1            [10]  669 	pop	bc
+   028B E1            [10]  670 	pop	hl
+                            671 ;..\generic\ch376s.c:234: write_data_multiple (sector_buffer,MAX_PACKET_LENGTH);
+   028C E5            [11]  672 	push	hl
+   028D C5            [11]  673 	push	bc
+   028E 3E 40         [ 7]  674 	ld	a, #0x40
+   0290 F5            [11]  675 	push	af
+   0291 33            [ 6]  676 	inc	sp
+   0292 E5            [11]  677 	push	hl
+   0293 CDr00r00      [17]  678 	call	_write_data_multiple
+   0296 F1            [10]  679 	pop	af
+   0297 33            [ 6]  680 	inc	sp
+   0298 C1            [10]  681 	pop	bc
+   0299 E1            [10]  682 	pop	hl
+                            683 ;..\generic\ch376s.c:235: sector_buffer+=MAX_PACKET_LENGTH;
+   029A 11 40 00      [10]  684 	ld	de, #0x0040
+   029D 19            [11]  685 	add	hl, de
+                            686 ;..\generic\ch376s.c:236: write_command (CMD_DISK_WR_GO);
+   029E E5            [11]  687 	push	hl
+   029F C5            [11]  688 	push	bc
+   02A0 2E 57         [ 7]  689 	ld	l, #0x57
+   02A2 CDr00r00      [17]  690 	call	_write_command
+   02A5 C1            [10]  691 	pop	bc
+   02A6 E1            [10]  692 	pop	hl
+                            693 ;..\generic\ch376s.c:224: for (cnt_write = 0;cnt_write < blocks;cnt_write++)
+   02A7 04            [ 4]  694 	inc	b
+   02A8 18 B8         [12]  695 	jr	00107$
+   02AA                     696 00105$:
+                            697 ;..\generic\ch376s.c:238: return true;
+   02AA 2E 01         [ 7]  698 	ld	l, #0x01
+   02AC                     699 00109$:
+                            700 ;..\generic\ch376s.c:239: }
+   02AC DD E1         [14]  701 	pop	ix
+   02AE C9            [10]  702 	ret
+                            703 ;..\generic\ch376s.c:242: uint8_t ch376_get_ic_version()
+                            704 ;	---------------------------------
+                            705 ; Function ch376_get_ic_version
+                            706 ; ---------------------------------
+   02AF                     707 _ch376_get_ic_version::
+                            708 ;..\generic\ch376s.c:244: write_command(CMD_GET_IC_VER);
+   02AF 2E 01         [ 7]  709 	ld	l, #0x01
+   02B1 CDr00r00      [17]  710 	call	_write_command
+                            711 ;..\generic\ch376s.c:245: delay_ms (100);
+   02B4 21 64 00      [10]  712 	ld	hl, #0x0064
+   02B7 E5            [11]  713 	push	hl
+   02B8 CDr00r00      [17]  714 	call	_delay_ms
+   02BB F1            [10]  715 	pop	af
+                            716 ;..\generic\ch376s.c:246: return read_data() & 0x1f;
+   02BC CDr00r00      [17]  717 	call	_read_data
+   02BF 7D            [ 4]  718 	ld	a, l
+   02C0 E6 1F         [ 7]  719 	and	a, #0x1f
+   02C2 6F            [ 4]  720 	ld	l, a
+                            721 ;..\generic\ch376s.c:247: }
+   02C3 C9            [10]  722 	ret
+                            723 	.area _CODE
+                            724 	.area _INITIALIZER
+                            725 	.area _CABS (ABS)

@@ -1,6 +1,6 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
-; Version 4.0.0 #11528 (Linux)
+; Version 3.9.0 #11195 (MINGW64)
 ;--------------------------------------------------------
 	.module hal
 	.optsdcc -mz80
@@ -128,18 +128,19 @@ _msx_wait::
 ; ---------------------------------
 _delay_ms::
 ;hal.c:57: msx_wait (milliseconds/20);
-	pop	de
-	pop	bc
-	push	bc
-	push	de
 	ld	hl, #0x0014
 	push	hl
+	ld	hl, #4
+	add	hl, sp
+	ld	c, (hl)
+	inc	hl
+	ld	b, (hl)
 	push	bc
 	call	__divuint
 	pop	af
 	pop	af
 ;hal.c:58: }
-	jp	_msx_wait
+	jp  _msx_wait
 ;hal.c:60: void write_command (uint8_t command)  __z88dk_fastcall __naked
 ;	---------------------------------
 ; Function write_command

@@ -7,25 +7,25 @@ Symbol Table
     .__.ABS.                                                    =  0000 G
     .__.CPU.                                                    =  0000 L
     .__.H$L.                                                    =  0000 L
-  0 _ch376_close_file                                              00C2 GR
-  0 _ch376_connect_disk                                            0049 GR
-  0 _ch376_get_fat_info                                            010B GR
-  0 _ch376_get_ic_version                                          029B GR
-  0 _ch376_get_register_value                                      007A GR
-  0 _ch376_get_sector_LBA                                          0157 GR
-  0 _ch376_locate_sector                                           0121 GR
-  0 _ch376_mount_disk                                              005A GR
-  0 _ch376_next_search                                             00FA GR
-  0 _ch376_open_directory                                          00D8 GR
-  0 _ch376_open_file                                               00B1 GR
-  0 _ch376_open_search                                             00E9 GR
+  0 _ch376_close_file                                              00CC GR
+  0 _ch376_connect_disk                                            004D GR
+  0 _ch376_get_fat_info                                            011D GR
+  0 _ch376_get_ic_version                                          02AF GR
+  0 _ch376_get_register_value                                      0082 GR
+  0 _ch376_get_sector_LBA                                          016B GR
+  0 _ch376_locate_sector                                           0133 GR
+  0 _ch376_mount_disk                                              0060 GR
+  0 _ch376_next_search                                             010A GR
+  0 _ch376_open_directory                                          00E4 GR
+  0 _ch376_open_file                                               00B9 GR
+  0 _ch376_open_search                                             00F7 GR
   0 _ch376_plugged_in                                              000E GR
   0 _ch376_reset_all                                               0000 GR
-  0 _ch376_set_filename                                            008E GR
-  0 _ch376_set_usb_host_mode                                       0024 GR
-  0 _ch376_wait_status                                             006B GR
-  0 _ch376s_disk_read                                              018E GR
-  0 _ch376s_disk_write                                             0205 GR
+  0 _ch376_set_filename                                            0096 GR
+  0 _ch376_set_usb_host_mode                                       0026 GR
+  0 _ch376_wait_status                                             0073 GR
+  0 _ch376s_disk_read                                              01A2 GR
+  0 _ch376s_disk_write                                             0219 GR
     _delay_ms                                                      **** GX
     _read_data                                                     **** GX
     _read_data_multiple                                            **** GX
@@ -41,7 +41,7 @@ Hexadecimal [16-Bits]
 
 Area Table
 
-   0 _CODE                                      size  2B0   flags    0
+   0 _CODE                                      size  2C4   flags    0
    1 _DATA                                      size    0   flags    0
    2 _INITIALIZED                               size    0   flags    0
    3 _DABS                                      size    0   flags    8

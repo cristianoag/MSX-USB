@@ -14,7 +14,7 @@
 
 
 // 
-// Device: Altera EPM7064SLC44-10 Package PLCC44
+// Device: Altera EPM7064STC44-10 Package TQFP44
 // 
 
 // 
@@ -24,7 +24,7 @@
 (DELAYFILE
   (SDFVERSION "2.1")
   (DESIGN "msxusb")
-  (DATE "12/21/2024 14:21:05")
+  (DATE "12/30/2024 11:25:05")
   (VENDOR "Altera")
   (PROGRAM "Quartus II")
   (VERSION "Version 11.0 Build 208 07/03/2011 Service Pack 1 SJ Web Edition")
@@ -247,7 +247,7 @@
   )
   (CELL
     (CELLTYPE "max_asynch_sexp")
-    (INSTANCE ROM_MAPPER\|WE\~94.pcom)
+    (INSTANCE ROM_MAPPER\|WE\~146.pcom)
     (DELAY
       (ABSOLUTE
         (IOPATH datain[0] dataout (5000:5000:5000) (5000:5000:5000))
@@ -266,7 +266,7 @@
   )
   (CELL
     (CELLTYPE "max_asynch_sexp")
-    (INSTANCE ROM_MAPPER\|WE\~95.pcom)
+    (INSTANCE ROM_MAPPER\|WE\~147.pcom)
     (DELAY
       (ABSOLUTE
         (IOPATH datain[0] dataout (5000:5000:5000) (5000:5000:5000))
@@ -319,7 +319,7 @@
   )
   (CELL
     (CELLTYPE "max_asynch_sexp")
-    (INSTANCE ROM_MAPPER\|mem2\~158.pcom)
+    (INSTANCE ROM_MAPPER\|mem2\~124.pcom)
     (DELAY
       (ABSOLUTE
         (IOPATH datain[0] dataout (5000:5000:5000) (5000:5000:5000))
@@ -397,6 +397,26 @@
         (IOPATH datain[9] dataout (5000:5000:5000) (5000:5000:5000))
         (IOPATH datain[10] dataout (5000:5000:5000) (5000:5000:5000))
         (IOPATH datain[11] dataout (5000:5000:5000) (5000:5000:5000))
+      )
+    )
+  )
+  (CELL
+    (CELLTYPE "max_asynch_sexp")
+    (INSTANCE ROM_MAPPER\|WE\~94.pcom)
+    (DELAY
+      (ABSOLUTE
+        (IOPATH datain[0] dataout (5000:5000:5000) (5000:5000:5000))
+        (IOPATH datain[1] dataout (5000:5000:5000) (5000:5000:5000))
+      )
+    )
+  )
+  (CELL
+    (CELLTYPE "max_asynch_sexp")
+    (INSTANCE ROM_MAPPER\|WE\~95.pcom)
+    (DELAY
+      (ABSOLUTE
+        (IOPATH datain[0] dataout (5000:5000:5000) (5000:5000:5000))
+        (IOPATH datain[1] dataout (5000:5000:5000) (5000:5000:5000))
       )
     )
   )
@@ -588,7 +608,7 @@
   )
   (CELL
     (CELLTYPE "max_asynch_sexp")
-    (INSTANCE ROM_MAPPER\|WE\~146.pcom)
+    (INSTANCE ROM_MAPPER\|WE\~148.pcom)
     (DELAY
       (ABSOLUTE
         (IOPATH datain[0] dataout (5000:5000:5000) (5000:5000:5000))
@@ -598,7 +618,7 @@
   )
   (CELL
     (CELLTYPE "max_asynch_sexp")
-    (INSTANCE ROM_MAPPER\|WE\~147.pcom)
+    (INSTANCE ROM_MAPPER\|WE\~149.pcom)
     (DELAY
       (ABSOLUTE
         (IOPATH datain[0] dataout (5000:5000:5000) (5000:5000:5000))
@@ -650,26 +670,6 @@
     )
   )
   (CELL
-    (CELLTYPE "max_asynch_sexp")
-    (INSTANCE ROM_MAPPER\|mem2\~124.pcom)
-    (DELAY
-      (ABSOLUTE
-        (IOPATH datain[0] dataout (5000:5000:5000) (5000:5000:5000))
-        (IOPATH datain[1] dataout (5000:5000:5000) (5000:5000:5000))
-        (IOPATH datain[2] dataout (5000:5000:5000) (5000:5000:5000))
-        (IOPATH datain[3] dataout (5000:5000:5000) (5000:5000:5000))
-        (IOPATH datain[4] dataout (5000:5000:5000) (5000:5000:5000))
-        (IOPATH datain[5] dataout (5000:5000:5000) (5000:5000:5000))
-        (IOPATH datain[6] dataout (5000:5000:5000) (5000:5000:5000))
-        (IOPATH datain[7] dataout (5000:5000:5000) (5000:5000:5000))
-        (IOPATH datain[8] dataout (5000:5000:5000) (5000:5000:5000))
-        (IOPATH datain[9] dataout (5000:5000:5000) (5000:5000:5000))
-        (IOPATH datain[10] dataout (5000:5000:5000) (5000:5000:5000))
-        (IOPATH datain[11] dataout (5000:5000:5000) (5000:5000:5000))
-      )
-    )
-  )
-  (CELL
     (CELLTYPE "max_asynch_mcell")
     (INSTANCE ROM_MAPPER\|mem2\[1\].pcom)
     (DELAY
@@ -715,7 +715,7 @@
   )
   (CELL
     (CELLTYPE "max_asynch_sexp")
-    (INSTANCE ROM_MAPPER\|mem3\~162.pcom)
+    (INSTANCE ROM_MAPPER\|mem3\~161.pcom)
     (DELAY
       (ABSOLUTE
         (IOPATH datain[0] dataout (5000:5000:5000) (5000:5000:5000))
@@ -929,6 +929,26 @@
       (SETUP datain (posedge pclk[1]) (2000:2000:2000))
       (HOLD datain (posedge pclk[0]) (3000:3000:3000))
       (HOLD datain (posedge pclk[1]) (3000:3000:3000))
+    )
+  )
+  (CELL
+    (CELLTYPE "max_asynch_sexp")
+    (INSTANCE ROM_MAPPER\|mem2\~157.pcom)
+    (DELAY
+      (ABSOLUTE
+        (IOPATH datain[0] dataout (5000:5000:5000) (5000:5000:5000))
+        (IOPATH datain[1] dataout (5000:5000:5000) (5000:5000:5000))
+        (IOPATH datain[2] dataout (5000:5000:5000) (5000:5000:5000))
+        (IOPATH datain[3] dataout (5000:5000:5000) (5000:5000:5000))
+        (IOPATH datain[4] dataout (5000:5000:5000) (5000:5000:5000))
+        (IOPATH datain[5] dataout (5000:5000:5000) (5000:5000:5000))
+        (IOPATH datain[6] dataout (5000:5000:5000) (5000:5000:5000))
+        (IOPATH datain[7] dataout (5000:5000:5000) (5000:5000:5000))
+        (IOPATH datain[8] dataout (5000:5000:5000) (5000:5000:5000))
+        (IOPATH datain[9] dataout (5000:5000:5000) (5000:5000:5000))
+        (IOPATH datain[10] dataout (5000:5000:5000) (5000:5000:5000))
+        (IOPATH datain[11] dataout (5000:5000:5000) (5000:5000:5000))
+      )
     )
   )
   (CELL
@@ -1349,26 +1369,6 @@
     )
   )
   (CELL
-    (CELLTYPE "max_asynch_sexp")
-    (INSTANCE ROM_MAPPER\|WE\~148.pcom)
-    (DELAY
-      (ABSOLUTE
-        (IOPATH datain[0] dataout (5000:5000:5000) (5000:5000:5000))
-        (IOPATH datain[1] dataout (5000:5000:5000) (5000:5000:5000))
-      )
-    )
-  )
-  (CELL
-    (CELLTYPE "max_asynch_sexp")
-    (INSTANCE ROM_MAPPER\|WE\~149.pcom)
-    (DELAY
-      (ABSOLUTE
-        (IOPATH datain[0] dataout (5000:5000:5000) (5000:5000:5000))
-        (IOPATH datain[1] dataout (5000:5000:5000) (5000:5000:5000))
-      )
-    )
-  )
-  (CELL
     (CELLTYPE "max_asynch_mcell")
     (INSTANCE ROM_MAPPER\|mem0\[4\].pcom)
     (DELAY
@@ -1413,7 +1413,7 @@
   )
   (CELL
     (CELLTYPE "max_asynch_sexp")
-    (INSTANCE ROM_MAPPER\|mem2\~159.pcom)
+    (INSTANCE ROM_MAPPER\|mem2\~158.pcom)
     (DELAY
       (ABSOLUTE
         (IOPATH datain[0] dataout (5000:5000:5000) (5000:5000:5000))
@@ -1472,26 +1472,6 @@
       (SETUP datain (posedge pclk[1]) (2000:2000:2000))
       (HOLD datain (posedge pclk[0]) (3000:3000:3000))
       (HOLD datain (posedge pclk[1]) (3000:3000:3000))
-    )
-  )
-  (CELL
-    (CELLTYPE "max_asynch_sexp")
-    (INSTANCE ROM_MAPPER\|mem3\~163.pcom)
-    (DELAY
-      (ABSOLUTE
-        (IOPATH datain[0] dataout (5000:5000:5000) (5000:5000:5000))
-        (IOPATH datain[1] dataout (5000:5000:5000) (5000:5000:5000))
-        (IOPATH datain[2] dataout (5000:5000:5000) (5000:5000:5000))
-        (IOPATH datain[3] dataout (5000:5000:5000) (5000:5000:5000))
-        (IOPATH datain[4] dataout (5000:5000:5000) (5000:5000:5000))
-        (IOPATH datain[5] dataout (5000:5000:5000) (5000:5000:5000))
-        (IOPATH datain[6] dataout (5000:5000:5000) (5000:5000:5000))
-        (IOPATH datain[7] dataout (5000:5000:5000) (5000:5000:5000))
-        (IOPATH datain[8] dataout (5000:5000:5000) (5000:5000:5000))
-        (IOPATH datain[9] dataout (5000:5000:5000) (5000:5000:5000))
-        (IOPATH datain[10] dataout (5000:5000:5000) (5000:5000:5000))
-        (IOPATH datain[11] dataout (5000:5000:5000) (5000:5000:5000))
-      )
     )
   )
   (CELL

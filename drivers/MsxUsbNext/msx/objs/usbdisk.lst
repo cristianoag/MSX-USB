@@ -1,6 +1,6 @@
                               1 ;--------------------------------------------------------
                               2 ; File Created by SDCC : free open source ANSI-C Compiler
-                              3 ; Version 4.0.0 #11528 (Linux)
+                              3 ; Version 3.9.0 #11195 (MINGW64)
                               4 ;--------------------------------------------------------
                               5 	.module usbdisk
                               6 	.optsdcc -mz80
@@ -72,979 +72,958 @@
                              72 ; code
                              73 ;--------------------------------------------------------
                              74 	.area _CODE
-                             75 ;../generic/usbdisk.c:11: void usbdisk_init ()
+                             75 ;..\generic\usbdisk.c:11: void usbdisk_init ()
                              76 ;	---------------------------------
                              77 ; Function usbdisk_init
                              78 ; ---------------------------------
    0000                      79 _usbdisk_init::
-                             80 ;../generic/usbdisk.c:14: printf ("Support for USB floppy drives by (c)The Retro Hacker\r\n");
-   0000 21r68r00      [10]   81 	ld	hl, #___str_6
+                             80 ;..\generic\usbdisk.c:13: printf ("MSXUSB-NXT v0.5 (c)Sourceror\r\n");
+   0000 21r34r00      [10]   81 	ld	hl, #___str_1
    0003 E5            [11]   82 	push	hl
    0004 CDr00r00      [17]   83 	call	_puts
    0007 F1            [10]   84 	pop	af
-                             85 ;../generic/usbdisk.c:15: ch376_reset_all();
+                             85 ;..\generic\usbdisk.c:14: ch376_reset_all();
    0008 CDr00r00      [17]   86 	call	_ch376_reset_all
-                             87 ;../generic/usbdisk.c:16: if (!ch376_plugged_in())
+                             87 ;..\generic\usbdisk.c:15: if (!ch376_plugged_in())
    000B CDr00r00      [17]   88 	call	_ch376_plugged_in
    000E CB 45         [ 8]   89 	bit	0, l
    0010 20 0A         [12]   90 	jr	NZ,00102$
-                             91 ;../generic/usbdisk.c:18: error ("-CH376 NOT detected");
-   0012 21r34r00      [10]   92 	ld	hl, #___str_4
+                             91 ;..\generic\usbdisk.c:17: error ("-CH376 NOT detected");
+   0012 21r52r00      [10]   92 	ld	hl, #___str_2
    0015 E5            [11]   93 	push	hl
    0016 CDr00r00      [17]   94 	call	_error
    0019 F1            [10]   95 	pop	af
    001A 18 0F         [12]   96 	jr	00103$
    001C                      97 00102$:
-                             98 ;../generic/usbdisk.c:22: const uint8_t ver = ch376_get_ic_version();
+                             98 ;..\generic\usbdisk.c:21: const uint8_t ver = ch376_get_ic_version();
    001C CDr00r00      [17]   99 	call	_ch376_get_ic_version
-                            100 ;../generic/usbdisk.c:23: printf ("\n+CH376 detected (version %d)\r\n",ver);
+                            100 ;..\generic\usbdisk.c:22: printf ("\n+CH376 detected (version %d)\r\n",ver);
    001F 26 00         [ 7]  101 	ld	h, #0x00
-   0021 01r48r00      [10]  102 	ld	bc, #___str_5+0
+   0021 01r66r00      [10]  102 	ld	bc, #___str_3+0
    0024 E5            [11]  103 	push	hl
    0025 C5            [11]  104 	push	bc
    0026 CDr00r00      [17]  105 	call	_printf
    0029 F1            [10]  106 	pop	af
    002A F1            [10]  107 	pop	af
    002B                     108 00103$:
-                            109 ;../generic/usbdisk.c:27: ch376_set_usb_host_mode(USB_MODE_HOST);
+                            109 ;..\generic\usbdisk.c:26: ch376_set_usb_host_mode(USB_MODE_HOST);
    002B 3E 06         [ 7]  110 	ld	a, #0x06
    002D F5            [11]  111 	push	af
    002E 33            [ 6]  112 	inc	sp
    002F CDr00r00      [17]  113 	call	_ch376_set_usb_host_mode
    0032 33            [ 6]  114 	inc	sp
-                            115 ;../generic/usbdisk.c:37: }
+                            115 ;..\generic\usbdisk.c:36: }
    0033 C9            [10]  116 	ret
-   0034                     117 ___str_4:
-   0034 2D 43 48 33 37 36   118 	.ascii "-CH376 NOT detected"
-        20 4E 4F 54 20 64
-        65 74 65 63 74 65
-        64
-   0047 00                  119 	.db 0x00
-   0048                     120 ___str_5:
-   0048 0A                  121 	.db 0x0a
-   0049 2B 43 48 33 37 36   122 	.ascii "+CH376 detected (version %d)"
-        20 64 65 74 65 63
-        74 65 64 20 28 76
-        65 72 73 69 6F 6E
-        20 25 64 29
-   0065 0D                  123 	.db 0x0d
-   0066 0A                  124 	.db 0x0a
-   0067 00                  125 	.db 0x00
-   0068                     126 ___str_6:
-   0068 4D 53 58 55 53 42   127 	.ascii "MSXUSB-NXT v0.5 (c)Sourceror"
+   0034                     117 ___str_1:
+   0034 4D 53 58 55 53 42   118 	.ascii "MSXUSB-NXT v0.5 (c)Sourceror"
         2D 4E 58 54 20 76
         30 2E 35 20 28 63
         29 53 6F 75 72 63
         65 72 6F 72
-   0084 0D                  128 	.db 0x0d
-   0085 0A                  129 	.db 0x0a
-   0086 53 75 70 70 6F 72   130 	.ascii "Support for USB floppy drives by (c)The Retro Hacker"
-        74 20 66 6F 72 20
-        55 53 42 20 66 6C
-        6F 70 70 79 20 64
-        72 69 76 65 73 20
-        62 79 20 28 63 29
-        54 68 65 20 52 65
-        74 72 6F 20 48 61
-        63 6B 65 72
-   00BA 0D                  131 	.db 0x0d
-   00BB 00                  132 	.db 0x00
-                            133 ;../generic/usbdisk.c:39: char* toLower(char* s) {
-                            134 ;	---------------------------------
-                            135 ; Function toLower
-                            136 ; ---------------------------------
-   00BC                     137 _toLower::
-                            138 ;../generic/usbdisk.c:40: for(char *p=s; *p; p++) *p=tolower(*p);
-   00BC D1            [10]  139 	pop	de
-   00BD C1            [10]  140 	pop	bc
-   00BE C5            [11]  141 	push	bc
-   00BF D5            [11]  142 	push	de
-   00C0                     143 00103$:
-   00C0 0A            [ 7]  144 	ld	a, (bc)
-   00C1 B7            [ 4]  145 	or	a, a
-   00C2 28 0F         [12]  146 	jr	Z,00101$
-   00C4 5F            [ 4]  147 	ld	e, a
-   00C5 16 00         [ 7]  148 	ld	d, #0x00
-   00C7 C5            [11]  149 	push	bc
-   00C8 D5            [11]  150 	push	de
-   00C9 CDr00r00      [17]  151 	call	_tolower
-   00CC F1            [10]  152 	pop	af
-   00CD C1            [10]  153 	pop	bc
-   00CE 7D            [ 4]  154 	ld	a, l
-   00CF 02            [ 7]  155 	ld	(bc), a
-   00D0 03            [ 6]  156 	inc	bc
-   00D1 18 ED         [12]  157 	jr	00103$
-   00D3                     158 00101$:
-                            159 ;../generic/usbdisk.c:41: return s;
-   00D3 C1            [10]  160 	pop	bc
-   00D4 E1            [10]  161 	pop	hl
-   00D5 E5            [11]  162 	push	hl
-   00D6 C5            [11]  163 	push	bc
-                            164 ;../generic/usbdisk.c:42: }
-   00D7 C9            [10]  165 	ret
-                            166 ;../generic/usbdisk.c:43: char* toUpper(char* s) {
-                            167 ;	---------------------------------
-                            168 ; Function toUpper
-                            169 ; ---------------------------------
-   00D8                     170 _toUpper::
-                            171 ;../generic/usbdisk.c:44: for(char *p=s; *p; p++) *p=toupper(*p);
-   00D8 D1            [10]  172 	pop	de
-   00D9 C1            [10]  173 	pop	bc
-   00DA C5            [11]  174 	push	bc
-   00DB D5            [11]  175 	push	de
-   00DC                     176 00103$:
-   00DC 0A            [ 7]  177 	ld	a, (bc)
-   00DD B7            [ 4]  178 	or	a, a
-   00DE 28 0F         [12]  179 	jr	Z,00101$
-   00E0 5F            [ 4]  180 	ld	e, a
-   00E1 16 00         [ 7]  181 	ld	d, #0x00
-   00E3 C5            [11]  182 	push	bc
-   00E4 D5            [11]  183 	push	de
-   00E5 CDr00r00      [17]  184 	call	_toupper
-   00E8 F1            [10]  185 	pop	af
-   00E9 C1            [10]  186 	pop	bc
-   00EA 7D            [ 4]  187 	ld	a, l
-   00EB 02            [ 7]  188 	ld	(bc), a
-   00EC 03            [ 6]  189 	inc	bc
-   00ED 18 ED         [12]  190 	jr	00103$
-   00EF                     191 00101$:
-                            192 ;../generic/usbdisk.c:45: return s;
-   00EF C1            [10]  193 	pop	bc
-   00F0 E1            [10]  194 	pop	hl
-   00F1 E5            [11]  195 	push	hl
-   00F2 C5            [11]  196 	push	bc
-                            197 ;../generic/usbdisk.c:46: }
-   00F3 C9            [10]  198 	ret
-                            199 ;../generic/usbdisk.c:48: bool usbdisk_autoexec_dsk()
-                            200 ;	---------------------------------
-                            201 ; Function usbdisk_autoexec_dsk
-                            202 ; ---------------------------------
-   00F4                     203 _usbdisk_autoexec_dsk::
-                            204 ;../generic/usbdisk.c:53: ch376_set_filename ("/");
-   00F4 21r5Br01      [10]  205 	ld	hl, #___str_7
-   00F7 E5            [11]  206 	push	hl
-   00F8 CDr00r00      [17]  207 	call	_ch376_set_filename
-   00FB F1            [10]  208 	pop	af
-                            209 ;../generic/usbdisk.c:54: if (!ch376_open_directory())
-   00FC CDr00r00      [17]  210 	call	_ch376_open_directory
-   00FF CB 45         [ 8]  211 	bit	0, l
-   0101 20 08         [12]  212 	jr	NZ,00102$
-                            213 ;../generic/usbdisk.c:56: error ("-Directory not opened");
-   0103 21r5Dr01      [10]  214 	ld	hl, #___str_8
-   0106 E5            [11]  215 	push	hl
-   0107 CDr00r00      [17]  216 	call	_error
-   010A F1            [10]  217 	pop	af
-   010B                     218 00102$:
-                            219 ;../generic/usbdisk.c:60: ch376_set_filename ("AUTOEXEC.DSK");
-   010B 21r73r01      [10]  220 	ld	hl, #___str_9
-   010E E5            [11]  221 	push	hl
-   010F CDr00r00      [17]  222 	call	_ch376_set_filename
-   0112 F1            [10]  223 	pop	af
-                            224 ;../generic/usbdisk.c:61: if (ch376_open_file()==true)
-   0113 CDr00r00      [17]  225 	call	_ch376_open_file
-   0116 CB 45         [ 8]  226 	bit	0, l
-   0118 28 3E         [12]  227 	jr	Z,00110$
-                            228 ;../generic/usbdisk.c:63: printf ("\r\nStarting AUTOEXEC.DSK or press ESC ");
-   011A 21r80r01      [10]  229 	ld	hl, #___str_10
-   011D E5            [11]  230 	push	hl
-   011E CDr00r00      [17]  231 	call	_printf
-   0121 F1            [10]  232 	pop	af
-                            233 ;../generic/usbdisk.c:64: for (cnt_times=3;cnt_times>0;cnt_times--)
-   0122 01 03 03      [10]  234 	ld	bc, #0x0303
-   0125                     235 00111$:
-                            236 ;../generic/usbdisk.c:66: delay_ms (1000);
-   0125 C5            [11]  237 	push	bc
-   0126 21 E8 03      [10]  238 	ld	hl, #0x03e8
-   0129 E5            [11]  239 	push	hl
-   012A CDr00r00      [17]  240 	call	_delay_ms
-   012D F1            [10]  241 	pop	af
-   012E CDr00r00      [17]  242 	call	_pressed_ESC
-   0131 C1            [10]  243 	pop	bc
-   0132 CB 45         [ 8]  244 	bit	0, l
-   0134 20 10         [12]  245 	jr	NZ,00105$
-                            246 ;../generic/usbdisk.c:69: printf (".");
-   0136 C5            [11]  247 	push	bc
-   0137 21rA6r01      [10]  248 	ld	hl, #___str_11
-   013A E5            [11]  249 	push	hl
-   013B CDr00r00      [17]  250 	call	_printf
-   013E F1            [10]  251 	pop	af
-   013F C1            [10]  252 	pop	bc
-                            253 ;../generic/usbdisk.c:64: for (cnt_times=3;cnt_times>0;cnt_times--)
-   0140 0D            [ 4]  254 	dec	c
-   0141 41            [ 4]  255 	ld	b, c
-   0142 79            [ 4]  256 	ld	a, c
-   0143 B7            [ 4]  257 	or	a, a
-   0144 20 DF         [12]  258 	jr	NZ,00111$
-   0146                     259 00105$:
-                            260 ;../generic/usbdisk.c:71: if (cnt_times==0)
-   0146 78            [ 4]  261 	ld	a, b
-   0147 B7            [ 4]  262 	or	a, a
-   0148 20 0B         [12]  263 	jr	NZ,00107$
-                            264 ;../generic/usbdisk.c:73: printf ("\r\n");
-   014A 21rA8r01      [10]  265 	ld	hl, #___str_13
-   014D E5            [11]  266 	push	hl
-   014E CDr00r00      [17]  267 	call	_puts
-   0151 F1            [10]  268 	pop	af
-                            269 ;../generic/usbdisk.c:74: return true;
-   0152 2E 01         [ 7]  270 	ld	l, #0x01
-   0154 C9            [10]  271 	ret
-   0155                     272 00107$:
-                            273 ;../generic/usbdisk.c:78: ch376_close_file ();
-   0155 CDr00r00      [17]  274 	call	_ch376_close_file
-   0158                     275 00110$:
-                            276 ;../generic/usbdisk.c:81: return false;
-   0158 2E 00         [ 7]  277 	ld	l, #0x00
-                            278 ;../generic/usbdisk.c:82: }
-   015A C9            [10]  279 	ret
-   015B                     280 ___str_7:
-   015B 2F                  281 	.ascii "/"
-   015C 00                  282 	.db 0x00
-   015D                     283 ___str_8:
-   015D 2D 44 69 72 65 63   284 	.ascii "-Directory not opened"
+   0050 0D                  119 	.db 0x0d
+   0051 00                  120 	.db 0x00
+   0052                     121 ___str_2:
+   0052 2D 43 48 33 37 36   122 	.ascii "-CH376 NOT detected"
+        20 4E 4F 54 20 64
+        65 74 65 63 74 65
+        64
+   0065 00                  123 	.db 0x00
+   0066                     124 ___str_3:
+   0066 0A                  125 	.db 0x0a
+   0067 2B 43 48 33 37 36   126 	.ascii "+CH376 detected (version %d)"
+        20 64 65 74 65 63
+        74 65 64 20 28 76
+        65 72 73 69 6F 6E
+        20 25 64 29
+   0083 0D                  127 	.db 0x0d
+   0084 0A                  128 	.db 0x0a
+   0085 00                  129 	.db 0x00
+                            130 ;..\generic\usbdisk.c:38: char* toLower(char* s) {
+                            131 ;	---------------------------------
+                            132 ; Function toLower
+                            133 ; ---------------------------------
+   0086                     134 _toLower::
+                            135 ;..\generic\usbdisk.c:39: for(char *p=s; *p; p++) *p=tolower(*p);
+   0086 D1            [10]  136 	pop	de
+   0087 C1            [10]  137 	pop	bc
+   0088 C5            [11]  138 	push	bc
+   0089 D5            [11]  139 	push	de
+   008A                     140 00103$:
+   008A 0A            [ 7]  141 	ld	a, (bc)
+   008B B7            [ 4]  142 	or	a, a
+   008C 28 0F         [12]  143 	jr	Z,00101$
+   008E 5F            [ 4]  144 	ld	e, a
+   008F 16 00         [ 7]  145 	ld	d, #0x00
+   0091 C5            [11]  146 	push	bc
+   0092 D5            [11]  147 	push	de
+   0093 CDr00r00      [17]  148 	call	_tolower
+   0096 F1            [10]  149 	pop	af
+   0097 C1            [10]  150 	pop	bc
+   0098 7D            [ 4]  151 	ld	a, l
+   0099 02            [ 7]  152 	ld	(bc), a
+   009A 03            [ 6]  153 	inc	bc
+   009B 18 ED         [12]  154 	jr	00103$
+   009D                     155 00101$:
+                            156 ;..\generic\usbdisk.c:40: return s;
+   009D C1            [10]  157 	pop	bc
+   009E E1            [10]  158 	pop	hl
+   009F E5            [11]  159 	push	hl
+   00A0 C5            [11]  160 	push	bc
+                            161 ;..\generic\usbdisk.c:41: }
+   00A1 C9            [10]  162 	ret
+                            163 ;..\generic\usbdisk.c:42: char* toUpper(char* s) {
+                            164 ;	---------------------------------
+                            165 ; Function toUpper
+                            166 ; ---------------------------------
+   00A2                     167 _toUpper::
+                            168 ;..\generic\usbdisk.c:43: for(char *p=s; *p; p++) *p=toupper(*p);
+   00A2 D1            [10]  169 	pop	de
+   00A3 C1            [10]  170 	pop	bc
+   00A4 C5            [11]  171 	push	bc
+   00A5 D5            [11]  172 	push	de
+   00A6                     173 00103$:
+   00A6 0A            [ 7]  174 	ld	a, (bc)
+   00A7 B7            [ 4]  175 	or	a, a
+   00A8 28 0F         [12]  176 	jr	Z,00101$
+   00AA 5F            [ 4]  177 	ld	e, a
+   00AB 16 00         [ 7]  178 	ld	d, #0x00
+   00AD C5            [11]  179 	push	bc
+   00AE D5            [11]  180 	push	de
+   00AF CDr00r00      [17]  181 	call	_toupper
+   00B2 F1            [10]  182 	pop	af
+   00B3 C1            [10]  183 	pop	bc
+   00B4 7D            [ 4]  184 	ld	a, l
+   00B5 02            [ 7]  185 	ld	(bc), a
+   00B6 03            [ 6]  186 	inc	bc
+   00B7 18 ED         [12]  187 	jr	00103$
+   00B9                     188 00101$:
+                            189 ;..\generic\usbdisk.c:44: return s;
+   00B9 C1            [10]  190 	pop	bc
+   00BA E1            [10]  191 	pop	hl
+   00BB E5            [11]  192 	push	hl
+   00BC C5            [11]  193 	push	bc
+                            194 ;..\generic\usbdisk.c:45: }
+   00BD C9            [10]  195 	ret
+                            196 ;..\generic\usbdisk.c:47: bool usbdisk_autoexec_dsk()
+                            197 ;	---------------------------------
+                            198 ; Function usbdisk_autoexec_dsk
+                            199 ; ---------------------------------
+   00BE                     200 _usbdisk_autoexec_dsk::
+                            201 ;..\generic\usbdisk.c:52: ch376_set_filename ("/");
+   00BE 21r25r01      [10]  202 	ld	hl, #___str_4
+   00C1 E5            [11]  203 	push	hl
+   00C2 CDr00r00      [17]  204 	call	_ch376_set_filename
+   00C5 F1            [10]  205 	pop	af
+                            206 ;..\generic\usbdisk.c:53: if (!ch376_open_directory())
+   00C6 CDr00r00      [17]  207 	call	_ch376_open_directory
+   00C9 CB 45         [ 8]  208 	bit	0, l
+   00CB 20 08         [12]  209 	jr	NZ,00102$
+                            210 ;..\generic\usbdisk.c:55: error ("-Directory not opened");
+   00CD 21r27r01      [10]  211 	ld	hl, #___str_5
+   00D0 E5            [11]  212 	push	hl
+   00D1 CDr00r00      [17]  213 	call	_error
+   00D4 F1            [10]  214 	pop	af
+   00D5                     215 00102$:
+                            216 ;..\generic\usbdisk.c:59: ch376_set_filename ("AUTOEXEC.DSK");
+   00D5 21r3Dr01      [10]  217 	ld	hl, #___str_6
+   00D8 E5            [11]  218 	push	hl
+   00D9 CDr00r00      [17]  219 	call	_ch376_set_filename
+   00DC F1            [10]  220 	pop	af
+                            221 ;..\generic\usbdisk.c:60: if (ch376_open_file()==true)
+   00DD CDr00r00      [17]  222 	call	_ch376_open_file
+   00E0 CB 45         [ 8]  223 	bit	0, l
+   00E2 28 3E         [12]  224 	jr	Z,00110$
+                            225 ;..\generic\usbdisk.c:62: printf ("\r\nStarting AUTOEXEC.DSK or press ESC ");
+   00E4 21r4Ar01      [10]  226 	ld	hl, #___str_7
+   00E7 E5            [11]  227 	push	hl
+   00E8 CDr00r00      [17]  228 	call	_printf
+   00EB F1            [10]  229 	pop	af
+                            230 ;..\generic\usbdisk.c:63: for (cnt_times=3;cnt_times>0;cnt_times--)
+   00EC 01 03 03      [10]  231 	ld	bc, #0x0303
+   00EF                     232 00111$:
+                            233 ;..\generic\usbdisk.c:65: delay_ms (1000);
+   00EF C5            [11]  234 	push	bc
+   00F0 21 E8 03      [10]  235 	ld	hl, #0x03e8
+   00F3 E5            [11]  236 	push	hl
+   00F4 CDr00r00      [17]  237 	call	_delay_ms
+   00F7 F1            [10]  238 	pop	af
+   00F8 CDr00r00      [17]  239 	call	_pressed_ESC
+   00FB C1            [10]  240 	pop	bc
+   00FC CB 45         [ 8]  241 	bit	0, l
+   00FE 20 10         [12]  242 	jr	NZ,00105$
+                            243 ;..\generic\usbdisk.c:68: printf (".");
+   0100 C5            [11]  244 	push	bc
+   0101 21r70r01      [10]  245 	ld	hl, #___str_8
+   0104 E5            [11]  246 	push	hl
+   0105 CDr00r00      [17]  247 	call	_printf
+   0108 F1            [10]  248 	pop	af
+   0109 C1            [10]  249 	pop	bc
+                            250 ;..\generic\usbdisk.c:63: for (cnt_times=3;cnt_times>0;cnt_times--)
+   010A 0D            [ 4]  251 	dec	c
+   010B 79            [ 4]  252 	ld	a,c
+   010C 47            [ 4]  253 	ld	b,a
+   010D B7            [ 4]  254 	or	a, a
+   010E 20 DF         [12]  255 	jr	NZ,00111$
+   0110                     256 00105$:
+                            257 ;..\generic\usbdisk.c:70: if (cnt_times==0)
+   0110 78            [ 4]  258 	ld	a, b
+   0111 B7            [ 4]  259 	or	a, a
+   0112 20 0B         [12]  260 	jr	NZ,00107$
+                            261 ;..\generic\usbdisk.c:72: printf ("\r\n");
+   0114 01r72r01      [10]  262 	ld	bc, #___str_10
+   0117 C5            [11]  263 	push	bc
+   0118 CDr00r00      [17]  264 	call	_puts
+   011B F1            [10]  265 	pop	af
+                            266 ;..\generic\usbdisk.c:73: return true;
+   011C 2E 01         [ 7]  267 	ld	l, #0x01
+   011E C9            [10]  268 	ret
+   011F                     269 00107$:
+                            270 ;..\generic\usbdisk.c:77: ch376_close_file ();
+   011F CDr00r00      [17]  271 	call	_ch376_close_file
+   0122                     272 00110$:
+                            273 ;..\generic\usbdisk.c:80: return false;
+   0122 2E 00         [ 7]  274 	ld	l, #0x00
+                            275 ;..\generic\usbdisk.c:81: }
+   0124 C9            [10]  276 	ret
+   0125                     277 ___str_4:
+   0125 2F                  278 	.ascii "/"
+   0126 00                  279 	.db 0x00
+   0127                     280 ___str_5:
+   0127 2D 44 69 72 65 63   281 	.ascii "-Directory not opened"
         74 6F 72 79 20 6E
         6F 74 20 6F 70 65
         6E 65 64
-   0172 00                  285 	.db 0x00
-   0173                     286 ___str_9:
-   0173 41 55 54 4F 45 58   287 	.ascii "AUTOEXEC.DSK"
+   013C 00                  282 	.db 0x00
+   013D                     283 ___str_6:
+   013D 41 55 54 4F 45 58   284 	.ascii "AUTOEXEC.DSK"
         45 43 2E 44 53 4B
-   017F 00                  288 	.db 0x00
-   0180                     289 ___str_10:
-   0180 0D                  290 	.db 0x0d
-   0181 0A                  291 	.db 0x0a
-   0182 53 74 61 72 74 69   292 	.ascii "Starting AUTOEXEC.DSK or press ESC "
+   0149 00                  285 	.db 0x00
+   014A                     286 ___str_7:
+   014A 0D                  287 	.db 0x0d
+   014B 0A                  288 	.db 0x0a
+   014C 53 74 61 72 74 69   289 	.ascii "Starting AUTOEXEC.DSK or press ESC "
         6E 67 20 41 55 54
         4F 45 58 45 43 2E
         44 53 4B 20 6F 72
         20 70 72 65 73 73
         20 45 53 43 20
-   01A5 00                  293 	.db 0x00
-   01A6                     294 ___str_11:
-   01A6 2E                  295 	.ascii "."
-   01A7 00                  296 	.db 0x00
-   01A8                     297 ___str_13:
-   01A8 0D                  298 	.db 0x0d
-   01A9 00                  299 	.db 0x00
-                            300 ;../generic/usbdisk.c:85: select_mode_t usbdisk_select_dsk_file (char* start_directory)
-                            301 ;	---------------------------------
-                            302 ; Function usbdisk_select_dsk_file
-                            303 ; ---------------------------------
-   01AA                     304 _usbdisk_select_dsk_file::
-   01AA DD E5         [15]  305 	push	ix
-   01AC DD 21 00 00   [14]  306 	ld	ix,#0
-   01B0 DD 39         [15]  307 	add	ix,sp
-   01B2 21 92 FE      [10]  308 	ld	hl, #-366
-   01B5 39            [11]  309 	add	hl, sp
-   01B6 F9            [ 6]  310 	ld	sp, hl
-                            311 ;../generic/usbdisk.c:93: if (supports_80_column_mode())
-   01B7 CDr00r00      [17]  312 	call	_supports_80_column_mode
-   01BA CB 45         [ 8]  313 	bit	0, l
-   01BC 28 06         [12]  314 	jr	Z,00102$
-                            315 ;../generic/usbdisk.c:94: nr_dsks_per_line = 5;
-   01BE DD 36 F3 05   [19]  316 	ld	-13 (ix), #0x05
-   01C2 18 04         [12]  317 	jr	00103$
-   01C4                     318 00102$:
-                            319 ;../generic/usbdisk.c:96: nr_dsks_per_line = 2;
-   01C4 DD 36 F3 02   [19]  320 	ld	-13 (ix), #0x02
-   01C8                     321 00103$:
-                            322 ;../generic/usbdisk.c:98: nr_dsk_files_found=0;
-   01C8 AF            [ 4]  323 	xor	a, a
-   01C9 DD 77 FE      [19]  324 	ld	-2 (ix), a
-                            325 ;../generic/usbdisk.c:101: ch376_set_filename (start_directory);
-   01CC DD 6E 04      [19]  326 	ld	l, 4 (ix)
-   01CF DD 66 05      [19]  327 	ld	h, 5 (ix)
-   01D2 E5            [11]  328 	push	hl
-   01D3 CDr00r00      [17]  329 	call	_ch376_set_filename
-   01D6 F1            [10]  330 	pop	af
-                            331 ;../generic/usbdisk.c:102: if (!ch376_open_directory())
-   01D7 CDr00r00      [17]  332 	call	_ch376_open_directory
-   01DA CB 45         [ 8]  333 	bit	0, l
-   01DC 20 08         [12]  334 	jr	NZ,00105$
-                            335 ;../generic/usbdisk.c:104: error ("-Directory not opened");
-   01DE 21rBAr04      [10]  336 	ld	hl, #___str_14
-   01E1 E5            [11]  337 	push	hl
-   01E2 CDr00r00      [17]  338 	call	_error
-   01E5 F1            [10]  339 	pop	af
-   01E6                     340 00105$:
-                            341 ;../generic/usbdisk.c:109: printf ("1.FLOPPY       2.USBDRIVE\r\n\r\n");
-   01E6 21r15r05      [10]  342 	ld	hl, #___str_26
-   01E9 E5            [11]  343 	push	hl
-   01EA CDr00r00      [17]  344 	call	_puts
-                            345 ;../generic/usbdisk.c:112: ch376_set_filename ("*");
-   01ED 21rD0r04      [10]  346 	ld	hl, #___str_19
-   01F0 E3            [19]  347 	ex	(sp),hl
-   01F1 CDr00r00      [17]  348 	call	_ch376_set_filename
-   01F4 F1            [10]  349 	pop	af
-                            350 ;../generic/usbdisk.c:113: if (!ch376_open_search ())
-   01F5 CDr00r00      [17]  351 	call	_ch376_open_search
-   01F8 CB 45         [ 8]  352 	bit	0, l
-   01FA 20 08         [12]  353 	jr	NZ,00107$
-                            354 ;../generic/usbdisk.c:114: error ("-No files found");
-   01FC 21rD2r04      [10]  355 	ld	hl, #___str_20
-   01FF E5            [11]  356 	push	hl
-   0200 CDr00r00      [17]  357 	call	_error
-   0203 F1            [10]  358 	pop	af
-   0204                     359 00107$:
-                            360 ;../generic/usbdisk.c:116: printf ("Or, select DSK image [%s]:\r\n",start_directory);
-   0204 DD 6E 04      [19]  361 	ld	l, 4 (ix)
-   0207 DD 66 05      [19]  362 	ld	h, 5 (ix)
-   020A E5            [11]  363 	push	hl
-   020B 21rE2r04      [10]  364 	ld	hl, #___str_21
-   020E E5            [11]  365 	push	hl
-   020F CDr00r00      [17]  366 	call	_printf
-   0212 F1            [10]  367 	pop	af
-   0213 F1            [10]  368 	pop	af
-                            369 ;../generic/usbdisk.c:118: do 
-   0214 21 20 00      [10]  370 	ld	hl, #32
-   0217 39            [11]  371 	add	hl, sp
-   0218 DD 75 F4      [19]  372 	ld	-12 (ix), l
-   021B DD 74 F5      [19]  373 	ld	-11 (ix), h
-   021E DD 7E F4      [19]  374 	ld	a, -12 (ix)
-   0221 DD 77 F6      [19]  375 	ld	-10 (ix), a
-   0224 DD 7E F5      [19]  376 	ld	a, -11 (ix)
-   0227 DD 77 F7      [19]  377 	ld	-9 (ix), a
-   022A 21 00 00      [10]  378 	ld	hl, #0
-   022D 39            [11]  379 	add	hl, sp
-   022E DD 75 F8      [19]  380 	ld	-8 (ix), l
-   0231 DD 74 F9      [19]  381 	ld	-7 (ix), h
-   0234 DD 7E F8      [19]  382 	ld	a, -8 (ix)
-   0237 C6 0B         [ 7]  383 	add	a, #0x0b
-   0239 DD 77 FA      [19]  384 	ld	-6 (ix), a
-   023C DD 7E F9      [19]  385 	ld	a, -7 (ix)
-   023F CE 00         [ 7]  386 	adc	a, #0x00
-   0241 DD 77 FB      [19]  387 	ld	-5 (ix), a
-   0244                     388 00128$:
-                            389 ;../generic/usbdisk.c:120: ch376_get_fat_info (&info);
-   0244 DD 4E F8      [19]  390 	ld	c, -8 (ix)
-   0247 DD 46 F9      [19]  391 	ld	b, -7 (ix)
-   024A C5            [11]  392 	push	bc
-   024B CDr00r00      [17]  393 	call	_ch376_get_fat_info
-   024E F1            [10]  394 	pop	af
-                            395 ;../generic/usbdisk.c:121: if (!(info.DIR_Attr&0x02)) // show non-hidden normal or archived files
-   024F DD 6E FA      [19]  396 	ld	l, -6 (ix)
-   0252 DD 66 FB      [19]  397 	ld	h, -5 (ix)
-   0255 7E            [ 7]  398 	ld	a, (hl)
-   0256 DD 77 FF      [19]  399 	ld	-1 (ix), a
-   0259 DD CB FF 4E   [20]  400 	bit	1, -1 (ix)
-   025D C2rFDr03      [10]  401 	jp	NZ,00129$
-                            402 ;../generic/usbdisk.c:123: if (info.DIR_Attr&0x20 || info.DIR_Attr==0x00)
-   0260 DD CB FF 6E   [20]  403 	bit	5, -1 (ix)
-   0264 20 07         [12]  404 	jr	NZ,00117$
-   0266 DD 7E FF      [19]  405 	ld	a, -1 (ix)
-   0269 B7            [ 4]  406 	or	a, a
-   026A C2r3Dr03      [10]  407 	jp	NZ, 00118$
-   026D                     408 00117$:
-                            409 ;../generic/usbdisk.c:125: if (info.DIR_Name[8]=='D' &&
-   026D DD 6E F8      [19]  410 	ld	l, -8 (ix)
-   0270 DD 66 F9      [19]  411 	ld	h, -7 (ix)
-   0273 11 08 00      [10]  412 	ld	de, #0x0008
-   0276 19            [11]  413 	add	hl, de
-   0277 7E            [ 7]  414 	ld	a, (hl)
-   0278 D6 44         [ 7]  415 	sub	a, #0x44
-   027A C2r3Dr03      [10]  416 	jp	NZ,00118$
-                            417 ;../generic/usbdisk.c:126: info.DIR_Name[9]=='S' &&
-   027D DD 6E F8      [19]  418 	ld	l, -8 (ix)
-   0280 DD 66 F9      [19]  419 	ld	h, -7 (ix)
-   0283 11 09 00      [10]  420 	ld	de, #0x0009
-   0286 19            [11]  421 	add	hl, de
-   0287 7E            [ 7]  422 	ld	a, (hl)
-   0288 D6 53         [ 7]  423 	sub	a, #0x53
-   028A C2r3Dr03      [10]  424 	jp	NZ,00118$
-                            425 ;../generic/usbdisk.c:127: info.DIR_Name[10]=='K')
-   028D DD 6E F8      [19]  426 	ld	l, -8 (ix)
-   0290 DD 66 F9      [19]  427 	ld	h, -7 (ix)
-   0293 11 0A 00      [10]  428 	ld	de, #0x000a
-   0296 19            [11]  429 	add	hl, de
-   0297 7E            [ 7]  430 	ld	a, (hl)
-   0298 D6 4B         [ 7]  431 	sub	a, #0x4b
-   029A C2r3Dr03      [10]  432 	jp	NZ,00118$
-                            433 ;../generic/usbdisk.c:129: putchar ('A'+nr_dsk_files_found);
-   029D DD 4E FE      [19]  434 	ld	c, -2 (ix)
-   02A0 06 00         [ 7]  435 	ld	b, #0x00
-   02A2 21 41 00      [10]  436 	ld	hl, #0x0041
-   02A5 09            [11]  437 	add	hl, bc
-   02A6 E5            [11]  438 	push	hl
-   02A7 CDr00r00      [17]  439 	call	_putchar
-                            440 ;../generic/usbdisk.c:130: putchar ('.');
-   02AA 21 2E 00      [10]  441 	ld	hl, #0x002e
-   02AD E3            [19]  442 	ex	(sp),hl
-   02AE CDr00r00      [17]  443 	call	_putchar
-   02B1 F1            [10]  444 	pop	af
-                            445 ;../generic/usbdisk.c:131: files[nr_dsk_files_found][11]='\0';
-   02B2 DD 4E FE      [19]  446 	ld	c, -2 (ix)
-   02B5 06 00         [ 7]  447 	ld	b, #0x00
-   02B7 69            [ 4]  448 	ld	l, c
-   02B8 60            [ 4]  449 	ld	h, b
-   02B9 29            [11]  450 	add	hl, hl
-   02BA 09            [11]  451 	add	hl, bc
-   02BB 29            [11]  452 	add	hl, hl
-   02BC 29            [11]  453 	add	hl, hl
-   02BD EB            [ 4]  454 	ex	de, hl
-   02BE DD 7E F4      [19]  455 	ld	a, -12 (ix)
-   02C1 83            [ 4]  456 	add	a, e
-   02C2 4F            [ 4]  457 	ld	c, a
-   02C3 DD 7E F5      [19]  458 	ld	a, -11 (ix)
-   02C6 8A            [ 4]  459 	adc	a, d
-   02C7 47            [ 4]  460 	ld	b, a
-   02C8 21 0B 00      [10]  461 	ld	hl, #0x000b
-   02CB 09            [11]  462 	add	hl, bc
-   02CC 36 00         [10]  463 	ld	(hl), #0x00
-                            464 ;../generic/usbdisk.c:132: for (cnt=0;cnt<11;cnt++)
-   02CE DD 71 FC      [19]  465 	ld	-4 (ix), c
-   02D1 DD 70 FD      [19]  466 	ld	-3 (ix), b
-   02D4 0E 00         [ 7]  467 	ld	c, #0x00
-   02D6                     468 00149$:
-                            469 ;../generic/usbdisk.c:134: if (cnt==8)
-   02D6 79            [ 4]  470 	ld	a, c
-   02D7 D6 08         [ 7]  471 	sub	a, #0x08
-   02D9 20 0A         [12]  472 	jr	NZ,00109$
-                            473 ;../generic/usbdisk.c:135: putchar ('.');
-   02DB C5            [11]  474 	push	bc
-   02DC 21 2E 00      [10]  475 	ld	hl, #0x002e
-   02DF E5            [11]  476 	push	hl
-   02E0 CDr00r00      [17]  477 	call	_putchar
-   02E3 F1            [10]  478 	pop	af
-   02E4 C1            [10]  479 	pop	bc
-   02E5                     480 00109$:
-                            481 ;../generic/usbdisk.c:136: putchar (info.DIR_Name[cnt]);
-   02E5 DD 7E F8      [19]  482 	ld	a, -8 (ix)
-   02E8 81            [ 4]  483 	add	a, c
-   02E9 5F            [ 4]  484 	ld	e, a
-   02EA DD 7E F9      [19]  485 	ld	a, -7 (ix)
-   02ED CE 00         [ 7]  486 	adc	a, #0x00
-   02EF 57            [ 4]  487 	ld	d, a
-   02F0 1A            [ 7]  488 	ld	a, (de)
-   02F1 6F            [ 4]  489 	ld	l, a
-   02F2 26 00         [ 7]  490 	ld	h, #0x00
-   02F4 C5            [11]  491 	push	bc
-   02F5 D5            [11]  492 	push	de
-   02F6 E5            [11]  493 	push	hl
-   02F7 CDr00r00      [17]  494 	call	_putchar
-   02FA F1            [10]  495 	pop	af
-   02FB D1            [10]  496 	pop	de
-   02FC C1            [10]  497 	pop	bc
-                            498 ;../generic/usbdisk.c:137: files[nr_dsk_files_found][cnt]=info.DIR_Name[cnt];
-   02FD DD 7E FC      [19]  499 	ld	a, -4 (ix)
-   0300 81            [ 4]  500 	add	a, c
-   0301 47            [ 4]  501 	ld	b, a
-   0302 DD 7E FD      [19]  502 	ld	a, -3 (ix)
-   0305 CE 00         [ 7]  503 	adc	a, #0x00
-   0307 F5            [11]  504 	push	af
-   0308 1A            [ 7]  505 	ld	a, (de)
-   0309 5F            [ 4]  506 	ld	e, a
-   030A F1            [10]  507 	pop	af
-   030B 68            [ 4]  508 	ld	l, b
-   030C 67            [ 4]  509 	ld	h, a
-   030D 73            [ 7]  510 	ld	(hl), e
-                            511 ;../generic/usbdisk.c:132: for (cnt=0;cnt<11;cnt++)
-   030E 0C            [ 4]  512 	inc	c
-   030F 79            [ 4]  513 	ld	a, c
-   0310 D6 0B         [ 7]  514 	sub	a, #0x0b
-   0312 38 C2         [12]  515 	jr	C,00149$
-                            516 ;../generic/usbdisk.c:139: putchar (' ');
-   0314 21 20 00      [10]  517 	ld	hl, #0x0020
-   0317 E5            [11]  518 	push	hl
-   0318 CDr00r00      [17]  519 	call	_putchar
-   031B F1            [10]  520 	pop	af
-                            521 ;../generic/usbdisk.c:140: nr_dsk_files_found++;
-   031C DD 34 FE      [23]  522 	inc	-2 (ix)
-                            523 ;../generic/usbdisk.c:141: if ((nr_dsk_files_found%nr_dsks_per_line) == 0)
-   031F DD 66 F3      [19]  524 	ld	h, -13 (ix)
-   0322 DD 6E FE      [19]  525 	ld	l, -2 (ix)
-   0325 E5            [11]  526 	push	hl
-   0326 CDr00r00      [17]  527 	call	__moduchar
-   0329 F1            [10]  528 	pop	af
-   032A 7D            [ 4]  529 	ld	a, l
-   032B B7            [ 4]  530 	or	a, a
-   032C 20 0F         [12]  531 	jr	NZ,00118$
-                            532 ;../generic/usbdisk.c:143: putchar ('\r');
-   032E 21 0D 00      [10]  533 	ld	hl, #0x000d
-   0331 E5            [11]  534 	push	hl
-   0332 CDr00r00      [17]  535 	call	_putchar
-                            536 ;../generic/usbdisk.c:144: putchar ('\n');
-   0335 21 0A 00      [10]  537 	ld	hl, #0x000a
-   0338 E3            [19]  538 	ex	(sp),hl
-   0339 CDr00r00      [17]  539 	call	_putchar
-   033C F1            [10]  540 	pop	af
-   033D                     541 00118$:
-                            542 ;../generic/usbdisk.c:148: if (info.DIR_Attr&0x10)
-   033D DD 6E FA      [19]  543 	ld	l, -6 (ix)
-   0340 DD 66 FB      [19]  544 	ld	h, -5 (ix)
-   0343 CB 66         [12]  545 	bit	4, (hl)
-   0345 CArFDr03      [10]  546 	jp	Z,00129$
-                            547 ;../generic/usbdisk.c:150: putchar ('A'+nr_dsk_files_found);
-   0348 DD 4E FE      [19]  548 	ld	c, -2 (ix)
-   034B 06 00         [ 7]  549 	ld	b, #0x00
-   034D 21 41 00      [10]  550 	ld	hl, #0x0041
-   0350 09            [11]  551 	add	hl, bc
-   0351 E5            [11]  552 	push	hl
-   0352 CDr00r00      [17]  553 	call	_putchar
-                            554 ;../generic/usbdisk.c:151: putchar ('.');
-   0355 21 2E 00      [10]  555 	ld	hl, #0x002e
-   0358 E3            [19]  556 	ex	(sp),hl
-   0359 CDr00r00      [17]  557 	call	_putchar
-                            558 ;../generic/usbdisk.c:152: putchar ('\\');
-   035C 21 5C 00      [10]  559 	ld	hl, #0x005c
-   035F E3            [19]  560 	ex	(sp),hl
-   0360 CDr00r00      [17]  561 	call	_putchar
-   0363 F1            [10]  562 	pop	af
-                            563 ;../generic/usbdisk.c:153: files[nr_dsk_files_found][8]='\0';
-   0364 DD 4E FE      [19]  564 	ld	c, -2 (ix)
-   0367 06 00         [ 7]  565 	ld	b, #0x00
-   0369 69            [ 4]  566 	ld	l, c
-   036A 60            [ 4]  567 	ld	h, b
-   036B 29            [11]  568 	add	hl, hl
-   036C 09            [11]  569 	add	hl, bc
-   036D 29            [11]  570 	add	hl, hl
-   036E 29            [11]  571 	add	hl, hl
-   036F EB            [ 4]  572 	ex	de, hl
-   0370 DD 7E F6      [19]  573 	ld	a, -10 (ix)
-   0373 83            [ 4]  574 	add	a, e
-   0374 4F            [ 4]  575 	ld	c, a
-   0375 DD 7E F7      [19]  576 	ld	a, -9 (ix)
-   0378 8A            [ 4]  577 	adc	a, d
-   0379 47            [ 4]  578 	ld	b, a
-   037A 21 08 00      [10]  579 	ld	hl, #0x0008
-   037D 09            [11]  580 	add	hl, bc
-   037E 36 00         [10]  581 	ld	(hl), #0x00
-                            582 ;../generic/usbdisk.c:154: for (cnt=0;cnt<8;cnt++)
-   0380 DD 71 FC      [19]  583 	ld	-4 (ix), c
-   0383 DD 70 FD      [19]  584 	ld	-3 (ix), b
-   0386 AF            [ 4]  585 	xor	a, a
-   0387 DD 77 FF      [19]  586 	ld	-1 (ix), a
-   038A                     587 00151$:
-                            588 ;../generic/usbdisk.c:156: putchar (tolower(info.DIR_Name[cnt]));
-   038A DD 7E F8      [19]  589 	ld	a, -8 (ix)
-   038D DD 86 FF      [19]  590 	add	a, -1 (ix)
-   0390 4F            [ 4]  591 	ld	c, a
-   0391 DD 7E F9      [19]  592 	ld	a, -7 (ix)
-   0394 CE 00         [ 7]  593 	adc	a, #0x00
-   0396 47            [ 4]  594 	ld	b, a
-   0397 0A            [ 7]  595 	ld	a, (bc)
-   0398 5F            [ 4]  596 	ld	e, a
-   0399 16 00         [ 7]  597 	ld	d, #0x00
-   039B C5            [11]  598 	push	bc
-   039C D5            [11]  599 	push	de
-   039D CDr00r00      [17]  600 	call	_tolower
-   03A0 E3            [19]  601 	ex	(sp),hl
-   03A1 CDr00r00      [17]  602 	call	_putchar
-   03A4 F1            [10]  603 	pop	af
-   03A5 C1            [10]  604 	pop	bc
-                            605 ;../generic/usbdisk.c:157: files[nr_dsk_files_found][cnt]=info.DIR_Name[cnt];
-   03A6 DD 7E FC      [19]  606 	ld	a, -4 (ix)
-   03A9 DD 86 FF      [19]  607 	add	a, -1 (ix)
-   03AC 5F            [ 4]  608 	ld	e, a
-   03AD DD 7E FD      [19]  609 	ld	a, -3 (ix)
-   03B0 CE 00         [ 7]  610 	adc	a, #0x00
-   03B2 57            [ 4]  611 	ld	d, a
-   03B3 0A            [ 7]  612 	ld	a, (bc)
-   03B4 12            [ 7]  613 	ld	(de), a
-                            614 ;../generic/usbdisk.c:154: for (cnt=0;cnt<8;cnt++)
-   03B5 DD 34 FF      [23]  615 	inc	-1 (ix)
-   03B8 DD 7E FF      [19]  616 	ld	a, -1 (ix)
-   03BB D6 08         [ 7]  617 	sub	a, #0x08
-   03BD 38 CB         [12]  618 	jr	C,00151$
-                            619 ;../generic/usbdisk.c:159: putchar (' ');
-   03BF 21 20 00      [10]  620 	ld	hl, #0x0020
-   03C2 E5            [11]  621 	push	hl
-   03C3 CDr00r00      [17]  622 	call	_putchar
-                            623 ;../generic/usbdisk.c:160: putchar (' ');
-   03C6 21 20 00      [10]  624 	ld	hl, #0x0020
-   03C9 E3            [19]  625 	ex	(sp),hl
-   03CA CDr00r00      [17]  626 	call	_putchar
-                            627 ;../generic/usbdisk.c:161: putchar (' ');
-   03CD 21 20 00      [10]  628 	ld	hl, #0x0020
-   03D0 E3            [19]  629 	ex	(sp),hl
-   03D1 CDr00r00      [17]  630 	call	_putchar
-                            631 ;../generic/usbdisk.c:162: putchar (' ');
-   03D4 21 20 00      [10]  632 	ld	hl, #0x0020
-   03D7 E3            [19]  633 	ex	(sp),hl
-   03D8 CDr00r00      [17]  634 	call	_putchar
-   03DB F1            [10]  635 	pop	af
-                            636 ;../generic/usbdisk.c:163: nr_dsk_files_found++;
-   03DC DD 34 FE      [23]  637 	inc	-2 (ix)
-                            638 ;../generic/usbdisk.c:164: if ((nr_dsk_files_found%nr_dsks_per_line) == 0)
-   03DF DD 66 F3      [19]  639 	ld	h, -13 (ix)
-   03E2 DD 6E FE      [19]  640 	ld	l, -2 (ix)
-   03E5 E5            [11]  641 	push	hl
-   03E6 CDr00r00      [17]  642 	call	__moduchar
-   03E9 F1            [10]  643 	pop	af
-   03EA 7D            [ 4]  644 	ld	a, l
-   03EB B7            [ 4]  645 	or	a, a
-   03EC 20 0F         [12]  646 	jr	NZ,00129$
-                            647 ;../generic/usbdisk.c:166: putchar ('\r');
-   03EE 21 0D 00      [10]  648 	ld	hl, #0x000d
-   03F1 E5            [11]  649 	push	hl
-   03F2 CDr00r00      [17]  650 	call	_putchar
-                            651 ;../generic/usbdisk.c:167: putchar ('\n');
-   03F5 21 0A 00      [10]  652 	ld	hl, #0x000a
-   03F8 E3            [19]  653 	ex	(sp),hl
-   03F9 CDr00r00      [17]  654 	call	_putchar
-   03FC F1            [10]  655 	pop	af
-   03FD                     656 00129$:
-                            657 ;../generic/usbdisk.c:172: while (ch376_next_search () && nr_dsk_files_found<MAX_FILES);
-   03FD CDr00r00      [17]  658 	call	_ch376_next_search
-   0400 CB 45         [ 8]  659 	bit	0, l
-   0402 28 08         [12]  660 	jr	Z,00130$
-   0404 DD 7E FE      [19]  661 	ld	a, -2 (ix)
-   0407 D6 1A         [ 7]  662 	sub	a, #0x1a
-   0409 DAr44r02      [10]  663 	jp	C, 00128$
-   040C                     664 00130$:
-                            665 ;../generic/usbdisk.c:173: putchar ('\r');
-   040C 21 0D 00      [10]  666 	ld	hl, #0x000d
-   040F E5            [11]  667 	push	hl
-   0410 CDr00r00      [17]  668 	call	_putchar
-                            669 ;../generic/usbdisk.c:174: putchar ('\n');
-   0413 21 0A 00      [10]  670 	ld	hl, #0x000a
-   0416 E3            [19]  671 	ex	(sp),hl
-   0417 CDr00r00      [17]  672 	call	_putchar
-                            673 ;../generic/usbdisk.c:176: printf ("\r\n");
-   041A 21rFFr04      [10]  674 	ld	hl, #___str_23
-   041D E3            [19]  675 	ex	(sp),hl
-   041E CDr00r00      [17]  676 	call	_puts
-   0421 F1            [10]  677 	pop	af
-                            678 ;../generic/usbdisk.c:177: while (true)
-   0422                     679 00147$:
-                            680 ;../generic/usbdisk.c:179: char c = getchar ();
-   0422 CDr00r00      [17]  681 	call	_getchar
-                            682 ;../generic/usbdisk.c:180: c = toupper (c);
-   0425 26 00         [ 7]  683 	ld	h, #0x00
-   0427 E5            [11]  684 	push	hl
-   0428 CDr00r00      [17]  685 	call	_toupper
-   042B F1            [10]  686 	pop	af
-                            687 ;../generic/usbdisk.c:181: if (c>='A' && c<='A'+nr_dsk_files_found)
-   042C DD 75 FF      [19]  688 	ld	-1 (ix), l
-   042F 7D            [ 4]  689 	ld	a, l
-   0430 D6 41         [ 7]  690 	sub	a, #0x41
-   0432 38 6D         [12]  691 	jr	C,00140$
-   0434 DD 4E FE      [19]  692 	ld	c, -2 (ix)
-   0437 06 00         [ 7]  693 	ld	b, #0x00
-   0439 21 41 00      [10]  694 	ld	hl, #0x0041
-   043C 09            [11]  695 	add	hl, bc
-   043D DD 4E FF      [19]  696 	ld	c, -1 (ix)
-   0440 06 00         [ 7]  697 	ld	b, #0x00
-   0442 7D            [ 4]  698 	ld	a, l
-   0443 91            [ 4]  699 	sub	a, c
-   0444 7C            [ 4]  700 	ld	a, h
-   0445 98            [ 4]  701 	sbc	a, b
-   0446 E2r4Br04      [10]  702 	jp	PO, 00300$
-   0449 EE 80         [ 7]  703 	xor	a, #0x80
-   044B                     704 00300$:
-   044B FArA1r04      [10]  705 	jp	M, 00140$
-                            706 ;../generic/usbdisk.c:183: c-='A';
-   044E DD 7E FF      [19]  707 	ld	a, -1 (ix)
-   0451 C6 BF         [ 7]  708 	add	a, #0xbf
-                            709 ;../generic/usbdisk.c:184: if (files[c][8]=='\0')
-   0453 4F            [ 4]  710 	ld	c, a
-   0454 06 00         [ 7]  711 	ld	b, #0x00
-   0456 69            [ 4]  712 	ld	l, c
-   0457 60            [ 4]  713 	ld	h, b
-   0458 29            [11]  714 	add	hl, hl
-   0459 09            [11]  715 	add	hl, bc
-   045A 29            [11]  716 	add	hl, hl
-   045B 29            [11]  717 	add	hl, hl
-   045C EB            [ 4]  718 	ex	de, hl
-   045D DD 7E F4      [19]  719 	ld	a, -12 (ix)
-   0460 83            [ 4]  720 	add	a, e
-   0461 5F            [ 4]  721 	ld	e, a
-   0462 DD 7E F5      [19]  722 	ld	a, -11 (ix)
-   0465 8A            [ 4]  723 	adc	a, d
-   0466 57            [ 4]  724 	ld	d, a
-   0467 6B            [ 4]  725 	ld	l, e
-   0468 62            [ 4]  726 	ld	h, d
-   0469 01 08 00      [10]  727 	ld	bc, #0x0008
-   046C 09            [11]  728 	add	hl, bc
-   046D 7E            [ 7]  729 	ld	a, (hl)
-                            730 ;../generic/usbdisk.c:190: return usbdisk_select_dsk_file (files[c]);
-   046E 4B            [ 4]  731 	ld	c, e
-   046F 42            [ 4]  732 	ld	b, d
-                            733 ;../generic/usbdisk.c:184: if (files[c][8]=='\0')
-   0470 B7            [ 4]  734 	or	a, a
-   0471 20 16         [12]  735 	jr	NZ,00137$
-                            736 ;../generic/usbdisk.c:187: if (files[c][0]=='.')
-   0473 1A            [ 7]  737 	ld	a, (de)
-   0474 D6 2E         [ 7]  738 	sub	a, #0x2e
-   0476 20 0A         [12]  739 	jr	NZ,00132$
-                            740 ;../generic/usbdisk.c:188: return usbdisk_select_dsk_file ("/");
-   0478 21r01r05      [10]  741 	ld	hl, #___str_24
-   047B E5            [11]  742 	push	hl
-   047C CDrAAr01      [17]  743 	call	_usbdisk_select_dsk_file
-   047F F1            [10]  744 	pop	af
-   0480 18 33         [12]  745 	jr	00153$
-   0482                     746 00132$:
-                            747 ;../generic/usbdisk.c:190: return usbdisk_select_dsk_file (files[c]);
-   0482 C5            [11]  748 	push	bc
-   0483 CDrAAr01      [17]  749 	call	_usbdisk_select_dsk_file
-   0486 F1            [10]  750 	pop	af
-   0487 18 2C         [12]  751 	jr	00153$
-   0489                     752 00137$:
-                            753 ;../generic/usbdisk.c:195: ch376_set_filename (files[c]);
-   0489 C5            [11]  754 	push	bc
-   048A CDr00r00      [17]  755 	call	_ch376_set_filename
-   048D F1            [10]  756 	pop	af
-                            757 ;../generic/usbdisk.c:196: if (!ch376_open_file ())
-   048E CDr00r00      [17]  758 	call	_ch376_open_file
-   0491 CB 45         [ 8]  759 	bit	0, l
-   0493 20 08         [12]  760 	jr	NZ,00135$
-                            761 ;../generic/usbdisk.c:197: error ("-DSK not opened\r\n");
-   0495 21r03r05      [10]  762 	ld	hl, #___str_25
-   0498 E5            [11]  763 	push	hl
-   0499 CDr00r00      [17]  764 	call	_error
-   049C F1            [10]  765 	pop	af
-   049D                     766 00135$:
-                            767 ;../generic/usbdisk.c:198: return DSK_IMAGE;
-   049D 2E 02         [ 7]  768 	ld	l, #0x02
-   049F 18 14         [12]  769 	jr	00153$
-   04A1                     770 00140$:
-                            771 ;../generic/usbdisk.c:201: if (c=='1')
-   04A1 DD 7E FF      [19]  772 	ld	a, -1 (ix)
-                            773 ;../generic/usbdisk.c:202: return FLOPPY;
-   04A4 D6 31         [ 7]  774 	sub	a,#0x31
-   04A6 20 03         [12]  775 	jr	NZ,00143$
-   04A8 6F            [ 4]  776 	ld	l,a
-   04A9 18 0A         [12]  777 	jr	00153$
-   04AB                     778 00143$:
-                            779 ;../generic/usbdisk.c:203: if (c=='2')
-   04AB DD 7E FF      [19]  780 	ld	a, -1 (ix)
-   04AE D6 32         [ 7]  781 	sub	a, #0x32
-   04B0 C2r22r04      [10]  782 	jp	NZ,00147$
-                            783 ;../generic/usbdisk.c:204: return USB;
-   04B3 2E 01         [ 7]  784 	ld	l, #0x01
-   04B5                     785 00153$:
-                            786 ;../generic/usbdisk.c:206: }
-   04B5 DD F9         [10]  787 	ld	sp, ix
-   04B7 DD E1         [14]  788 	pop	ix
-   04B9 C9            [10]  789 	ret
-   04BA                     790 ___str_14:
-   04BA 2D 44 69 72 65 63   791 	.ascii "-Directory not opened"
+   016F 00                  290 	.db 0x00
+   0170                     291 ___str_8:
+   0170 2E                  292 	.ascii "."
+   0171 00                  293 	.db 0x00
+   0172                     294 ___str_10:
+   0172 0D                  295 	.db 0x0d
+   0173 00                  296 	.db 0x00
+                            297 ;..\generic\usbdisk.c:84: select_mode_t usbdisk_select_dsk_file (char* start_directory)
+                            298 ;	---------------------------------
+                            299 ; Function usbdisk_select_dsk_file
+                            300 ; ---------------------------------
+   0174                     301 _usbdisk_select_dsk_file::
+   0174 DD E5         [15]  302 	push	ix
+   0176 DD 21 00 00   [14]  303 	ld	ix,#0
+   017A DD 39         [15]  304 	add	ix,sp
+   017C 21 92 FE      [10]  305 	ld	hl, #-366
+   017F 39            [11]  306 	add	hl, sp
+   0180 F9            [ 6]  307 	ld	sp, hl
+                            308 ;..\generic\usbdisk.c:92: if (supports_80_column_mode())
+   0181 CDr00r00      [17]  309 	call	_supports_80_column_mode
+   0184 CB 45         [ 8]  310 	bit	0, l
+   0186 28 06         [12]  311 	jr	Z,00102$
+                            312 ;..\generic\usbdisk.c:93: nr_dsks_per_line = 5;
+   0188 DD 36 F3 05   [19]  313 	ld	-13 (ix), #0x05
+   018C 18 04         [12]  314 	jr	00103$
+   018E                     315 00102$:
+                            316 ;..\generic\usbdisk.c:95: nr_dsks_per_line = 2;
+   018E DD 36 F3 02   [19]  317 	ld	-13 (ix), #0x02
+   0192                     318 00103$:
+                            319 ;..\generic\usbdisk.c:97: nr_dsk_files_found=0;
+   0192 DD 36 FE 00   [19]  320 	ld	-2 (ix), #0x00
+                            321 ;..\generic\usbdisk.c:100: ch376_set_filename (start_directory);
+   0196 DD 6E 04      [19]  322 	ld	l, 4 (ix)
+   0199 DD 66 05      [19]  323 	ld	h, 5 (ix)
+   019C E5            [11]  324 	push	hl
+   019D CDr00r00      [17]  325 	call	_ch376_set_filename
+   01A0 F1            [10]  326 	pop	af
+                            327 ;..\generic\usbdisk.c:101: if (!ch376_open_directory())
+   01A1 CDr00r00      [17]  328 	call	_ch376_open_directory
+   01A4 CB 45         [ 8]  329 	bit	0, l
+   01A6 20 08         [12]  330 	jr	NZ,00105$
+                            331 ;..\generic\usbdisk.c:103: error ("-Directory not opened");
+   01A8 21r87r04      [10]  332 	ld	hl, #___str_11
+   01AB E5            [11]  333 	push	hl
+   01AC CDr00r00      [17]  334 	call	_error
+   01AF F1            [10]  335 	pop	af
+   01B0                     336 00105$:
+                            337 ;..\generic\usbdisk.c:108: printf ("1.FLOPPY       2.USBDRIVE\r\n\r\n");
+   01B0 21rE2r04      [10]  338 	ld	hl, #___str_23
+   01B3 E5            [11]  339 	push	hl
+   01B4 CDr00r00      [17]  340 	call	_puts
+                            341 ;..\generic\usbdisk.c:111: ch376_set_filename ("*");
+   01B7 21r9Dr04      [10]  342 	ld	hl, #___str_16
+   01BA E3            [19]  343 	ex	(sp),hl
+   01BB CDr00r00      [17]  344 	call	_ch376_set_filename
+   01BE F1            [10]  345 	pop	af
+                            346 ;..\generic\usbdisk.c:112: if (!ch376_open_search ())
+   01BF CDr00r00      [17]  347 	call	_ch376_open_search
+   01C2 CB 45         [ 8]  348 	bit	0, l
+   01C4 20 08         [12]  349 	jr	NZ,00107$
+                            350 ;..\generic\usbdisk.c:113: error ("-No files found");
+   01C6 21r9Fr04      [10]  351 	ld	hl, #___str_17
+   01C9 E5            [11]  352 	push	hl
+   01CA CDr00r00      [17]  353 	call	_error
+   01CD F1            [10]  354 	pop	af
+   01CE                     355 00107$:
+                            356 ;..\generic\usbdisk.c:115: printf ("Or, select DSK image [%s]:\r\n",start_directory);
+   01CE DD 6E 04      [19]  357 	ld	l, 4 (ix)
+   01D1 DD 66 05      [19]  358 	ld	h, 5 (ix)
+   01D4 E5            [11]  359 	push	hl
+   01D5 21rAFr04      [10]  360 	ld	hl, #___str_18
+   01D8 E5            [11]  361 	push	hl
+   01D9 CDr00r00      [17]  362 	call	_printf
+   01DC F1            [10]  363 	pop	af
+   01DD F1            [10]  364 	pop	af
+                            365 ;..\generic\usbdisk.c:117: do 
+   01DE 21 20 00      [10]  366 	ld	hl, #32
+   01E1 39            [11]  367 	add	hl, sp
+   01E2 DD 75 F4      [19]  368 	ld	-12 (ix), l
+   01E5 DD 74 F5      [19]  369 	ld	-11 (ix), h
+   01E8 DD 7E F4      [19]  370 	ld	a, -12 (ix)
+   01EB DD 77 F6      [19]  371 	ld	-10 (ix), a
+   01EE DD 7E F5      [19]  372 	ld	a, -11 (ix)
+   01F1 DD 77 F7      [19]  373 	ld	-9 (ix), a
+   01F4 21 00 00      [10]  374 	ld	hl, #0
+   01F7 39            [11]  375 	add	hl, sp
+   01F8 DD 75 F8      [19]  376 	ld	-8 (ix), l
+   01FB DD 74 F9      [19]  377 	ld	-7 (ix), h
+   01FE DD 7E F8      [19]  378 	ld	a, -8 (ix)
+   0201 C6 0B         [ 7]  379 	add	a, #0x0b
+   0203 DD 77 FA      [19]  380 	ld	-6 (ix), a
+   0206 DD 7E F9      [19]  381 	ld	a, -7 (ix)
+   0209 CE 00         [ 7]  382 	adc	a, #0x00
+   020B DD 77 FB      [19]  383 	ld	-5 (ix), a
+   020E                     384 00128$:
+                            385 ;..\generic\usbdisk.c:119: ch376_get_fat_info (&info);
+   020E DD 4E F8      [19]  386 	ld	c, -8 (ix)
+   0211 DD 46 F9      [19]  387 	ld	b, -7 (ix)
+   0214 C5            [11]  388 	push	bc
+   0215 CDr00r00      [17]  389 	call	_ch376_get_fat_info
+   0218 F1            [10]  390 	pop	af
+                            391 ;..\generic\usbdisk.c:120: if (!(info.DIR_Attr&0x02)) // show non-hidden normal or archived files
+   0219 DD 6E FA      [19]  392 	ld	l, -6 (ix)
+   021C DD 66 FB      [19]  393 	ld	h, -5 (ix)
+   021F 7E            [ 7]  394 	ld	a, (hl)
+   0220 DD 77 FF      [19]  395 	ld	-1 (ix), a
+   0223 DD CB FF 4E   [20]  396 	bit	1, -1 (ix)
+   0227 C2rCBr03      [10]  397 	jp	NZ,00129$
+                            398 ;..\generic\usbdisk.c:122: if (info.DIR_Attr&0x20 || info.DIR_Attr==0x00)
+   022A DD CB FF 6E   [20]  399 	bit	5, -1 (ix)
+   022E 20 07         [12]  400 	jr	NZ,00117$
+   0230 DD 7E FF      [19]  401 	ld	a, -1 (ix)
+   0233 B7            [ 4]  402 	or	a, a
+   0234 C2r0Br03      [10]  403 	jp	NZ, 00118$
+   0237                     404 00117$:
+                            405 ;..\generic\usbdisk.c:124: if (info.DIR_Name[8]=='D' &&
+   0237 DD 6E F8      [19]  406 	ld	l, -8 (ix)
+   023A DD 66 F9      [19]  407 	ld	h, -7 (ix)
+   023D 11 08 00      [10]  408 	ld	de, #0x0008
+   0240 19            [11]  409 	add	hl, de
+   0241 7E            [ 7]  410 	ld	a, (hl)
+   0242 D6 44         [ 7]  411 	sub	a, #0x44
+   0244 C2r0Br03      [10]  412 	jp	NZ,00118$
+                            413 ;..\generic\usbdisk.c:125: info.DIR_Name[9]=='S' &&
+   0247 DD 6E F8      [19]  414 	ld	l, -8 (ix)
+   024A DD 66 F9      [19]  415 	ld	h, -7 (ix)
+   024D 11 09 00      [10]  416 	ld	de, #0x0009
+   0250 19            [11]  417 	add	hl, de
+   0251 7E            [ 7]  418 	ld	a, (hl)
+   0252 D6 53         [ 7]  419 	sub	a, #0x53
+   0254 C2r0Br03      [10]  420 	jp	NZ,00118$
+                            421 ;..\generic\usbdisk.c:126: info.DIR_Name[10]=='K')
+   0257 DD 6E F8      [19]  422 	ld	l, -8 (ix)
+   025A DD 66 F9      [19]  423 	ld	h, -7 (ix)
+   025D 11 0A 00      [10]  424 	ld	de, #0x000a
+   0260 19            [11]  425 	add	hl, de
+   0261 7E            [ 7]  426 	ld	a, (hl)
+   0262 D6 4B         [ 7]  427 	sub	a, #0x4b
+   0264 C2r0Br03      [10]  428 	jp	NZ,00118$
+                            429 ;..\generic\usbdisk.c:128: putchar ('A'+nr_dsk_files_found);
+   0267 DD 4E FE      [19]  430 	ld	c, -2 (ix)
+   026A 06 00         [ 7]  431 	ld	b, #0x00
+   026C 21 41 00      [10]  432 	ld	hl, #0x0041
+   026F 09            [11]  433 	add	hl, bc
+   0270 E5            [11]  434 	push	hl
+   0271 CDr00r00      [17]  435 	call	_putchar
+                            436 ;..\generic\usbdisk.c:129: putchar ('.');
+   0274 21 2E 00      [10]  437 	ld	hl, #0x002e
+   0277 E3            [19]  438 	ex	(sp),hl
+   0278 CDr00r00      [17]  439 	call	_putchar
+   027B F1            [10]  440 	pop	af
+                            441 ;..\generic\usbdisk.c:130: files[nr_dsk_files_found][11]='\0';
+   027C DD 4E FE      [19]  442 	ld	c, -2 (ix)
+   027F 06 00         [ 7]  443 	ld	b, #0x00
+   0281 69            [ 4]  444 	ld	l, c
+   0282 60            [ 4]  445 	ld	h, b
+   0283 29            [11]  446 	add	hl, hl
+   0284 09            [11]  447 	add	hl, bc
+   0285 29            [11]  448 	add	hl, hl
+   0286 29            [11]  449 	add	hl, hl
+   0287 EB            [ 4]  450 	ex	de, hl
+   0288 DD 7E F4      [19]  451 	ld	a, -12 (ix)
+   028B 83            [ 4]  452 	add	a, e
+   028C 4F            [ 4]  453 	ld	c, a
+   028D DD 7E F5      [19]  454 	ld	a, -11 (ix)
+   0290 8A            [ 4]  455 	adc	a, d
+   0291 47            [ 4]  456 	ld	b, a
+   0292 21 0B 00      [10]  457 	ld	hl, #0x000b
+   0295 09            [11]  458 	add	hl, bc
+   0296 36 00         [10]  459 	ld	(hl), #0x00
+                            460 ;..\generic\usbdisk.c:131: for (cnt=0;cnt<11;cnt++)
+   0298 DD 71 FC      [19]  461 	ld	-4 (ix), c
+   029B DD 70 FD      [19]  462 	ld	-3 (ix), b
+   029E DD 36 FF 00   [19]  463 	ld	-1 (ix), #0x00
+   02A2                     464 00149$:
+                            465 ;..\generic\usbdisk.c:133: if (cnt==8)
+   02A2 DD 7E FF      [19]  466 	ld	a, -1 (ix)
+   02A5 D6 08         [ 7]  467 	sub	a, #0x08
+   02A7 20 08         [12]  468 	jr	NZ,00109$
+                            469 ;..\generic\usbdisk.c:134: putchar ('.');
+   02A9 21 2E 00      [10]  470 	ld	hl, #0x002e
+   02AC E5            [11]  471 	push	hl
+   02AD CDr00r00      [17]  472 	call	_putchar
+   02B0 F1            [10]  473 	pop	af
+   02B1                     474 00109$:
+                            475 ;..\generic\usbdisk.c:135: putchar (info.DIR_Name[cnt]);
+   02B1 DD 7E F8      [19]  476 	ld	a, -8 (ix)
+   02B4 DD 86 FF      [19]  477 	add	a, -1 (ix)
+   02B7 5F            [ 4]  478 	ld	e, a
+   02B8 DD 7E F9      [19]  479 	ld	a, -7 (ix)
+   02BB CE 00         [ 7]  480 	adc	a, #0x00
+   02BD 57            [ 4]  481 	ld	d, a
+   02BE 1A            [ 7]  482 	ld	a, (de)
+   02BF 4F            [ 4]  483 	ld	c, a
+   02C0 06 00         [ 7]  484 	ld	b, #0x00
+   02C2 D5            [11]  485 	push	de
+   02C3 C5            [11]  486 	push	bc
+   02C4 CDr00r00      [17]  487 	call	_putchar
+   02C7 F1            [10]  488 	pop	af
+   02C8 D1            [10]  489 	pop	de
+                            490 ;..\generic\usbdisk.c:136: files[nr_dsk_files_found][cnt]=info.DIR_Name[cnt];
+   02C9 DD 7E FC      [19]  491 	ld	a, -4 (ix)
+   02CC DD 86 FF      [19]  492 	add	a, -1 (ix)
+   02CF 4F            [ 4]  493 	ld	c, a
+   02D0 DD 7E FD      [19]  494 	ld	a, -3 (ix)
+   02D3 CE 00         [ 7]  495 	adc	a, #0x00
+   02D5 47            [ 4]  496 	ld	b, a
+   02D6 1A            [ 7]  497 	ld	a, (de)
+   02D7 02            [ 7]  498 	ld	(bc), a
+                            499 ;..\generic\usbdisk.c:131: for (cnt=0;cnt<11;cnt++)
+   02D8 DD 34 FF      [23]  500 	inc	-1 (ix)
+   02DB DD 7E FF      [19]  501 	ld	a, -1 (ix)
+   02DE D6 0B         [ 7]  502 	sub	a, #0x0b
+   02E0 38 C0         [12]  503 	jr	C,00149$
+                            504 ;..\generic\usbdisk.c:138: putchar (' ');
+   02E2 21 20 00      [10]  505 	ld	hl, #0x0020
+   02E5 E5            [11]  506 	push	hl
+   02E6 CDr00r00      [17]  507 	call	_putchar
+   02E9 F1            [10]  508 	pop	af
+                            509 ;..\generic\usbdisk.c:139: nr_dsk_files_found++;
+   02EA DD 34 FE      [23]  510 	inc	-2 (ix)
+                            511 ;..\generic\usbdisk.c:140: if ((nr_dsk_files_found%nr_dsks_per_line) == 0)
+   02ED DD 66 F3      [19]  512 	ld	h, -13 (ix)
+   02F0 DD 6E FE      [19]  513 	ld	l, -2 (ix)
+   02F3 E5            [11]  514 	push	hl
+   02F4 CDr00r00      [17]  515 	call	__moduchar
+   02F7 F1            [10]  516 	pop	af
+   02F8 7D            [ 4]  517 	ld	a, l
+   02F9 B7            [ 4]  518 	or	a, a
+   02FA 20 0F         [12]  519 	jr	NZ,00118$
+                            520 ;..\generic\usbdisk.c:142: putchar ('\r');
+   02FC 21 0D 00      [10]  521 	ld	hl, #0x000d
+   02FF E5            [11]  522 	push	hl
+   0300 CDr00r00      [17]  523 	call	_putchar
+                            524 ;..\generic\usbdisk.c:143: putchar ('\n');
+   0303 21 0A 00      [10]  525 	ld	hl, #0x000a
+   0306 E3            [19]  526 	ex	(sp),hl
+   0307 CDr00r00      [17]  527 	call	_putchar
+   030A F1            [10]  528 	pop	af
+   030B                     529 00118$:
+                            530 ;..\generic\usbdisk.c:147: if (info.DIR_Attr&0x10)
+   030B DD 6E FA      [19]  531 	ld	l, -6 (ix)
+   030E DD 66 FB      [19]  532 	ld	h, -5 (ix)
+   0311 CB 66         [12]  533 	bit	4, (hl)
+   0313 CArCBr03      [10]  534 	jp	Z,00129$
+                            535 ;..\generic\usbdisk.c:149: putchar ('A'+nr_dsk_files_found);
+   0316 DD 4E FE      [19]  536 	ld	c, -2 (ix)
+   0319 06 00         [ 7]  537 	ld	b, #0x00
+   031B 21 41 00      [10]  538 	ld	hl, #0x0041
+   031E 09            [11]  539 	add	hl, bc
+   031F E5            [11]  540 	push	hl
+   0320 CDr00r00      [17]  541 	call	_putchar
+                            542 ;..\generic\usbdisk.c:150: putchar ('.');
+   0323 21 2E 00      [10]  543 	ld	hl, #0x002e
+   0326 E3            [19]  544 	ex	(sp),hl
+   0327 CDr00r00      [17]  545 	call	_putchar
+                            546 ;..\generic\usbdisk.c:151: putchar ('\\');
+   032A 21 5C 00      [10]  547 	ld	hl, #0x005c
+   032D E3            [19]  548 	ex	(sp),hl
+   032E CDr00r00      [17]  549 	call	_putchar
+   0331 F1            [10]  550 	pop	af
+                            551 ;..\generic\usbdisk.c:152: files[nr_dsk_files_found][8]='\0';
+   0332 DD 4E FE      [19]  552 	ld	c, -2 (ix)
+   0335 06 00         [ 7]  553 	ld	b, #0x00
+   0337 69            [ 4]  554 	ld	l, c
+   0338 60            [ 4]  555 	ld	h, b
+   0339 29            [11]  556 	add	hl, hl
+   033A 09            [11]  557 	add	hl, bc
+   033B 29            [11]  558 	add	hl, hl
+   033C 29            [11]  559 	add	hl, hl
+   033D EB            [ 4]  560 	ex	de, hl
+   033E DD 7E F6      [19]  561 	ld	a, -10 (ix)
+   0341 83            [ 4]  562 	add	a, e
+   0342 4F            [ 4]  563 	ld	c, a
+   0343 DD 7E F7      [19]  564 	ld	a, -9 (ix)
+   0346 8A            [ 4]  565 	adc	a, d
+   0347 47            [ 4]  566 	ld	b, a
+   0348 21 08 00      [10]  567 	ld	hl, #0x0008
+   034B 09            [11]  568 	add	hl, bc
+   034C 36 00         [10]  569 	ld	(hl), #0x00
+                            570 ;..\generic\usbdisk.c:153: for (cnt=0;cnt<8;cnt++)
+   034E DD 71 FC      [19]  571 	ld	-4 (ix), c
+   0351 DD 70 FD      [19]  572 	ld	-3 (ix), b
+   0354 DD 36 FF 00   [19]  573 	ld	-1 (ix), #0x00
+   0358                     574 00151$:
+                            575 ;..\generic\usbdisk.c:155: putchar (tolower(info.DIR_Name[cnt]));
+   0358 DD 7E F8      [19]  576 	ld	a, -8 (ix)
+   035B DD 86 FF      [19]  577 	add	a, -1 (ix)
+   035E 4F            [ 4]  578 	ld	c, a
+   035F DD 7E F9      [19]  579 	ld	a, -7 (ix)
+   0362 CE 00         [ 7]  580 	adc	a, #0x00
+   0364 47            [ 4]  581 	ld	b, a
+   0365 0A            [ 7]  582 	ld	a, (bc)
+   0366 5F            [ 4]  583 	ld	e, a
+   0367 16 00         [ 7]  584 	ld	d, #0x00
+   0369 C5            [11]  585 	push	bc
+   036A D5            [11]  586 	push	de
+   036B CDr00r00      [17]  587 	call	_tolower
+   036E E3            [19]  588 	ex	(sp),hl
+   036F CDr00r00      [17]  589 	call	_putchar
+   0372 F1            [10]  590 	pop	af
+   0373 C1            [10]  591 	pop	bc
+                            592 ;..\generic\usbdisk.c:156: files[nr_dsk_files_found][cnt]=info.DIR_Name[cnt];
+   0374 DD 7E FC      [19]  593 	ld	a, -4 (ix)
+   0377 DD 86 FF      [19]  594 	add	a, -1 (ix)
+   037A 5F            [ 4]  595 	ld	e, a
+   037B DD 7E FD      [19]  596 	ld	a, -3 (ix)
+   037E CE 00         [ 7]  597 	adc	a, #0x00
+   0380 57            [ 4]  598 	ld	d, a
+   0381 0A            [ 7]  599 	ld	a, (bc)
+   0382 12            [ 7]  600 	ld	(de), a
+                            601 ;..\generic\usbdisk.c:153: for (cnt=0;cnt<8;cnt++)
+   0383 DD 34 FF      [23]  602 	inc	-1 (ix)
+   0386 DD 7E FF      [19]  603 	ld	a, -1 (ix)
+   0389 D6 08         [ 7]  604 	sub	a, #0x08
+   038B 38 CB         [12]  605 	jr	C,00151$
+                            606 ;..\generic\usbdisk.c:158: putchar (' ');
+   038D 21 20 00      [10]  607 	ld	hl, #0x0020
+   0390 E5            [11]  608 	push	hl
+   0391 CDr00r00      [17]  609 	call	_putchar
+                            610 ;..\generic\usbdisk.c:159: putchar (' ');
+   0394 21 20 00      [10]  611 	ld	hl, #0x0020
+   0397 E3            [19]  612 	ex	(sp),hl
+   0398 CDr00r00      [17]  613 	call	_putchar
+                            614 ;..\generic\usbdisk.c:160: putchar (' ');
+   039B 21 20 00      [10]  615 	ld	hl, #0x0020
+   039E E3            [19]  616 	ex	(sp),hl
+   039F CDr00r00      [17]  617 	call	_putchar
+                            618 ;..\generic\usbdisk.c:161: putchar (' ');
+   03A2 21 20 00      [10]  619 	ld	hl, #0x0020
+   03A5 E3            [19]  620 	ex	(sp),hl
+   03A6 CDr00r00      [17]  621 	call	_putchar
+   03A9 F1            [10]  622 	pop	af
+                            623 ;..\generic\usbdisk.c:162: nr_dsk_files_found++;
+   03AA DD 34 FE      [23]  624 	inc	-2 (ix)
+                            625 ;..\generic\usbdisk.c:163: if ((nr_dsk_files_found%nr_dsks_per_line) == 0)
+   03AD DD 66 F3      [19]  626 	ld	h, -13 (ix)
+   03B0 DD 6E FE      [19]  627 	ld	l, -2 (ix)
+   03B3 E5            [11]  628 	push	hl
+   03B4 CDr00r00      [17]  629 	call	__moduchar
+   03B7 F1            [10]  630 	pop	af
+   03B8 7D            [ 4]  631 	ld	a, l
+   03B9 B7            [ 4]  632 	or	a, a
+   03BA 20 0F         [12]  633 	jr	NZ,00129$
+                            634 ;..\generic\usbdisk.c:165: putchar ('\r');
+   03BC 21 0D 00      [10]  635 	ld	hl, #0x000d
+   03BF E5            [11]  636 	push	hl
+   03C0 CDr00r00      [17]  637 	call	_putchar
+                            638 ;..\generic\usbdisk.c:166: putchar ('\n');
+   03C3 21 0A 00      [10]  639 	ld	hl, #0x000a
+   03C6 E3            [19]  640 	ex	(sp),hl
+   03C7 CDr00r00      [17]  641 	call	_putchar
+   03CA F1            [10]  642 	pop	af
+   03CB                     643 00129$:
+                            644 ;..\generic\usbdisk.c:171: while (ch376_next_search () && nr_dsk_files_found<MAX_FILES);
+   03CB CDr00r00      [17]  645 	call	_ch376_next_search
+   03CE CB 45         [ 8]  646 	bit	0, l
+   03D0 28 08         [12]  647 	jr	Z,00130$
+   03D2 DD 7E FE      [19]  648 	ld	a, -2 (ix)
+   03D5 D6 1A         [ 7]  649 	sub	a, #0x1a
+   03D7 DAr0Er02      [10]  650 	jp	C, 00128$
+   03DA                     651 00130$:
+                            652 ;..\generic\usbdisk.c:172: putchar ('\r');
+   03DA 21 0D 00      [10]  653 	ld	hl, #0x000d
+   03DD E5            [11]  654 	push	hl
+   03DE CDr00r00      [17]  655 	call	_putchar
+                            656 ;..\generic\usbdisk.c:173: putchar ('\n');
+   03E1 21 0A 00      [10]  657 	ld	hl, #0x000a
+   03E4 E3            [19]  658 	ex	(sp),hl
+   03E5 CDr00r00      [17]  659 	call	_putchar
+                            660 ;..\generic\usbdisk.c:175: printf ("\r\n");
+   03E8 21rCCr04      [10]  661 	ld	hl, #___str_20
+   03EB E3            [19]  662 	ex	(sp),hl
+   03EC CDr00r00      [17]  663 	call	_puts
+   03EF F1            [10]  664 	pop	af
+                            665 ;..\generic\usbdisk.c:176: while (true)
+   03F0                     666 00147$:
+                            667 ;..\generic\usbdisk.c:178: char c = getchar ();
+   03F0 CDr00r00      [17]  668 	call	_getchar
+                            669 ;..\generic\usbdisk.c:179: c = toupper (c);
+   03F3 26 00         [ 7]  670 	ld	h, #0x00
+   03F5 E5            [11]  671 	push	hl
+   03F6 CDr00r00      [17]  672 	call	_toupper
+   03F9 F1            [10]  673 	pop	af
+                            674 ;..\generic\usbdisk.c:180: if (c>='A' && c<='A'+nr_dsk_files_found)
+   03FA DD 75 FF      [19]  675 	ld	-1 (ix), l
+   03FD 7D            [ 4]  676 	ld	a, l
+   03FE D6 41         [ 7]  677 	sub	a, #0x41
+   0400 38 6C         [12]  678 	jr	C,00140$
+   0402 DD 4E FE      [19]  679 	ld	c, -2 (ix)
+   0405 06 00         [ 7]  680 	ld	b, #0x00
+   0407 21 41 00      [10]  681 	ld	hl, #0x0041
+   040A 09            [11]  682 	add	hl, bc
+   040B DD 4E FF      [19]  683 	ld	c, -1 (ix)
+   040E 06 00         [ 7]  684 	ld	b, #0x00
+   0410 7D            [ 4]  685 	ld	a, l
+   0411 91            [ 4]  686 	sub	a, c
+   0412 7C            [ 4]  687 	ld	a, h
+   0413 98            [ 4]  688 	sbc	a, b
+   0414 E2r19r04      [10]  689 	jp	PO, 00300$
+   0417 EE 80         [ 7]  690 	xor	a, #0x80
+   0419                     691 00300$:
+   0419 FAr6Er04      [10]  692 	jp	M, 00140$
+                            693 ;..\generic\usbdisk.c:182: c-='A';
+   041C DD 7E FF      [19]  694 	ld	a, -1 (ix)
+   041F C6 BF         [ 7]  695 	add	a, #0xbf
+                            696 ;..\generic\usbdisk.c:183: if (files[c][8]=='\0')
+   0421 4F            [ 4]  697 	ld	c, a
+   0422 06 00         [ 7]  698 	ld	b, #0x00
+   0424 69            [ 4]  699 	ld	l, c
+   0425 60            [ 4]  700 	ld	h, b
+   0426 29            [11]  701 	add	hl, hl
+   0427 09            [11]  702 	add	hl, bc
+   0428 29            [11]  703 	add	hl, hl
+   0429 29            [11]  704 	add	hl, hl
+   042A EB            [ 4]  705 	ex	de, hl
+   042B DD 7E F4      [19]  706 	ld	a, -12 (ix)
+   042E 83            [ 4]  707 	add	a, e
+   042F 5F            [ 4]  708 	ld	e, a
+   0430 DD 7E F5      [19]  709 	ld	a, -11 (ix)
+   0433 8A            [ 4]  710 	adc	a, d
+   0434 57            [ 4]  711 	ld	d, a
+   0435 D5            [11]  712 	push	de
+   0436 FD E1         [14]  713 	pop	iy
+   0438 FD 7E 08      [19]  714 	ld	a, 8 (iy)
+                            715 ;..\generic\usbdisk.c:189: return usbdisk_select_dsk_file (files[c]);
+   043B 4B            [ 4]  716 	ld	c, e
+   043C 42            [ 4]  717 	ld	b, d
+                            718 ;..\generic\usbdisk.c:183: if (files[c][8]=='\0')
+   043D B7            [ 4]  719 	or	a, a
+   043E 20 16         [12]  720 	jr	NZ,00137$
+                            721 ;..\generic\usbdisk.c:186: if (files[c][0]=='.')
+   0440 1A            [ 7]  722 	ld	a, (de)
+   0441 D6 2E         [ 7]  723 	sub	a, #0x2e
+   0443 20 0A         [12]  724 	jr	NZ,00132$
+                            725 ;..\generic\usbdisk.c:187: return usbdisk_select_dsk_file ("/");
+   0445 21rCEr04      [10]  726 	ld	hl, #___str_21
+   0448 E5            [11]  727 	push	hl
+   0449 CDr74r01      [17]  728 	call	_usbdisk_select_dsk_file
+   044C F1            [10]  729 	pop	af
+   044D 18 33         [12]  730 	jr	00153$
+   044F                     731 00132$:
+                            732 ;..\generic\usbdisk.c:189: return usbdisk_select_dsk_file (files[c]);
+   044F C5            [11]  733 	push	bc
+   0450 CDr74r01      [17]  734 	call	_usbdisk_select_dsk_file
+   0453 F1            [10]  735 	pop	af
+   0454 18 2C         [12]  736 	jr	00153$
+   0456                     737 00137$:
+                            738 ;..\generic\usbdisk.c:194: ch376_set_filename (files[c]);
+   0456 C5            [11]  739 	push	bc
+   0457 CDr00r00      [17]  740 	call	_ch376_set_filename
+   045A F1            [10]  741 	pop	af
+                            742 ;..\generic\usbdisk.c:195: if (!ch376_open_file ())
+   045B CDr00r00      [17]  743 	call	_ch376_open_file
+   045E CB 45         [ 8]  744 	bit	0, l
+   0460 20 08         [12]  745 	jr	NZ,00135$
+                            746 ;..\generic\usbdisk.c:196: error ("-DSK not opened\r\n");
+   0462 21rD0r04      [10]  747 	ld	hl, #___str_22
+   0465 E5            [11]  748 	push	hl
+   0466 CDr00r00      [17]  749 	call	_error
+   0469 F1            [10]  750 	pop	af
+   046A                     751 00135$:
+                            752 ;..\generic\usbdisk.c:197: return DSK_IMAGE;
+   046A 2E 02         [ 7]  753 	ld	l, #0x02
+   046C 18 14         [12]  754 	jr	00153$
+   046E                     755 00140$:
+                            756 ;..\generic\usbdisk.c:200: if (c=='1')
+   046E DD 7E FF      [19]  757 	ld	a, -1 (ix)
+                            758 ;..\generic\usbdisk.c:201: return FLOPPY;
+   0471 D6 31         [ 7]  759 	sub	a,#0x31
+   0473 20 03         [12]  760 	jr	NZ,00143$
+   0475 6F            [ 4]  761 	ld	l,a
+   0476 18 0A         [12]  762 	jr	00153$
+   0478                     763 00143$:
+                            764 ;..\generic\usbdisk.c:202: if (c=='2')
+   0478 DD 7E FF      [19]  765 	ld	a, -1 (ix)
+   047B D6 32         [ 7]  766 	sub	a, #0x32
+   047D C2rF0r03      [10]  767 	jp	NZ,00147$
+                            768 ;..\generic\usbdisk.c:203: return USB;
+   0480 2E 01         [ 7]  769 	ld	l, #0x01
+   0482                     770 00153$:
+                            771 ;..\generic\usbdisk.c:205: }
+   0482 DD F9         [10]  772 	ld	sp, ix
+   0484 DD E1         [14]  773 	pop	ix
+   0486 C9            [10]  774 	ret
+   0487                     775 ___str_11:
+   0487 2D 44 69 72 65 63   776 	.ascii "-Directory not opened"
         74 6F 72 79 20 6E
         6F 74 20 6F 70 65
         6E 65 64
-   04CF 00                  792 	.db 0x00
-   04D0                     793 ___str_19:
-   04D0 2A                  794 	.ascii "*"
-   04D1 00                  795 	.db 0x00
-   04D2                     796 ___str_20:
-   04D2 2D 4E 6F 20 66 69   797 	.ascii "-No files found"
+   049C 00                  777 	.db 0x00
+   049D                     778 ___str_16:
+   049D 2A                  779 	.ascii "*"
+   049E 00                  780 	.db 0x00
+   049F                     781 ___str_17:
+   049F 2D 4E 6F 20 66 69   782 	.ascii "-No files found"
         6C 65 73 20 66 6F
         75 6E 64
-   04E1 00                  798 	.db 0x00
-   04E2                     799 ___str_21:
-   04E2 4F 72 2C 20 73 65   800 	.ascii "Or, select DSK image [%s]:"
+   04AE 00                  783 	.db 0x00
+   04AF                     784 ___str_18:
+   04AF 4F 72 2C 20 73 65   785 	.ascii "Or, select DSK image [%s]:"
         6C 65 63 74 20 44
         53 4B 20 69 6D 61
         67 65 20 5B 25 73
         5D 3A
-   04FC 0D                  801 	.db 0x0d
-   04FD 0A                  802 	.db 0x0a
-   04FE 00                  803 	.db 0x00
-   04FF                     804 ___str_23:
-   04FF 0D                  805 	.db 0x0d
-   0500 00                  806 	.db 0x00
-   0501                     807 ___str_24:
-   0501 2F                  808 	.ascii "/"
-   0502 00                  809 	.db 0x00
-   0503                     810 ___str_25:
-   0503 2D 44 53 4B 20 6E   811 	.ascii "-DSK not opened"
+   04C9 0D                  786 	.db 0x0d
+   04CA 0A                  787 	.db 0x0a
+   04CB 00                  788 	.db 0x00
+   04CC                     789 ___str_20:
+   04CC 0D                  790 	.db 0x0d
+   04CD 00                  791 	.db 0x00
+   04CE                     792 ___str_21:
+   04CE 2F                  793 	.ascii "/"
+   04CF 00                  794 	.db 0x00
+   04D0                     795 ___str_22:
+   04D0 2D 44 53 4B 20 6E   796 	.ascii "-DSK not opened"
         6F 74 20 6F 70 65
         6E 65 64
-   0512 0D                  812 	.db 0x0d
-   0513 0A                  813 	.db 0x0a
-   0514 00                  814 	.db 0x00
-   0515                     815 ___str_26:
-   0515 0D                  816 	.db 0x0d
-   0516 0A                  817 	.db 0x0a
-   0517 53 65 6C 65 63 74   818 	.ascii "Select device:"
+   04DF 0D                  797 	.db 0x0d
+   04E0 0A                  798 	.db 0x0a
+   04E1 00                  799 	.db 0x00
+   04E2                     800 ___str_23:
+   04E2 0D                  801 	.db 0x0d
+   04E3 0A                  802 	.db 0x0a
+   04E4 53 65 6C 65 63 74   803 	.ascii "Select device:"
         20 64 65 76 69 63
         65 3A
-   0525 0D                  819 	.db 0x0d
-   0526 0A                  820 	.db 0x0a
-   0527 31 2E 46 4C 4F 50   821 	.ascii "1.FLOPPY       2.USBDRIVE"
+   04F2 0D                  804 	.db 0x0d
+   04F3 0A                  805 	.db 0x0a
+   04F4 31 2E 46 4C 4F 50   806 	.ascii "1.FLOPPY       2.USBDRIVE"
         50 59 20 20 20 20
         20 20 20 32 2E 55
         53 42 44 52 49 56
         45
-   0540 0D                  822 	.db 0x0d
-   0541 0A                  823 	.db 0x0a
-   0542 0D                  824 	.db 0x0d
-   0543 00                  825 	.db 0x00
-                            826 ;../generic/usbdisk.c:208: bool read_write_file_sectors (bool writing,uint8_t nr_sectors,uint32_t* sector,uint8_t* sector_buffer)
-                            827 ;	---------------------------------
-                            828 ; Function read_write_file_sectors
-                            829 ; ---------------------------------
-   0544                     830 _read_write_file_sectors::
-   0544 21 F6 FF      [10]  831 	ld	hl, #-10
-   0547 39            [11]  832 	add	hl, sp
-   0548 F9            [ 6]  833 	ld	sp, hl
-                            834 ;../generic/usbdisk.c:211: if (!ch376_locate_sector ((uint8_t*)sector))
-   0549 21 0E 00      [10]  835 	ld	hl, #14
-   054C 39            [11]  836 	add	hl, sp
-   054D 4E            [ 7]  837 	ld	c, (hl)
-   054E 23            [ 6]  838 	inc	hl
-   054F 46            [ 7]  839 	ld	b, (hl)
-   0550 C5            [11]  840 	push	bc
-   0551 CDr00r00      [17]  841 	call	_ch376_locate_sector
-   0554 F1            [10]  842 	pop	af
-   0555 4D            [ 4]  843 	ld	c, l
-   0556 CB 41         [ 8]  844 	bit	0, c
-   0558 20 05         [12]  845 	jr	NZ,00102$
-                            846 ;../generic/usbdisk.c:212: return false;
-   055A 2E 00         [ 7]  847 	ld	l, #0x00
-   055C C3rDFr05      [10]  848 	jp	00112$
-   055F                     849 00102$:
-                            850 ;../generic/usbdisk.c:213: if (!ch376_get_sector_LBA (nr_sectors,(uint8_t*) &sectors_lba))
-   055F 21 00 00      [10]  851 	ld	hl, #0
-   0562 39            [11]  852 	add	hl, sp
-   0563 FD 21 08 00   [14]  853 	ld	iy, #8
-   0567 FD 39         [15]  854 	add	iy, sp
-   0569 FD 75 00      [19]  855 	ld	0 (iy), l
-   056C FD 74 01      [19]  856 	ld	1 (iy), h
-   056F FD 4E 00      [19]  857 	ld	c, 0 (iy)
-   0572 FD 46 01      [19]  858 	ld	b, 1 (iy)
-   0575 C5            [11]  859 	push	bc
-   0576 21 0F 00      [10]  860 	ld	hl, #15+0
-   0579 39            [11]  861 	add	hl, sp
-   057A 7E            [ 7]  862 	ld	a, (hl)
-   057B F5            [11]  863 	push	af
-   057C 33            [ 6]  864 	inc	sp
-   057D CDr00r00      [17]  865 	call	_ch376_get_sector_LBA
-   0580 F1            [10]  866 	pop	af
-   0581 33            [ 6]  867 	inc	sp
-   0582 CB 45         [ 8]  868 	bit	0, l
-   0584 20 04         [12]  869 	jr	NZ,00104$
-                            870 ;../generic/usbdisk.c:214: return false;
-   0586 2E 00         [ 7]  871 	ld	l, #0x00
-   0588 18 55         [12]  872 	jr	00112$
-   058A                     873 00104$:
-                            874 ;../generic/usbdisk.c:217: if (!ch376s_disk_read (sectors_lba[0],sectors_lba+4,sector_buffer))
-   058A FD 21 08 00   [14]  875 	ld	iy, #8
-   058E FD 39         [15]  876 	add	iy, sp
-   0590 FD 7E 00      [19]  877 	ld	a, 0 (iy)
-   0593 C6 04         [ 7]  878 	add	a, #0x04
-   0595 4F            [ 4]  879 	ld	c, a
-   0596 FD 7E 01      [19]  880 	ld	a, 1 (iy)
-   0599 CE 00         [ 7]  881 	adc	a, #0x00
-   059B FD 6E 00      [19]  882 	ld	l, 0 (iy)
-   059E FD 66 01      [19]  883 	ld	h, 1 (iy)
-   05A1 56            [ 7]  884 	ld	d, (hl)
-   05A2 47            [ 4]  885 	ld	b, a
-                            886 ;../generic/usbdisk.c:215: if (!writing)
-   05A3 21 0C 00      [10]  887 	ld	hl, #12+0
-   05A6 39            [11]  888 	add	hl, sp
-   05A7 CB 46         [12]  889 	bit	0, (hl)
-   05A9 20 1A         [12]  890 	jr	NZ,00110$
-                            891 ;../generic/usbdisk.c:217: if (!ch376s_disk_read (sectors_lba[0],sectors_lba+4,sector_buffer))
-   05AB 21 10 00      [10]  892 	ld	hl, #16
-   05AE 39            [11]  893 	add	hl, sp
-   05AF 7E            [ 7]  894 	ld	a, (hl)
-   05B0 23            [ 6]  895 	inc	hl
-   05B1 66            [ 7]  896 	ld	h, (hl)
-   05B2 6F            [ 4]  897 	ld	l, a
-   05B3 E5            [11]  898 	push	hl
-   05B4 C5            [11]  899 	push	bc
-   05B5 D5            [11]  900 	push	de
-   05B6 33            [ 6]  901 	inc	sp
-   05B7 CDr00r00      [17]  902 	call	_ch376s_disk_read
-   05BA F1            [10]  903 	pop	af
-   05BB F1            [10]  904 	pop	af
-   05BC 33            [ 6]  905 	inc	sp
-   05BD CB 45         [ 8]  906 	bit	0, l
-   05BF 20 1C         [12]  907 	jr	NZ,00111$
-                            908 ;../generic/usbdisk.c:218: return false;
-   05C1 2E 00         [ 7]  909 	ld	l, #0x00
-   05C3 18 1A         [12]  910 	jr	00112$
-   05C5                     911 00110$:
-                            912 ;../generic/usbdisk.c:222: if (!ch376s_disk_write (sectors_lba[0],sectors_lba+4,sector_buffer))
-   05C5 21 10 00      [10]  913 	ld	hl, #16
-   05C8 39            [11]  914 	add	hl, sp
-   05C9 7E            [ 7]  915 	ld	a, (hl)
-   05CA 23            [ 6]  916 	inc	hl
-   05CB 66            [ 7]  917 	ld	h, (hl)
-   05CC 6F            [ 4]  918 	ld	l, a
-   05CD E5            [11]  919 	push	hl
-   05CE C5            [11]  920 	push	bc
-   05CF D5            [11]  921 	push	de
-   05D0 33            [ 6]  922 	inc	sp
-   05D1 CDr00r00      [17]  923 	call	_ch376s_disk_write
-   05D4 F1            [10]  924 	pop	af
-   05D5 F1            [10]  925 	pop	af
-   05D6 33            [ 6]  926 	inc	sp
-   05D7 CB 45         [ 8]  927 	bit	0, l
-                            928 ;../generic/usbdisk.c:223: return false;
-                            929 ;../generic/usbdisk.c:226: return true;
-   05D9 2E 00         [ 7]  930 	ld	l, #0x00
-   05DB 28 02         [12]  931 	jr	Z,00112$
-   05DD                     932 00111$:
-   05DD 2E 01         [ 7]  933 	ld	l, #0x01
-   05DF                     934 00112$:
-                            935 ;../generic/usbdisk.c:227: }
-   05DF FD 21 0A 00   [14]  936 	ld	iy, #10
-   05E3 FD 39         [15]  937 	add	iy, sp
-   05E5 FD F9         [10]  938 	ld	sp, iy
-   05E7 C9            [10]  939 	ret
-                            940 ;../generic/usbdisk.c:229: bool read_write_disk_sectors (bool writing,uint8_t nr_sectors,uint32_t* sector,uint8_t* sector_buffer)
-                            941 ;	---------------------------------
-                            942 ; Function read_write_disk_sectors
-                            943 ; ---------------------------------
-   05E8                     944 _read_write_disk_sectors::
-   05E8 DD E5         [15]  945 	push	ix
-   05EA DD 21 00 00   [14]  946 	ld	ix,#0
-   05EE DD 39         [15]  947 	add	ix,sp
-                            948 ;../generic/usbdisk.c:233: if (!ch376s_disk_read (nr_sectors,(uint8_t*)sector,sector_buffer))
-   05F0 DD 4E 06      [19]  949 	ld	c, 6 (ix)
-   05F3 DD 46 07      [19]  950 	ld	b, 7 (ix)
-                            951 ;../generic/usbdisk.c:231: if (!writing)
-   05F6 DD CB 04 46   [20]  952 	bit	0, 4 (ix)
-   05FA 20 1B         [12]  953 	jr	NZ,00106$
-                            954 ;../generic/usbdisk.c:233: if (!ch376s_disk_read (nr_sectors,(uint8_t*)sector,sector_buffer))
-   05FC DD 6E 08      [19]  955 	ld	l, 8 (ix)
-   05FF DD 66 09      [19]  956 	ld	h, 9 (ix)
-   0602 E5            [11]  957 	push	hl
-   0603 C5            [11]  958 	push	bc
-   0604 DD 7E 05      [19]  959 	ld	a, 5 (ix)
-   0607 F5            [11]  960 	push	af
-   0608 33            [ 6]  961 	inc	sp
-   0609 CDr00r00      [17]  962 	call	_ch376s_disk_read
-   060C F1            [10]  963 	pop	af
-   060D F1            [10]  964 	pop	af
-   060E 33            [ 6]  965 	inc	sp
-   060F CB 45         [ 8]  966 	bit	0, l
-   0611 20 1D         [12]  967 	jr	NZ,00107$
-                            968 ;../generic/usbdisk.c:234: return false;
-   0613 2E 00         [ 7]  969 	ld	l, #0x00
-   0615 18 1B         [12]  970 	jr	00108$
-   0617                     971 00106$:
-                            972 ;../generic/usbdisk.c:238: if (!ch376s_disk_write (nr_sectors,(uint8_t*)sector,sector_buffer))
-   0617 DD 6E 08      [19]  973 	ld	l, 8 (ix)
-   061A DD 66 09      [19]  974 	ld	h, 9 (ix)
-   061D E5            [11]  975 	push	hl
-   061E C5            [11]  976 	push	bc
-   061F DD 7E 05      [19]  977 	ld	a, 5 (ix)
-   0622 F5            [11]  978 	push	af
-   0623 33            [ 6]  979 	inc	sp
-   0624 CDr00r00      [17]  980 	call	_ch376s_disk_write
-   0627 F1            [10]  981 	pop	af
-   0628 F1            [10]  982 	pop	af
-   0629 33            [ 6]  983 	inc	sp
-   062A CB 45         [ 8]  984 	bit	0, l
-                            985 ;../generic/usbdisk.c:239: return false;
-                            986 ;../generic/usbdisk.c:242: return true;
-   062C 2E 00         [ 7]  987 	ld	l, #0x00
-   062E 28 02         [12]  988 	jr	Z,00108$
-   0630                     989 00107$:
-   0630 2E 01         [ 7]  990 	ld	l, #0x01
-   0632                     991 00108$:
-                            992 ;../generic/usbdisk.c:243: }
-   0632 DD E1         [14]  993 	pop	ix
-   0634 C9            [10]  994 	ret
-                            995 ;../generic/usbdisk.c:245: bool usbdisk_close_dsk_file ()
-                            996 ;	---------------------------------
-                            997 ; Function usbdisk_close_dsk_file
-                            998 ; ---------------------------------
-   0635                     999 _usbdisk_close_dsk_file::
-                           1000 ;../generic/usbdisk.c:247: return ch376_close_file();
-                           1001 ;../generic/usbdisk.c:248: }
-   0635 C3r00r00      [10] 1002 	jp	_ch376_close_file
-                           1003 	.area _CODE
-                           1004 	.area _INITIALIZER
-                           1005 	.area _CABS (ABS)
+   050D 0D                  807 	.db 0x0d
+   050E 0A                  808 	.db 0x0a
+   050F 0D                  809 	.db 0x0d
+   0510 00                  810 	.db 0x00
+                            811 ;..\generic\usbdisk.c:207: bool read_write_file_sectors (bool writing,uint8_t nr_sectors,uint32_t* sector,uint8_t* sector_buffer)
+                            812 ;	---------------------------------
+                            813 ; Function read_write_file_sectors
+                            814 ; ---------------------------------
+   0511                     815 _read_write_file_sectors::
+   0511 21 F6 FF      [10]  816 	ld	hl, #-10
+   0514 39            [11]  817 	add	hl, sp
+   0515 F9            [ 6]  818 	ld	sp, hl
+                            819 ;..\generic\usbdisk.c:210: if (!ch376_locate_sector ((uint8_t*)sector))
+   0516 21 0E 00      [10]  820 	ld	hl, #14
+   0519 39            [11]  821 	add	hl, sp
+   051A 4E            [ 7]  822 	ld	c, (hl)
+   051B 23            [ 6]  823 	inc	hl
+   051C 46            [ 7]  824 	ld	b, (hl)
+   051D C5            [11]  825 	push	bc
+   051E CDr00r00      [17]  826 	call	_ch376_locate_sector
+   0521 F1            [10]  827 	pop	af
+   0522 4D            [ 4]  828 	ld	c, l
+   0523 CB 41         [ 8]  829 	bit	0, c
+   0525 20 05         [12]  830 	jr	NZ,00102$
+                            831 ;..\generic\usbdisk.c:211: return false;
+   0527 2E 00         [ 7]  832 	ld	l, #0x00
+   0529 C3rADr05      [10]  833 	jp	00112$
+   052C                     834 00102$:
+                            835 ;..\generic\usbdisk.c:212: if (!ch376_get_sector_LBA (nr_sectors,(uint8_t*) &sectors_lba))
+   052C 21 00 00      [10]  836 	ld	hl, #0
+   052F 39            [11]  837 	add	hl, sp
+   0530 FD 21 08 00   [14]  838 	ld	iy, #8
+   0534 FD 39         [15]  839 	add	iy, sp
+   0536 FD 75 00      [19]  840 	ld	0 (iy), l
+   0539 FD 74 01      [19]  841 	ld	1 (iy), h
+   053C FD 4E 00      [19]  842 	ld	c, 0 (iy)
+   053F FD 46 01      [19]  843 	ld	b, 1 (iy)
+   0542 C5            [11]  844 	push	bc
+   0543 21 0F 00      [10]  845 	ld	hl, #15+0
+   0546 39            [11]  846 	add	hl, sp
+   0547 7E            [ 7]  847 	ld	a, (hl)
+   0548 F5            [11]  848 	push	af
+   0549 33            [ 6]  849 	inc	sp
+   054A CDr00r00      [17]  850 	call	_ch376_get_sector_LBA
+   054D F1            [10]  851 	pop	af
+   054E 33            [ 6]  852 	inc	sp
+   054F CB 45         [ 8]  853 	bit	0, l
+   0551 20 04         [12]  854 	jr	NZ,00104$
+                            855 ;..\generic\usbdisk.c:213: return false;
+   0553 2E 00         [ 7]  856 	ld	l, #0x00
+   0555 18 56         [12]  857 	jr	00112$
+   0557                     858 00104$:
+                            859 ;..\generic\usbdisk.c:216: if (!ch376s_disk_read (sectors_lba[0],sectors_lba+4,sector_buffer))
+   0557 FD 21 08 00   [14]  860 	ld	iy, #8
+   055B FD 39         [15]  861 	add	iy, sp
+   055D FD 7E 00      [19]  862 	ld	a, 0 (iy)
+   0560 C6 04         [ 7]  863 	add	a, #0x04
+   0562 4F            [ 4]  864 	ld	c, a
+   0563 FD 7E 01      [19]  865 	ld	a, 1 (iy)
+   0566 CE 00         [ 7]  866 	adc	a, #0x00
+   0568 47            [ 4]  867 	ld	b, a
+   0569 FD 6E 00      [19]  868 	ld	l, 0 (iy)
+   056C FD 66 01      [19]  869 	ld	h, 1 (iy)
+   056F 56            [ 7]  870 	ld	d, (hl)
+                            871 ;..\generic\usbdisk.c:214: if (!writing)
+   0570 21 0C 00      [10]  872 	ld	hl, #12+0
+   0573 39            [11]  873 	add	hl, sp
+   0574 CB 46         [12]  874 	bit	0, (hl)
+   0576 20 1A         [12]  875 	jr	NZ,00110$
+                            876 ;..\generic\usbdisk.c:216: if (!ch376s_disk_read (sectors_lba[0],sectors_lba+4,sector_buffer))
+   0578 21 10 00      [10]  877 	ld	hl, #16
+   057B 39            [11]  878 	add	hl, sp
+   057C 7E            [ 7]  879 	ld	a, (hl)
+   057D 23            [ 6]  880 	inc	hl
+   057E 66            [ 7]  881 	ld	h, (hl)
+   057F 6F            [ 4]  882 	ld	l, a
+   0580 E5            [11]  883 	push	hl
+   0581 C5            [11]  884 	push	bc
+   0582 D5            [11]  885 	push	de
+   0583 33            [ 6]  886 	inc	sp
+   0584 CDr00r00      [17]  887 	call	_ch376s_disk_read
+   0587 F1            [10]  888 	pop	af
+   0588 F1            [10]  889 	pop	af
+   0589 33            [ 6]  890 	inc	sp
+   058A CB 45         [ 8]  891 	bit	0, l
+   058C 20 1D         [12]  892 	jr	NZ,00111$
+                            893 ;..\generic\usbdisk.c:217: return false;
+   058E 2E 00         [ 7]  894 	ld	l, #0x00
+   0590 18 1B         [12]  895 	jr	00112$
+   0592                     896 00110$:
+                            897 ;..\generic\usbdisk.c:221: if (!ch376s_disk_write (sectors_lba[0],sectors_lba+4,sector_buffer))
+   0592 21 10 00      [10]  898 	ld	hl, #16
+   0595 39            [11]  899 	add	hl, sp
+   0596 7E            [ 7]  900 	ld	a, (hl)
+   0597 23            [ 6]  901 	inc	hl
+   0598 66            [ 7]  902 	ld	h, (hl)
+   0599 6F            [ 4]  903 	ld	l, a
+   059A E5            [11]  904 	push	hl
+   059B C5            [11]  905 	push	bc
+   059C D5            [11]  906 	push	de
+   059D 33            [ 6]  907 	inc	sp
+   059E CDr00r00      [17]  908 	call	_ch376s_disk_write
+   05A1 F1            [10]  909 	pop	af
+   05A2 F1            [10]  910 	pop	af
+   05A3 33            [ 6]  911 	inc	sp
+   05A4 CB 45         [ 8]  912 	bit	0, l
+                            913 ;..\generic\usbdisk.c:222: return false;
+                            914 ;..\generic\usbdisk.c:225: return true;
+   05A6 20 03         [12]  915 	jr	NZ, 00111$
+   05A8 2E 00         [ 7]  916 	ld	l, #0x00
+   05AA C2                  917 	.db	#0xc2
+   05AB                     918 00111$:
+   05AB 2E 01         [ 7]  919 	ld	l, #0x01
+   05AD                     920 00112$:
+                            921 ;..\generic\usbdisk.c:226: }
+   05AD FD 21 0A 00   [14]  922 	ld	iy, #10
+   05B1 FD 39         [15]  923 	add	iy, sp
+   05B3 FD F9         [10]  924 	ld	sp, iy
+   05B5 C9            [10]  925 	ret
+                            926 ;..\generic\usbdisk.c:228: bool read_write_disk_sectors (bool writing,uint8_t nr_sectors,uint32_t* sector,uint8_t* sector_buffer)
+                            927 ;	---------------------------------
+                            928 ; Function read_write_disk_sectors
+                            929 ; ---------------------------------
+   05B6                     930 _read_write_disk_sectors::
+   05B6 DD E5         [15]  931 	push	ix
+   05B8 DD 21 00 00   [14]  932 	ld	ix,#0
+   05BC DD 39         [15]  933 	add	ix,sp
+                            934 ;..\generic\usbdisk.c:232: if (!ch376s_disk_read (nr_sectors,(uint8_t*)sector,sector_buffer))
+   05BE DD 4E 06      [19]  935 	ld	c, 6 (ix)
+   05C1 DD 46 07      [19]  936 	ld	b, 7 (ix)
+                            937 ;..\generic\usbdisk.c:230: if (!writing)
+   05C4 DD CB 04 46   [20]  938 	bit	0, 4 (ix)
+   05C8 20 1B         [12]  939 	jr	NZ,00106$
+                            940 ;..\generic\usbdisk.c:232: if (!ch376s_disk_read (nr_sectors,(uint8_t*)sector,sector_buffer))
+   05CA DD 6E 08      [19]  941 	ld	l, 8 (ix)
+   05CD DD 66 09      [19]  942 	ld	h, 9 (ix)
+   05D0 E5            [11]  943 	push	hl
+   05D1 C5            [11]  944 	push	bc
+   05D2 DD 7E 05      [19]  945 	ld	a, 5 (ix)
+   05D5 F5            [11]  946 	push	af
+   05D6 33            [ 6]  947 	inc	sp
+   05D7 CDr00r00      [17]  948 	call	_ch376s_disk_read
+   05DA F1            [10]  949 	pop	af
+   05DB F1            [10]  950 	pop	af
+   05DC 33            [ 6]  951 	inc	sp
+   05DD CB 45         [ 8]  952 	bit	0, l
+   05DF 20 1E         [12]  953 	jr	NZ,00107$
+                            954 ;..\generic\usbdisk.c:233: return false;
+   05E1 2E 00         [ 7]  955 	ld	l, #0x00
+   05E3 18 1C         [12]  956 	jr	00108$
+   05E5                     957 00106$:
+                            958 ;..\generic\usbdisk.c:237: if (!ch376s_disk_write (nr_sectors,(uint8_t*)sector,sector_buffer))
+   05E5 DD 6E 08      [19]  959 	ld	l, 8 (ix)
+   05E8 DD 66 09      [19]  960 	ld	h, 9 (ix)
+   05EB E5            [11]  961 	push	hl
+   05EC C5            [11]  962 	push	bc
+   05ED DD 7E 05      [19]  963 	ld	a, 5 (ix)
+   05F0 F5            [11]  964 	push	af
+   05F1 33            [ 6]  965 	inc	sp
+   05F2 CDr00r00      [17]  966 	call	_ch376s_disk_write
+   05F5 F1            [10]  967 	pop	af
+   05F6 F1            [10]  968 	pop	af
+   05F7 33            [ 6]  969 	inc	sp
+   05F8 CB 45         [ 8]  970 	bit	0, l
+                            971 ;..\generic\usbdisk.c:238: return false;
+                            972 ;..\generic\usbdisk.c:241: return true;
+   05FA 20 03         [12]  973 	jr	NZ, 00107$
+   05FC 2E 00         [ 7]  974 	ld	l, #0x00
+   05FE C2                  975 	.db	#0xc2
+   05FF                     976 00107$:
+   05FF 2E 01         [ 7]  977 	ld	l, #0x01
+   0601                     978 00108$:
+                            979 ;..\generic\usbdisk.c:242: }
+   0601 DD E1         [14]  980 	pop	ix
+   0603 C9            [10]  981 	ret
+                            982 ;..\generic\usbdisk.c:244: bool usbdisk_close_dsk_file ()
+                            983 ;	---------------------------------
+                            984 ; Function usbdisk_close_dsk_file
+                            985 ; ---------------------------------
+   0604                     986 _usbdisk_close_dsk_file::
+                            987 ;..\generic\usbdisk.c:246: return ch376_close_file();
+                            988 ;..\generic\usbdisk.c:247: }
+   0604 C3r00r00      [10]  989 	jp  _ch376_close_file
+                            990 	.area _CODE
+                            991 	.area _INITIALIZER
+                            992 	.area _CABS (ABS)
