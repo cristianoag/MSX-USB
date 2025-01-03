@@ -53,7 +53,7 @@ _file::
 ; code
 ;--------------------------------------------------------
 	.area _CODE
-;src\hello.c:15: void FT_SetName(FCB *p_fcb, const char *p_name) 
+;src/hello.c:16: void FT_SetName(FCB *p_fcb, const char *p_name) 
 ;	---------------------------------
 ; Function FT_SetName
 ; ---------------------------------
@@ -62,7 +62,7 @@ _FT_SetName::
 	push	af
 	push	af
 	dec	sp
-;src\hello.c:18: memset(p_fcb, 0, sizeof(FCB));
+;src/hello.c:19: memset(p_fcb, 0, sizeof(FCB));
 	ld	l, 4 (ix)
 	ld	h, 5 (ix)
 	ld	b, #0x25
@@ -70,7 +70,7 @@ _FT_SetName::
 	ld	(hl), #0x00
 	inc	hl
 	djnz	00178$
-;src\hello.c:19: for (i = 0; i < 11; i++) {
+;src/hello.c:20: for (i = 0; i < 11; i++) {
 	ld	e, 4 (ix)
 	ld	d, 5 (ix)
 	ld	hl, #0x0001
@@ -79,18 +79,18 @@ _FT_SetName::
 	ld	-3 (ix), h
 	ld	c, #0x00
 00106$:
-;src\hello.c:20: p_fcb->name[i] = ' ';
+;src/hello.c:21: p_fcb->name[i] = ' ';
 	ld	l, -4 (ix)
 	ld	h, -3 (ix)
 	ld	b, #0x00
 	add	hl, bc
 	ld	(hl), #0x20
-;src\hello.c:19: for (i = 0; i < 11; i++) {
+;src/hello.c:20: for (i = 0; i < 11; i++) {
 	inc	c
 	ld	a, c
 	sub	a, #0x0b
 	jr	C,00106$
-;src\hello.c:22: for (i = 0; (i < 8) && (p_name[i] != 0) && (p_name[i] != '.'); i++) {
+;src/hello.c:23: for (i = 0; (i < 8) && (p_name[i] != 0) && (p_name[i] != '.'); i++) {
 	ld	-2 (ix), #0x00
 00111$:
 	ld	a, 6 (ix)
@@ -120,7 +120,7 @@ _FT_SetName::
 	jr	Z,00102$
 	bit	0, l
 	jr	NZ,00102$
-;src\hello.c:23: p_fcb->name[i] = p_name[i];
+;src/hello.c:24: p_fcb->name[i] = p_name[i];
 	ld	a, -4 (ix)
 	add	a, -2 (ix)
 	ld	l, a
@@ -128,19 +128,19 @@ _FT_SetName::
 	adc	a, #0x00
 	ld	h, a
 	ld	(hl), c
-;src\hello.c:22: for (i = 0; (i < 8) && (p_name[i] != 0) && (p_name[i] != '.'); i++) {
+;src/hello.c:23: for (i = 0; (i < 8) && (p_name[i] != 0) && (p_name[i] != '.'); i++) {
 	ld	a, -1 (ix)
 	ld	-2 (ix), a
 	jr	00111$
 00102$:
-;src\hello.c:25: if (p_name[i] == '.') {
+;src/hello.c:26: if (p_name[i] == '.') {
 	ld	a, l
 	or	a, a
 	jr	Z,00118$
-;src\hello.c:26: i++;
+;src/hello.c:27: i++;
 	ld	a, -1 (ix)
 	ld	-5 (ix), a
-;src\hello.c:27: for (j = 0; (j < 3) && (p_name[i + j] != 0) && (p_name[i + j] != '.'); j++) {
+;src/hello.c:28: for (j = 0; (j < 3) && (p_name[i + j] != 0) && (p_name[i + j] != '.'); j++) {
 	ld	hl, #0x0009
 	add	hl, de
 	ex	de, hl
@@ -172,34 +172,34 @@ _FT_SetName::
 	ld	a, b
 	sub	a, #0x2e
 	jr	Z,00118$
-;src\hello.c:28: p_fcb->ext[j] = p_name[i + j];
+;src/hello.c:29: p_fcb->ext[j] = p_name[i + j];
 	ld	l, c
 	ld	h, #0x00
 	add	hl, de
 	ld	(hl), b
-;src\hello.c:27: for (j = 0; (j < 3) && (p_name[i + j] != 0) && (p_name[i + j] != '.'); j++) {
+;src/hello.c:28: for (j = 0; (j < 3) && (p_name[i + j] != 0) && (p_name[i + j] != '.'); j++) {
 	inc	c
 	jr	00116$
 00118$:
-;src\hello.c:31: }
+;src/hello.c:32: }
 	ld	sp, ix
 	pop	ix
 	ret
 _Done_Version_tag:
 	.ascii "Made with FUSION-C 1.3 R21010 (c)EBSOFT:2021"
 	.db 0x00
-;src\hello.c:33: void FT_errorHandler(char n, char *name) // Gère les erreurs
+;src/hello.c:34: void FT_errorHandler(char n, char *name) // Gère les erreurs
 ;	---------------------------------
 ; Function FT_errorHandler
 ; ---------------------------------
 _FT_errorHandler::
-;src\hello.c:35: Screen(0);
+;src/hello.c:36: Screen(0);
 	xor	a, a
 	push	af
 	inc	sp
 	call	_Screen
 	inc	sp
-;src\hello.c:36: SetColors(15,6,6);
+;src/hello.c:37: SetColors(15,6,6);
 	ld	de, #0x0606
 	push	de
 	ld	a, #0x0f
@@ -208,7 +208,7 @@ _FT_errorHandler::
 	call	_SetColors
 	pop	af
 	inc	sp
-;src\hello.c:37: switch (n)
+;src/hello.c:38: switch (n)
 	ld	iy, #2
 	add	iy, sp
 	ld	a, 0 (iy)
@@ -221,14 +221,14 @@ _FT_errorHandler::
 	sub	a, #0x03
 	jr	Z,00103$
 	jr	00104$
-;src\hello.c:39: case 1:
+;src/hello.c:40: case 1:
 00101$:
-;src\hello.c:40: Print("\n\rFAILED: fcb_open(): ");
+;src/hello.c:41: Print("\n\rFAILED: fcb_open(): ");
 	ld	hl, #___str_1
 	push	hl
 	call	_Print
 	pop	af
-;src\hello.c:41: Print(name);
+;src/hello.c:42: Print(name);
 	ld	hl, #3
 	add	hl, sp
 	ld	c, (hl)
@@ -237,16 +237,16 @@ _FT_errorHandler::
 	push	bc
 	call	_Print
 	pop	af
-;src\hello.c:42: break;
+;src/hello.c:43: break;
 	jr	00104$
-;src\hello.c:44: case 2:
+;src/hello.c:45: case 2:
 00102$:
-;src\hello.c:45: Print("\n\rFAILED: fcb_close():");
+;src/hello.c:46: Print("\n\rFAILED: fcb_close():");
 	ld	hl, #___str_2
 	push	hl
 	call	_Print
 	pop	af
-;src\hello.c:46: Print(name);
+;src/hello.c:47: Print(name);
 	ld	hl, #3
 	add	hl, sp
 	ld	c, (hl)
@@ -255,20 +255,20 @@ _FT_errorHandler::
 	push	bc
 	call	_Print
 	pop	af
-;src\hello.c:47: break;  
+;src/hello.c:48: break;  
 	jr	00104$
-;src\hello.c:49: case 3:
+;src/hello.c:50: case 3:
 00103$:
-;src\hello.c:50: Print("\n\rStop Kidding, run me on MSX2 !");
+;src/hello.c:51: Print("\n\rStop Kidding, run me on MSX2 !");
 	ld	hl, #___str_3
 	push	hl
 	call	_Print
 	pop	af
-;src\hello.c:52: }
+;src/hello.c:53: }
 00104$:
-;src\hello.c:53: Exit(0);
+;src/hello.c:54: Exit(0);
 	ld	l, #0x00
-;src\hello.c:54: }
+;src/hello.c:55: }
 	jp  _Exit
 ___str_1:
 	.db 0x0a
@@ -285,7 +285,7 @@ ___str_3:
 	.db 0x0d
 	.ascii "Stop Kidding, run me on MSX2 !"
 	.db 0x00
-;src\hello.c:56: void main (void)
+;src/hello.c:57: void main (void)
 ;	---------------------------------
 ; Function main
 ; ---------------------------------
@@ -294,32 +294,32 @@ _main::
 	ld	hl, #-11
 	add	hl, sp
 	ld	sp, hl
-;src\hello.c:58: Screen(0);
+;src/hello.c:59: Screen(0);
 	xor	a, a
 	push	af
 	inc	sp
 	call	_Screen
 	inc	sp
-;src\hello.c:59: Width(40);
+;src/hello.c:60: Width(40);
 	ld	a, #0x28
 	push	af
 	inc	sp
 	call	_Width
 	inc	sp
-;src\hello.c:60: Print("Hello ! \n\n");
+;src/hello.c:61: Print("Hello ! \n\n");
 	ld	hl, #___str_5
 	push	hl
 	call	_Print
-;src\hello.c:61: Print("Your are using FUSION-C \n\rversion:");
+;src/hello.c:62: Print("Your are using FUSION-C \n\rversion:");
 	ld	hl, #___str_6
 	ex	(sp),hl
 	call	_Print
-;src\hello.c:63: Print("  Rev.");
+;src/hello.c:64: Print("  Rev.");
 	ld	hl, #___str_7
 	ex	(sp),hl
 	call	_Print
 	pop	af
-;src\hello.c:66: char file_name[] = "nextor.rom";
+;src/hello.c:67: char file_name[] = "nextor.rom";
 	ld	hl, #0
 	add	hl, sp
 	ex	de, hl
@@ -361,7 +361,7 @@ _main::
 	ld	hl, #0x000a
 	add	hl, de
 	ld	(hl), #0x00
-;src\hello.c:68: FT_SetName( &file, file_name );
+;src/hello.c:69: FT_SetName( &file, file_name );
 	ld	c, e
 	ld	b, d
 	push	de
@@ -378,7 +378,7 @@ _main::
 	pop	de
 	or	a, a
 	jr	Z,00102$
-;src\hello.c:71: FT_errorHandler(1, file_name);
+;src/hello.c:72: FT_errorHandler(1, file_name);
 	push	de
 	ld	a, #0x01
 	push	af
@@ -387,7 +387,7 @@ _main::
 	pop	af
 	inc	sp
 00102$:
-;src\hello.c:74: printf("\n\r\n\rSize: %lu\n\r",file.file_size);
+;src/hello.c:75: printf("\n\r\n\rSize: %lu\n\r",file.file_size);
 	ld	de, (#_file + 16)
 	ld	hl, (#_file + 18)
 	ld	bc, #___str_8+0
@@ -398,12 +398,12 @@ _main::
 	pop	af
 	pop	af
 	pop	af
-;src\hello.c:75: WaitKey();
+;src/hello.c:76: WaitKey();
 	call	_WaitKey
-;src\hello.c:76: Exit(0);
+;src/hello.c:77: Exit(0);
 	ld	l, #0x00
 	call	_Exit
-;src\hello.c:78: }
+;src/hello.c:79: }
 	ld	sp, ix
 	pop	ix
 	ret

@@ -44,6 +44,7 @@ void FT_SetName( FCB *p_fcb, const char *p_name )  // Routine servant à vérifi
   }
 }
 
+/*
 int putchar (int character)
 {
     __asm
@@ -59,7 +60,7 @@ int putchar (int character)
     __endasm;
 
     return character;
-}
+}*/
 
 /*
     ; main

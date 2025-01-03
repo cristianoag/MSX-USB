@@ -6,6 +6,7 @@
 #include <msx_fusion.h>
 #include <string.h>
 #include <stdio.h>
+#include "msxDOS.h"
 
 #define __SDK_MSXVERSION__ 2
 #define __SDK_ROM__ 32K

@@ -8,6 +8,10 @@ Area                                    Addr        Size        Decimal Bytes (A
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
      00000000  .__.ABS.                           
+     00000000  ___itoa                         
+     00000000  ___ltoa                         
+     00000000  ___uitoa                        
+     00000000  ___ultoa                        
      00000000  l__BSEG                         
      00000000  l__BSS                          
      00000000  l__CABS                         
@@ -24,27 +28,27 @@ Area                                    Addr        Size        Decimal Bytes (A
      00000000  s__HEADER0                      
      00000001  l__GSFINAL                      
      00000010  l__GSINIT                       
-     00000027  l__DATA                         
+     00000037  l__DATA                         
      00000079  l__HEADER0                      
      00000180  s__CODE                         
-     000010DF  l__CODE                         
-     0000125F  s__DATA                         
-     00001286  s__GSINIT                       
-     00001286  s__HOME                         
-     00001286  s__INITIALIZED                  
-     00001296  s__GSFINAL                      
-     00001297  s__BSEG                         
-     00001297  s__BSS                          
-     00001297  s__HEAP                         
-     00001297  s__INITIALIZER                  
-     00001297  s__STACK                        
+     0000077C  l__CODE                         
+     000008FC  s__DATA                         
+     00000933  s__GSINIT                       
+     00000933  s__HOME                         
+     00000933  s__INITIALIZED                  
+     00000943  s__GSFINAL                      
+     00000944  s__BSEG                         
+     00000944  s__BSS                          
+     00000944  s__HEAP                         
+     00000944  s__INITIALIZER                  
+     00000944  s__STACK                        
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00000180    000010DF =        4319. bytes (REL,CON)
+_CODE                               00000180    0000077C =        1916. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -54,41 +58,38 @@ _CODE                               00000180    000010DF =        4319. bytes (R
      00000431  _WaitKey                           
      00000445  _Width                             width
      0000047B  _Print                             print
-     000004B2  _vprintf                           vprintf
-     000004D2  _printf                            vprintf
-     000004EF  ___sdcc_enter_ix                   
-     000004F9  _Exit                              
-     00000500  _FcbOpen                           
-     00000511  _FcbCreate                         
-     00000532  _SetColors                         
-     0000055B  _Screen                            
-     00000697  __print_format                     printf_large
-     00001215  _putchar                           
-     00001215  _putchar_rr_s                      
-     0000121A  _putchar_rr_dbs                    
-     00001220  ___sdcc_call_hl                    
-     0000122C  _PrintChar                         
-     0000123E  _bchput                            
-     00001250  _strlen                            
+     000004A5  _printf                            printf
+     000004BD  _sprintf                           printf
+     00000835  ___sdcc_enter_ix                   
+     0000083F  _Exit                              
+     00000846  _FcbOpen                           
+     00000857  _FcbCreate                         
+     00000878  _SetColors                         
+     000008A1  _Screen                            
+     000008CD  _PrintChar                         
+     000008DF  _bchput                            
+     000008F1  _putchar                           
+     000008F1  _putchar_rr_s                      
+     000008F6  _putchar_rr_dbs                    
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_DATA                               0000125F    00000027 =          39. bytes (REL,CON)
+_DATA                               000008FC    00000037 =          55. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     0000125F  _file                              hello
-     00001284  _heap_top                          
+     000008FC  _file                              hello
+     00000921  _heap_top                          
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 4.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_GSINIT                             00001286    00000010 =          16. bytes (REL,CON)
+_GSINIT                             00000933    00000010 =          16. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -97,7 +98,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_GSFINAL                            00001296    00000001 =           1. bytes (REL,CON)
+_GSFINAL                            00000943    00000001 =           1. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -106,11 +107,11 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_HEAP                               00001297    00000000 =           0. bytes (REL,CON)
+_HEAP                               00000944    00000000 =           0. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00001297  _HEAP_start                        
+     00000944  _HEAP_start                        
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 7.
 Hexadecimal  [32-Bits]
@@ -125,41 +126,35 @@ _HEADER0                            00000000    00000079 =         121. bytes (A
 
 Files Linked                              [ module(s) ]
 
-dist\hello.rel                            [ hello ]
-C:\DevArea\libraries\fusion-c\include\crt0_msxdos_advanced.rel
+dist/hello.rel                            [ hello ]
+/DevArea/libraries/fusion-c/include\crt0_msxdos_advanced.rel
                                           [  ]
 
 
 Libraries Linked                          [ object file ]
 
-C:\DevArea\libraries\fusion-c\lib\fusion_min_printf.lib
+/DevArea/libraries/fusion-c/lib/fusion.lib
                                           [ waitkey.rel ]
-C:\DevArea\libraries\fusion-c\lib\fusion_min_printf.lib
+/DevArea/libraries/fusion-c/lib/fusion.lib
                                           [ width.rel ]
-C:\DevArea\libraries\fusion-c\lib\fusion_min_printf.lib
+/DevArea/libraries/fusion-c/lib/fusion.lib
                                           [ print.rel ]
-C:\Program Files\SDCC\bin\..\lib\z80/z80.lib
-                                          [ vprintf.rel ]
+/DevArea/libraries/fusion-c/lib/fusion.lib
+                                          [ printf.rel ]
 C:\Program Files\SDCC\bin\..\lib\z80/z80.lib
                                           [ crtenter.rel ]
-C:\DevArea\libraries\fusion-c\lib\fusion_min_printf.lib
+/DevArea/libraries/fusion-c/lib/fusion.lib
                                           [ exitdos.rel ]
-C:\DevArea\libraries\fusion-c\lib\fusion_min_printf.lib
+/DevArea/libraries/fusion-c/lib/fusion.lib
                                           [ fcbopen.rel ]
-C:\DevArea\libraries\fusion-c\lib\fusion_min_printf.lib
+/DevArea/libraries/fusion-c/lib/fusion.lib
                                           [ setcolors.rel ]
-C:\DevArea\libraries\fusion-c\lib\fusion_min_printf.lib
+/DevArea/libraries/fusion-c/lib/fusion.lib
                                           [ screen.rel ]
-C:\Program Files\SDCC\bin\..\lib\z80/z80.lib
-                                          [ printf_large.rel ]
-C:\DevArea\libraries\fusion-c\lib\fusion_min_printf.lib
-                                          [ putcharrrdos.rel ]
-C:\Program Files\SDCC\bin\..\lib\z80/z80.lib
-                                          [ __sdcc_call_hl.rel ]
-C:\DevArea\libraries\fusion-c\lib\fusion_min_printf.lib
+/DevArea/libraries/fusion-c/lib/fusion.lib
                                           [ printchar.rel ]
-C:\Program Files\SDCC\bin\..\lib\z80/z80.lib
-                                          [ strlen.rel ]
+/DevArea/libraries/fusion-c/lib/fusion.lib
+                                          [ putcharrrdos.rel ]
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 9.
 
@@ -169,3 +164,10 @@ _CODE = 0x0180
 _DATA = 0x0000
 
 
+?ASlink-Warning-Undefined Global '___ultoa' referenced by module 'printf'
+
+?ASlink-Warning-Undefined Global '___itoa' referenced by module 'printf'
+
+?ASlink-Warning-Undefined Global '___ltoa' referenced by module 'printf'
+
+?ASlink-Warning-Undefined Global '___uitoa' referenced by module 'printf'

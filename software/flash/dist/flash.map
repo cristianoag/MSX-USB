@@ -27,17 +27,17 @@ Area                                    Addr        Size        Decimal Bytes (A
      00000079  l__HEADER0                      
      00000180  s__CODE                         
      0000065F  l__HOME                         
-     00001CC3  l__CODE                         
-     00001E43  s__DATA                         
-     00001E45  s__HOME                         
-     00001E45  s__INITIALIZED                  
-     000024A4  s__GSINIT                       
-     000024B4  s__GSFINAL                      
-     000024B5  s__BSEG                         
-     000024B5  s__BSS                          
-     000024B5  s__HEAP                         
-     000024B5  s__INITIALIZER                  
-     000024B5  s__STACK                        
+     00001CB5  l__CODE                         
+     00001E35  s__DATA                         
+     00001E37  s__HOME                         
+     00001E37  s__INITIALIZED                  
+     00002496  s__GSINIT                       
+     000024A6  s__GSFINAL                      
+     000024A7  s__BSEG                         
+     000024A7  s__BSS                          
+     000024A7  s__HEAP                         
+     000024A7  s__INITIALIZER                  
+     000024A7  s__STACK                        
      00004000  _flash_segment                     flash
      00008000  _file_segment                      flash
 ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
@@ -45,78 +45,81 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00000180    00001CC3 =        7363. bytes (REL,CON)
+_CODE                               00000180    00001CB5 =        7349. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
      00000180  _FT_SetName                        flash
      00000280  _TRUE                              flash
      00000281  _FALSE                             flash
-     00000282  _putchar                           flash
-     0000029B  _main                              flash
-     000007D4  _select_slot_40                    flash
-     000007E3  _select_ramslot_40                 flash
-     000007EC  _flash_ident                       flash
-     00000881  _find_flash                        flash
-     000008A0  _print_hex_buffer                  flash
-     00000977  _erase_flash                       flash
-     00000A08  _flash_command_okay                flash
-     00000A8E  _write_flash_segment               flash
-     00000B81  _MemFill                           
-     00000BA8  _FcbClose                          
-     00000BBA  _ceilf                             ceilf
-     00000C87  _vsprintf                          sprintf
-     00000CBC  _sprintf                           sprintf
-     00000CF0  _FcbRead                           
-     00000D13  _puts                              puts
-     00000D39  _strcat                            _strcat
-     00000D71  _vprintf                           vprintf
-     00000D91  _printf                            vprintf
-     00000DAE  ___sdcc_enter_ix                   
-     00000DB8  _strcmp                            _strcmp
-     00001148  _FcbOpen                           
-     00001159  _FcbCreate                         
-     0000117A  _ReadSP                            
-     0000129B  __print_format                     printf_large
-     00001E19  __mulint                           
-     00001E1F  __mul16                            
-     00001E33  ___sdcc_call_hl                    
-     00001E34  _strlen                            
+     00000282  _main                              flash
+     000007BB  _select_slot_40                    flash
+     000007CA  _select_ramslot_40                 flash
+     000007D3  _flash_ident                       flash
+     00000868  _find_flash                        flash
+     00000887  _print_hex_buffer                  flash
+     0000095E  _erase_flash                       flash
+     000009EF  _flash_command_okay                flash
+     00000A75  _write_flash_segment               flash
+     00000B68  _MemFill                           
+     00000B8F  _FcbClose                          
+     00000BA1  _ceilf                             ceilf
+     00000C6E  _vsprintf                          sprintf
+     00000CA3  _sprintf                           sprintf
+     00000CD7  _FcbRead                           
+     00000CFA  _puts                              puts
+     00000D20  _strcat                            _strcat
+     00000D58  _vprintf                           vprintf
+     00000D78  _printf                            vprintf
+     00000D95  ___sdcc_enter_ix                   
+     00000D9F  _strcmp                            _strcmp
+     0000112F  _FcbOpen                           
+     00001140  _FcbCreate                         
+     00001161  _ReadSP                            
+     00001282  __print_format                     printf_large
+     00001E00  _putchar                           
+     00001E00  _putchar_rr_s                      
+     00001E05  _putchar_rr_dbs                    
+     00001E0B  __mulint                           
+     00001E11  __mul16                            
+     00001E25  ___sdcc_call_hl                    
+     00001E26  _strlen                            
+
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_DATA                               00001E43    00000002 =           2. bytes (REL,CON)
+_DATA                               00001E35    00000002 =           2. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00001E43  _heap_top                          
+     00001E35  _heap_top                          
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 4.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_HOME                               00001E45    0000065F =        1631. bytes (REL,CON)
+_HOME                               00001E37    0000065F =        1631. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00001E45  ___ulong2fs                        _ulong2fs
-     00001F1F  __divulong                         _divulong
-     00001FB1  ___fsdiv                           _fsdiv
-     000020B2  __mullong                          _mullong
-     00002238  ___fs2slong                        _fs2slong
-     000022B5  ___slong2fs                        _slong2fs
-     000022FD  ___fs2ulong                        _fs2ulong
-     000023A7  ___fslt                            _fslt
+     00001E37  ___ulong2fs                        _ulong2fs
+     00001F11  __divulong                         _divulong
+     00001FA3  ___fsdiv                           _fsdiv
+     000020A4  __mullong                          _mullong
+     0000222A  ___fs2slong                        _fs2slong
+     000022A7  ___slong2fs                        _slong2fs
+     000022EF  ___fs2ulong                        _fs2ulong
+     00002399  ___fslt                            _fslt
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 5.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_GSINIT                             000024A4    00000010 =          16. bytes (REL,CON)
+_GSINIT                             00002496    00000010 =          16. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -125,7 +128,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_GSFINAL                            000024B4    00000001 =           1. bytes (REL,CON)
+_GSFINAL                            000024A6    00000001 =           1. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -134,11 +137,11 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_HEAP                               000024B5    00000000 =           0. bytes (REL,CON)
+_HEAP                               000024A7    00000000 =           0. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     000024B5  _HEAP_start                        
+     000024A7  _HEAP_start                        
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 8.
 Hexadecimal  [32-Bits]
@@ -153,24 +156,24 @@ _HEADER0                            00000000    00000079 =         121. bytes (A
 
 Files Linked                              [ module(s) ]
 
-dist\flash.rel                            [ flash ]
-C:\DevArea\libraries\fusion-c\include\crt0_msxdos_advanced.rel
+dist/flash.rel                            [ flash ]
+/DevArea/libraries/fusion-c/include\crt0_msxdos_advanced.rel
                                           [  ]
 
 
 Libraries Linked                          [ object file ]
 
-C:\DevArea\libraries\fusion-c\lib\fusion_min_printf.lib
+/DevArea/libraries/fusion-c/lib\fusion_min_printf.lib
                                           [ memfill.rel ]
 C:\Program Files\SDCC\bin\..\lib\z80/z80.lib
                                           [ _ulong2fs.rel ]
-C:\DevArea\libraries\fusion-c\lib\fusion_min_printf.lib
+/DevArea/libraries/fusion-c/lib\fusion_min_printf.lib
                                           [ fcbclose.rel ]
 C:\Program Files\SDCC\bin\..\lib\z80/z80.lib
                                           [ ceilf.rel ]
 C:\Program Files\SDCC\bin\..\lib\z80/z80.lib
                                           [ sprintf.rel ]
-C:\DevArea\libraries\fusion-c\lib\fusion_min_printf.lib
+/DevArea/libraries/fusion-c/lib\fusion_min_printf.lib
                                           [ fcbread.rel ]
 C:\Program Files\SDCC\bin\..\lib\z80/z80.lib
                                           [ _divulong.rel ]
@@ -186,11 +189,11 @@ C:\Program Files\SDCC\bin\..\lib\z80/z80.lib
                                           [ _strcmp.rel ]
 C:\Program Files\SDCC\bin\..\lib\z80/z80.lib
                                           [ _fsdiv.rel ]
-C:\DevArea\libraries\fusion-c\lib\fusion_min_printf.lib
+/DevArea/libraries/fusion-c/lib\fusion_min_printf.lib
                                           [ fcbopen.rel ]
 C:\Program Files\SDCC\bin\..\lib\z80/z80.lib
                                           [ _mullong.rel ]
-C:\DevArea\libraries\fusion-c\lib\fusion_min_printf.lib
+/DevArea/libraries/fusion-c/lib\fusion_min_printf.lib
                                           [ readsp.rel ]
 C:\Program Files\SDCC\bin\..\lib\z80/z80.lib
                                           [ _fs2slong.rel ]
@@ -200,6 +203,8 @@ C:\Program Files\SDCC\bin\..\lib\z80/z80.lib
                                           [ _fs2ulong.rel ]
 C:\Program Files\SDCC\bin\..\lib\z80/z80.lib
                                           [ printf_large.rel ]
+/DevArea/libraries/fusion-c/lib\fusion_min_printf.lib
+                                          [ putcharrrdos.rel ]
 C:\Program Files\SDCC\bin\..\lib\z80/z80.lib
                                           [ _fslt.rel ]
 C:\Program Files\SDCC\bin\..\lib\z80/z80.lib

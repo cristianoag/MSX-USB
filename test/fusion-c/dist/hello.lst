@@ -53,7 +53,7 @@
                              53 ; code
                              54 ;--------------------------------------------------------
                              55 	.area _CODE
-                             56 ;src\hello.c:15: void FT_SetName(FCB *p_fcb, const char *p_name) 
+                             56 ;src/hello.c:16: void FT_SetName(FCB *p_fcb, const char *p_name) 
                              57 ;	---------------------------------
                              58 ; Function FT_SetName
                              59 ; ---------------------------------
@@ -62,7 +62,7 @@
    0003 F5            [11]   62 	push	af
    0004 F5            [11]   63 	push	af
    0005 3B            [ 6]   64 	dec	sp
-                             65 ;src\hello.c:18: memset(p_fcb, 0, sizeof(FCB));
+                             65 ;src/hello.c:19: memset(p_fcb, 0, sizeof(FCB));
    0006 DD 6E 04      [19]   66 	ld	l, 4 (ix)
    0009 DD 66 05      [19]   67 	ld	h, 5 (ix)
    000C 06 25         [ 7]   68 	ld	b, #0x25
@@ -70,7 +70,7 @@
    000E 36 00         [10]   70 	ld	(hl), #0x00
    0010 23            [ 6]   71 	inc	hl
    0011 10 FB         [13]   72 	djnz	00178$
-                             73 ;src\hello.c:19: for (i = 0; i < 11; i++) {
+                             73 ;src/hello.c:20: for (i = 0; i < 11; i++) {
    0013 DD 5E 04      [19]   74 	ld	e, 4 (ix)
    0016 DD 56 05      [19]   75 	ld	d, 5 (ix)
    0019 21 01 00      [10]   76 	ld	hl, #0x0001
@@ -79,18 +79,18 @@
    0020 DD 74 FD      [19]   79 	ld	-3 (ix), h
    0023 0E 00         [ 7]   80 	ld	c, #0x00
    0025                      81 00106$:
-                             82 ;src\hello.c:20: p_fcb->name[i] = ' ';
+                             82 ;src/hello.c:21: p_fcb->name[i] = ' ';
    0025 DD 6E FC      [19]   83 	ld	l, -4 (ix)
    0028 DD 66 FD      [19]   84 	ld	h, -3 (ix)
    002B 06 00         [ 7]   85 	ld	b, #0x00
    002D 09            [11]   86 	add	hl, bc
    002E 36 20         [10]   87 	ld	(hl), #0x20
-                             88 ;src\hello.c:19: for (i = 0; i < 11; i++) {
+                             88 ;src/hello.c:20: for (i = 0; i < 11; i++) {
    0030 0C            [ 4]   89 	inc	c
    0031 79            [ 4]   90 	ld	a, c
    0032 D6 0B         [ 7]   91 	sub	a, #0x0b
    0034 38 EF         [12]   92 	jr	C,00106$
-                             93 ;src\hello.c:22: for (i = 0; (i < 8) && (p_name[i] != 0) && (p_name[i] != '.'); i++) {
+                             93 ;src/hello.c:23: for (i = 0; (i < 8) && (p_name[i] != 0) && (p_name[i] != '.'); i++) {
    0036 DD 36 FE 00   [19]   94 	ld	-2 (ix), #0x00
    003A                      95 00111$:
    003A DD 7E 06      [19]   96 	ld	a, 6 (ix)
@@ -120,7 +120,7 @@
    0062 28 1A         [12]  120 	jr	Z,00102$
    0064 CB 45         [ 8]  121 	bit	0, l
    0066 20 16         [12]  122 	jr	NZ,00102$
-                            123 ;src\hello.c:23: p_fcb->name[i] = p_name[i];
+                            123 ;src/hello.c:24: p_fcb->name[i] = p_name[i];
    0068 DD 7E FC      [19]  124 	ld	a, -4 (ix)
    006B DD 86 FE      [19]  125 	add	a, -2 (ix)
    006E 6F            [ 4]  126 	ld	l, a
@@ -128,19 +128,19 @@
    0072 CE 00         [ 7]  128 	adc	a, #0x00
    0074 67            [ 4]  129 	ld	h, a
    0075 71            [ 7]  130 	ld	(hl), c
-                            131 ;src\hello.c:22: for (i = 0; (i < 8) && (p_name[i] != 0) && (p_name[i] != '.'); i++) {
+                            131 ;src/hello.c:23: for (i = 0; (i < 8) && (p_name[i] != 0) && (p_name[i] != '.'); i++) {
    0076 DD 7E FF      [19]  132 	ld	a, -1 (ix)
    0079 DD 77 FE      [19]  133 	ld	-2 (ix), a
    007C 18 BC         [12]  134 	jr	00111$
    007E                     135 00102$:
-                            136 ;src\hello.c:25: if (p_name[i] == '.') {
+                            136 ;src/hello.c:26: if (p_name[i] == '.') {
    007E 7D            [ 4]  137 	ld	a, l
    007F B7            [ 4]  138 	or	a, a
    0080 28 4C         [12]  139 	jr	Z,00118$
-                            140 ;src\hello.c:26: i++;
+                            140 ;src/hello.c:27: i++;
    0082 DD 7E FF      [19]  141 	ld	a, -1 (ix)
    0085 DD 77 FB      [19]  142 	ld	-5 (ix), a
-                            143 ;src\hello.c:27: for (j = 0; (j < 3) && (p_name[i + j] != 0) && (p_name[i + j] != '.'); j++) {
+                            143 ;src/hello.c:28: for (j = 0; (j < 3) && (p_name[i + j] != 0) && (p_name[i + j] != '.'); j++) {
    0088 21 09 00      [10]  144 	ld	hl, #0x0009
    008B 19            [11]  145 	add	hl, de
    008C EB            [ 4]  146 	ex	de, hl
@@ -172,16 +172,16 @@
    00C1 78            [ 4]  172 	ld	a, b
    00C2 D6 2E         [ 7]  173 	sub	a, #0x2e
    00C4 28 08         [12]  174 	jr	Z,00118$
-                            175 ;src\hello.c:28: p_fcb->ext[j] = p_name[i + j];
+                            175 ;src/hello.c:29: p_fcb->ext[j] = p_name[i + j];
    00C6 69            [ 4]  176 	ld	l, c
    00C7 26 00         [ 7]  177 	ld	h, #0x00
    00C9 19            [11]  178 	add	hl, de
    00CA 70            [ 7]  179 	ld	(hl), b
-                            180 ;src\hello.c:27: for (j = 0; (j < 3) && (p_name[i + j] != 0) && (p_name[i + j] != '.'); j++) {
+                            180 ;src/hello.c:28: for (j = 0; (j < 3) && (p_name[i + j] != 0) && (p_name[i + j] != '.'); j++) {
    00CB 0C            [ 4]  181 	inc	c
    00CC 18 C1         [12]  182 	jr	00116$
    00CE                     183 00118$:
-                            184 ;src\hello.c:31: }
+                            184 ;src/hello.c:32: }
    00CE DD F9         [10]  185 	ld	sp, ix
    00D0 DD E1         [14]  186 	pop	ix
    00D2 C9            [10]  187 	ret
@@ -195,18 +195,18 @@
         4F 46 54 3A 32 30
         32 31
    00FF 00                  190 	.db 0x00
-                            191 ;src\hello.c:33: void FT_errorHandler(char n, char *name) // Gère les erreurs
+                            191 ;src/hello.c:34: void FT_errorHandler(char n, char *name) // Gère les erreurs
                             192 ;	---------------------------------
                             193 ; Function FT_errorHandler
                             194 ; ---------------------------------
    0100                     195 _FT_errorHandler::
-                            196 ;src\hello.c:35: Screen(0);
+                            196 ;src/hello.c:36: Screen(0);
    0100 AF            [ 4]  197 	xor	a, a
    0101 F5            [11]  198 	push	af
    0102 33            [ 6]  199 	inc	sp
    0103 CDr00r00      [17]  200 	call	_Screen
    0106 33            [ 6]  201 	inc	sp
-                            202 ;src\hello.c:36: SetColors(15,6,6);
+                            202 ;src/hello.c:37: SetColors(15,6,6);
    0107 11 06 06      [10]  203 	ld	de, #0x0606
    010A D5            [11]  204 	push	de
    010B 3E 0F         [ 7]  205 	ld	a, #0x0f
@@ -215,7 +215,7 @@
    010F CDr00r00      [17]  208 	call	_SetColors
    0112 F1            [10]  209 	pop	af
    0113 33            [ 6]  210 	inc	sp
-                            211 ;src\hello.c:37: switch (n)
+                            211 ;src/hello.c:38: switch (n)
    0114 FD 21 02 00   [14]  212 	ld	iy, #2
    0118 FD 39         [15]  213 	add	iy, sp
    011A FD 7E 00      [19]  214 	ld	a, 0 (iy)
@@ -228,14 +228,14 @@
    012A D6 03         [ 7]  221 	sub	a, #0x03
    012C 28 2E         [12]  222 	jr	Z,00103$
    012E 18 34         [12]  223 	jr	00104$
-                            224 ;src\hello.c:39: case 1:
+                            224 ;src/hello.c:40: case 1:
    0130                     225 00101$:
-                            226 ;src\hello.c:40: Print("\n\rFAILED: fcb_open(): ");
+                            226 ;src/hello.c:41: Print("\n\rFAILED: fcb_open(): ");
    0130 21r69r01      [10]  227 	ld	hl, #___str_1
    0133 E5            [11]  228 	push	hl
    0134 CDr00r00      [17]  229 	call	_Print
    0137 F1            [10]  230 	pop	af
-                            231 ;src\hello.c:41: Print(name);
+                            231 ;src/hello.c:42: Print(name);
    0138 21 03 00      [10]  232 	ld	hl, #3
    013B 39            [11]  233 	add	hl, sp
    013C 4E            [ 7]  234 	ld	c, (hl)
@@ -244,16 +244,16 @@
    013F C5            [11]  237 	push	bc
    0140 CDr00r00      [17]  238 	call	_Print
    0143 F1            [10]  239 	pop	af
-                            240 ;src\hello.c:42: break;
+                            240 ;src/hello.c:43: break;
    0144 18 1E         [12]  241 	jr	00104$
-                            242 ;src\hello.c:44: case 2:
+                            242 ;src/hello.c:45: case 2:
    0146                     243 00102$:
-                            244 ;src\hello.c:45: Print("\n\rFAILED: fcb_close():");
+                            244 ;src/hello.c:46: Print("\n\rFAILED: fcb_close():");
    0146 21r80r01      [10]  245 	ld	hl, #___str_2
    0149 E5            [11]  246 	push	hl
    014A CDr00r00      [17]  247 	call	_Print
    014D F1            [10]  248 	pop	af
-                            249 ;src\hello.c:46: Print(name);
+                            249 ;src/hello.c:47: Print(name);
    014E 21 03 00      [10]  250 	ld	hl, #3
    0151 39            [11]  251 	add	hl, sp
    0152 4E            [ 7]  252 	ld	c, (hl)
@@ -262,20 +262,20 @@
    0155 C5            [11]  255 	push	bc
    0156 CDr00r00      [17]  256 	call	_Print
    0159 F1            [10]  257 	pop	af
-                            258 ;src\hello.c:47: break;  
+                            258 ;src/hello.c:48: break;  
    015A 18 08         [12]  259 	jr	00104$
-                            260 ;src\hello.c:49: case 3:
+                            260 ;src/hello.c:50: case 3:
    015C                     261 00103$:
-                            262 ;src\hello.c:50: Print("\n\rStop Kidding, run me on MSX2 !");
+                            262 ;src/hello.c:51: Print("\n\rStop Kidding, run me on MSX2 !");
    015C 21r97r01      [10]  263 	ld	hl, #___str_3
    015F E5            [11]  264 	push	hl
    0160 CDr00r00      [17]  265 	call	_Print
    0163 F1            [10]  266 	pop	af
-                            267 ;src\hello.c:52: }
+                            267 ;src/hello.c:53: }
    0164                     268 00104$:
-                            269 ;src\hello.c:53: Exit(0);
+                            269 ;src/hello.c:54: Exit(0);
    0164 2E 00         [ 7]  270 	ld	l, #0x00
-                            271 ;src\hello.c:54: }
+                            271 ;src/hello.c:55: }
    0166 C3r00r00      [10]  272 	jp  _Exit
    0169                     273 ___str_1:
    0169 0A                  274 	.db 0x0a
@@ -302,7 +302,7 @@
         6D 65 20 6F 6E 20
         4D 53 58 32 20 21
    01B7 00                  287 	.db 0x00
-                            288 ;src\hello.c:56: void main (void)
+                            288 ;src/hello.c:57: void main (void)
                             289 ;	---------------------------------
                             290 ; Function main
                             291 ; ---------------------------------
@@ -311,32 +311,32 @@
    01BB 21 F5 FF      [10]  294 	ld	hl, #-11
    01BE 39            [11]  295 	add	hl, sp
    01BF F9            [ 6]  296 	ld	sp, hl
-                            297 ;src\hello.c:58: Screen(0);
+                            297 ;src/hello.c:59: Screen(0);
    01C0 AF            [ 4]  298 	xor	a, a
    01C1 F5            [11]  299 	push	af
    01C2 33            [ 6]  300 	inc	sp
    01C3 CDr00r00      [17]  301 	call	_Screen
    01C6 33            [ 6]  302 	inc	sp
-                            303 ;src\hello.c:59: Width(40);
+                            303 ;src/hello.c:60: Width(40);
    01C7 3E 28         [ 7]  304 	ld	a, #0x28
    01C9 F5            [11]  305 	push	af
    01CA 33            [ 6]  306 	inc	sp
    01CB CDr00r00      [17]  307 	call	_Width
    01CE 33            [ 6]  308 	inc	sp
-                            309 ;src\hello.c:60: Print("Hello ! \n\n");
+                            309 ;src/hello.c:61: Print("Hello ! \n\n");
    01CF 21r6Cr02      [10]  310 	ld	hl, #___str_5
    01D2 E5            [11]  311 	push	hl
    01D3 CDr00r00      [17]  312 	call	_Print
-                            313 ;src\hello.c:61: Print("Your are using FUSION-C \n\rversion:");
+                            313 ;src/hello.c:62: Print("Your are using FUSION-C \n\rversion:");
    01D6 21r77r02      [10]  314 	ld	hl, #___str_6
    01D9 E3            [19]  315 	ex	(sp),hl
    01DA CDr00r00      [17]  316 	call	_Print
-                            317 ;src\hello.c:63: Print("  Rev.");
+                            317 ;src/hello.c:64: Print("  Rev.");
    01DD 21r9Ar02      [10]  318 	ld	hl, #___str_7
    01E0 E3            [19]  319 	ex	(sp),hl
    01E1 CDr00r00      [17]  320 	call	_Print
    01E4 F1            [10]  321 	pop	af
-                            322 ;src\hello.c:66: char file_name[] = "nextor.rom";
+                            322 ;src/hello.c:67: char file_name[] = "nextor.rom";
    01E5 21 00 00      [10]  323 	ld	hl, #0
    01E8 39            [11]  324 	add	hl, sp
    01E9 EB            [ 4]  325 	ex	de, hl
@@ -378,7 +378,7 @@
    0223 21 0A 00      [10]  361 	ld	hl, #0x000a
    0226 19            [11]  362 	add	hl, de
    0227 36 00         [10]  363 	ld	(hl), #0x00
-                            364 ;src\hello.c:68: FT_SetName( &file, file_name );
+                            364 ;src/hello.c:69: FT_SetName( &file, file_name );
    0229 4B            [ 4]  365 	ld	c, e
    022A 42            [ 4]  366 	ld	b, d
    022B D5            [11]  367 	push	de
@@ -395,7 +395,7 @@
    023E D1            [10]  378 	pop	de
    023F B7            [ 4]  379 	or	a, a
    0240 28 0A         [12]  380 	jr	Z,00102$
-                            381 ;src\hello.c:71: FT_errorHandler(1, file_name);
+                            381 ;src/hello.c:72: FT_errorHandler(1, file_name);
    0242 D5            [11]  382 	push	de
    0243 3E 01         [ 7]  383 	ld	a, #0x01
    0245 F5            [11]  384 	push	af
@@ -404,7 +404,7 @@
    024A F1            [10]  387 	pop	af
    024B 33            [ 6]  388 	inc	sp
    024C                     389 00102$:
-                            390 ;src\hello.c:74: printf("\n\r\n\rSize: %lu\n\r",file.file_size);
+                            390 ;src/hello.c:75: printf("\n\r\n\rSize: %lu\n\r",file.file_size);
    024C ED 5Br10r00   [20]  391 	ld	de, (#_file + 16)
    0250 2Ar12r00      [16]  392 	ld	hl, (#_file + 18)
    0253 01rA1r02      [10]  393 	ld	bc, #___str_8+0
@@ -415,12 +415,12 @@
    025C F1            [10]  398 	pop	af
    025D F1            [10]  399 	pop	af
    025E F1            [10]  400 	pop	af
-                            401 ;src\hello.c:75: WaitKey();
+                            401 ;src/hello.c:76: WaitKey();
    025F CDr00r00      [17]  402 	call	_WaitKey
-                            403 ;src\hello.c:76: Exit(0);
+                            403 ;src/hello.c:77: Exit(0);
    0262 2E 00         [ 7]  404 	ld	l, #0x00
    0264 CDr00r00      [17]  405 	call	_Exit
-                            406 ;src\hello.c:78: }
+                            406 ;src/hello.c:79: }
    0267 DD F9         [10]  407 	ld	sp, ix
    0269 DD E1         [14]  408 	pop	ix
    026B C9            [10]  409 	ret

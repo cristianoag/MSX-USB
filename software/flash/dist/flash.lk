@@ -1,12 +1,12 @@
 -mjwx
--i dist\flash.ihx
+-i dist/flash.ihx
 -b _CODE = 0x0180
 -b _DATA = 0x0000
--k C:\DevArea\libraries\fusion-c\lib
+-k /DevArea/libraries/fusion-c/lib
 -k C:\Program Files\SDCC\bin\..\lib\z80
--l C:\DevArea\libraries\fusion-c\lib\fusion_min_printf.lib
+-l /DevArea/libraries/fusion-c/lib\fusion_min_printf.lib
 -l z80
-dist\flash.rel
-C:\DevArea\libraries\fusion-c\include\crt0_msxdos_advanced.rel
+dist/flash.rel
+/DevArea/libraries/fusion-c/include\crt0_msxdos_advanced.rel
 
 -e
