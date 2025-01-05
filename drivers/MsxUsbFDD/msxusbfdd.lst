@@ -121,21 +121,20 @@
 0059+  0000             
 0060+  0000             ;The address to switch the ROM bank in the DOS2 mapper implemented by Rookie Drive
 0061+  0000             ;crisag - changing the bank switch address to 5000h (KonamiSCC mapper support for MSXUSB)
-0062+  0000             ;ROM_BANK_SWITCH: equ 6000h
-0063+  0000             ROM_BANK_SWITCH: equ 5000h
-0064+  0000             
-0065+  0000             ;Enable this if you are adapting this BIOS for hardware other than Rookie Drive
-0066+  0000             ;and that hardware uses ASCII8 for ROM mapping.
-0067+  0000             ;If you use any ROM mapper other than ASCII8 or DOS2 you will need to change
-0068+  0000             ;the code, search usages of ROM_BANK_SWITCH for that.
-0069+  0000             USE_ASCII8_ROM_MAPPER: equ 0
-0070+  0000             
-0071+  0000             ;The ROM banks where all the code lives.
-0072+  0000             ;You will need to change this only if you plan to somehow integrate this
-0073+  0000             ;BIOS into a bigger ROM.
-0074+  0000             ;Note that these refer to 16K banks, even in the case of using the ASCII8 mapper.
-0075+  0000             ROM_BANK_0: equ 0
-0076+  0000             ROM_BANK_1: equ 1
+0062+  0000             ROM_BANK_SWITCH: equ 5000h
+0063+  0000             
+0064+  0000             ;Enable this if you are adapting this BIOS for hardware other than Rookie Drive
+0065+  0000             ;and that hardware uses ASCII8 for ROM mapping.
+0066+  0000             ;If you use any ROM mapper other than ASCII8 or DOS2 you will need to change
+0067+  0000             ;the code, search usages of ROM_BANK_SWITCH for that.
+0068+  0000             USE_ASCII8_ROM_MAPPER: equ 0
+0069+  0000             
+0070+  0000             ;The ROM banks where all the code lives.
+0071+  0000             ;You will need to change this only if you plan to somehow integrate this
+0072+  0000             ;BIOS into a bigger ROM.
+0073+  0000             ;Note that these refer to 16K banks, even in the case of using the ASCII8 mapper.
+0074+  0000             ROM_BANK_0: equ 0
+0075+  0000             ROM_BANK_1: equ 1
 0015   0000                 include "usb_errors.asm"
 0001+  0000             ; MSXUSB USB FDD BIOS
 0002+  0000             ; Based on the Rookie Drive USB FDD BIOS created by Konamiman in 2018
@@ -4515,29 +4514,29 @@
 4315+  576D 20 47       	defw	A4720
 4316+  576F             
 4317+  576F             A576F:
-4318+  576F                 if USE_ASCII8_ROM_MAPPER=1
-4319+  576F~                ld a,ROM_BANK_0*2+1
-4320+  576F~                ld (6800h),a    ;Set proper bank on second half of page 1
-4321+  576F~                ld (7000h),a    ;To prevent ROM from initializing again on page 2
-4322+  576F                 endif
-4323+  576F             
-4324+  576F                 if USE_ALTERNATIVE_PORTS=1
-4325+  576F~                ld a,ROM_BANK_0+80h
-4326+  576F~                ld (ROM_BANK_SWITCH),a
-4327+  576F                 endif
-4328+  576F             
-4329+  576F CD 05 74        call DO_CHECK_CAN_INIT
-4330+  5772 B7              or a
-4331+  5773 CA 0C 58        jp z,A580C
-4332+  5776 3D              dec a
-4333+  5777 28 30           jr z,A57A9
-4334+  5779 3D              dec a
-4335+  577A C8              ret z
-4336+  577B 3E 07       	ld	a,007H
-4337+  577D DF          	rst	018H			; beep
-4338+  577E C9              ret    
-4339+  577F             
-4340+  577F FF              ds 57A9h-$,0FFh
+4318+  576F             
+4319+  576F             	;crisag - change to support KonamiSCC mapper
+4320+  576F 3E 01           ld a,ROM_BANK_0*2+1
+4321+  5771 32 00 70    	ld (7000h),a    ;Set proper bank on second half of page 1
+4322+  5774 32 00 90    	ld (9000h),a    ;To prevent ROM from initializing again on page 2
+4323+  5777             
+4324+  5777                 if USE_ALTERNATIVE_PORTS=1
+4325+  5777~                ld a,ROM_BANK_0+80h
+4326+  5777~                ld (ROM_BANK_SWITCH),a
+4327+  5777                 endif
+4328+  5777             
+4329+  5777 CD 05 74        call DO_CHECK_CAN_INIT
+4330+  577A B7              or a
+4331+  577B CA 0C 58        jp z,A580C
+4332+  577E 3D              dec a
+4333+  577F 28 28           jr z,A57A9
+4334+  5781 3D              dec a
+4335+  5782 C8              ret z
+4336+  5783 3E 07       	ld	a,007H
+4337+  5785 DF          	rst	018H			; beep
+4338+  5786 C9              ret    
+4339+  5787             
+4340+  5787 FF              ds 57A9h-$,0FFh
 4341+  57A9             
 4342+  57A9             ;	Subroutine	Initialize disksystem, first diskrom
 4343+  57A9             

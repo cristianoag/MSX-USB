@@ -59,7 +59,6 @@ USE_FAKE_STORAGE_DEVICE: equ 0
 
 ;The address to switch the ROM bank in the DOS2 mapper implemented by Rookie Drive
 ;crisag - changing the bank switch address to 5000h (KonamiSCC mapper support for MSXUSB)
-;ROM_BANK_SWITCH: equ 6000h
 ROM_BANK_SWITCH: equ 5000h
 
 ;Enable this if you are adapting this BIOS for hardware other than Rookie Drive

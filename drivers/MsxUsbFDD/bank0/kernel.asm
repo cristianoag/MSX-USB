@@ -4315,11 +4315,11 @@ T570D:	defw	A40A7,A5445,A53A7,A546E,A5474,A5465,A5454,A5462
 	defw	A4720
 
 A576F:
-    if USE_ASCII8_ROM_MAPPER=1
+
+	;crisag - change to support KonamiSCC mapper
     ld a,ROM_BANK_0*2+1
-    ld (6800h),a    ;Set proper bank on second half of page 1
-    ld (7000h),a    ;To prevent ROM from initializing again on page 2
-    endif
+	ld (7000h),a    ;Set proper bank on second half of page 1
+	ld (9000h),a    ;To prevent ROM from initializing again on page 2
 
     if USE_ALTERNATIVE_PORTS=1
     ld a,ROM_BANK_0+80h
