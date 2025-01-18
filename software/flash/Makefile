@@ -6,13 +6,14 @@ HEXBIN = hex2bin
 FUSIONINC = /DevArea/libraries/fusion-c/include
 FUSIONHEADER = /DevArea/libraries/fusion-c/header
 FUSIONLIBDIR = /DevArea/libraries/fusion-c/lib
-FUSIONLIB = $(FUSIONLIBDIR)\fusion_min_printf.lib
+FUSIONLIB = $(FUSIONLIBDIR)/fusion_min_printf.lib
 #FUSIONLIB = $(FUSIONLIBDIR)/fusion.lib
 SRCDIR = src
-BINDIR = dist
+DISDIR = dist
+BINDIR = build
 
 # See startup files for the correct ADDR_CODE and ADDR_DATA
-CRT0 = $(FUSIONINC)\crt0_msxdos_advanced.rel
+CRT0 = $(FUSIONINC)/crt0_msxdos_advanced.rel
 ADDR_CODE = 0x0180
 #ADDR_DATA = 0
 #CRT0 = $(FUSIONINC)/crt0_msxdos.rel
@@ -37,6 +38,7 @@ compile: $(SOURCES)
 package: 
 		@echo "Building $(OUTFILE)..."
 		@$(HEXBIN) -e com $(BINDIR)/$(basename $(OUTFILE)).ihx
+		cp $(BINDIR)/$(OUTFILE) $(DISDIR)/$(OUTFILE)
 		@echo "Done."
 
 clean:
@@ -44,7 +46,8 @@ clean:
 		rm -f $(BINDIR)/*.asm $(BINDIR)/*.bin $(BINDIR)/*.cdb $(BINDIR)/*.ihx $(BINDIR)/*.lk $(BINDIR)/*.lst \
 			$(BINDIR)/*.map $(BINDIR)/*.mem $(BINDIR)/*.omf $(BINDIR)/*.rst $(BINDIR)/*.rel $(BINDIR)/*.sym \
 			$(BINDIR)/*.noi $(BINDIR)/*.hex $(BINDIR)/*.lnk $(BINDIR)/*.dep
+		rm -f $(DISDIR)/$(OUTFILE)
 		rm -f $(BINDIR)/$(OUTFILE)
 
 test:
-	@echo $(BINDIR)\$(basename $(OUTFILE)).ihx
+	@echo $(BINDIR)/$(basename $(OUTFILE)).ihx

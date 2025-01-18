@@ -45,24 +45,6 @@ void FT_SetName( FCB *p_fcb, const char *p_name )  // Routine servant à vérifi
 }
 
 /*
-int putchar (int character)
-{
-    __asm
-    ld      hl, #2 
-    add     hl, sp   ;Bypass the return address of the function 
-    ld     a, (hl)
-
-    ld     iy,(#BIOS_EXPTBL-1)       ;BIOS slot in iyh
-    push ix
-    ld     ix,#BIOS_CHPUT       ;address of BIOS routine
-    call   BIOS_CALSLT          ;interslot call
-    pop ix
-    __endasm;
-
-    return character;
-}*/
-
-/*
     ; main
     ; input: argv, argc
     ; output: none
@@ -73,7 +55,7 @@ int main(char *argv[], int argc)
 {   
     uint8_t slot=0;
     uint8_t argnr=0;
-    printf ("MSXUSB Flash Loader 1.1\r\n");
+    printf ("MSXUSB Flash Loader 1.2\r\n");
     printf ("(c) 2024 The Retro Hacker\r\n");
     printf ("Based on the original code by S0urceror\r\n\r\n");
     if (argc < 1)
@@ -86,16 +68,16 @@ int main(char *argv[], int argc)
         printf ("Not enough memory to read file segment");
         return (0);
     }
-    if (strcmp (argv[0],"/S0")==0) {
+    if (strcmp (argv[0],"/S0")==0 || strcmp (argv[0],"/s0")==0) {
         slot = 0;argnr++;
     } 
-    if (strcmp (argv[0],"/S1")==0) {
+    if (strcmp (argv[0],"/S1")==0 || strcmp (argv[0],"/s1")==0) {
         slot = 1;argnr++;
     } 
-    if (strcmp (argv[0],"/S2")==0) {
+    if (strcmp (argv[0],"/S2")==0 || strcmp (argv[0],"/s2")==0) {
         slot = 2;argnr++;
     } 
-    if (strcmp (argv[0],"/S3")==0) {
+    if (strcmp (argv[0],"/S3")==0 || strcmp (argv[0],"/s3")==0) {
         slot = 3;argnr++;
     }
 
@@ -181,12 +163,11 @@ void select_slot_40 (uint8_t slot)
 {
     slot;
     __asm
-    ld iy,#2
-    add iy,sp ;Bypass the return address of the function 
-
-    ld a,(iy)   ;slot
-    ld h,#0x40
-    jp	0x24 ; ENASLT
+    ld  iy,#2
+    add iy,sp       
+    ld  a,(iy)      
+    ld  h,#0x40
+    jp	0x24 
     __endasm;
 }
 
@@ -204,6 +185,24 @@ void select_ramslot_40 ()
     __endasm;
 }
 
+void delay() {
+    for (volatile int i = 0; i < 1000; i++);
+}
+
+void hexdump_flash_segment() {
+    for (uint16_t i = 0; i < 32768; i += 24) {
+        printf("%04X: ", i);
+        for (uint16_t j = 0; j < 24; j++) {
+            if (i + j < 32768) {
+                printf("%02X ", flash_segment[i + j]);
+            } else {
+                printf("  ");
+            }
+        }
+        printf("\r\n");
+    }
+}
+
 /*
     ; flash identification
     ; input: none
@@ -211,27 +210,31 @@ void select_ramslot_40 ()
 */
 BOOL flash_ident ()
 {
-    uint8_t dummy;
-    // reset
-    flash_segment[0] = 0xf0;
-    // write autoselect code
-    dummy = flash_segment [0x555];
+    flash_segment[0] = 0xF0;
+    
     flash_segment[0x555] = 0xaa;
-    dummy = flash_segment [0x2aa];
     flash_segment[0x2aa] = 0x55;
-    dummy = flash_segment [0x555];
     flash_segment[0x555] = 0x90;
+
     // read response
-    uint8_t manufacturer = flash_segment[0];
-    uint8_t device = flash_segment[1];
+    uint8_t manufacturer = flash_segment[0x0000];
+    uint8_t device = flash_segment[0x0001];
     
     // debug line to identify new flash chips
-    // printf ("M: %x, D: %x\r\n",manufacturer,device);
+   // printf ("M: %x, D: %x\r\n",manufacturer,device);
     
     // The following flash chips are supported:
-    // AMD_AM29F040 = A4
-    // AMS_AM29F010 = 20
+    // AMC_A29040B = 86
+    // AMD_29F040 = A4
+    // AMS_29F010 = 20
+    // SST_39SF040 = B7
+
     switch (device) {
+        case 0x86:
+            printf("Found device: AMC_A29040B\r\n");
+            flash_segment[0] = 0xf0;
+            return TRUE;
+            break;
         case 0xA4:
             printf("Found device: AMD_AM29F040\r\n");
             flash_segment[0] = 0xf0;
@@ -239,6 +242,11 @@ BOOL flash_ident ()
             break;
         case 0x20:
             printf("Found device: AMD_AM29F010\r\n");
+            flash_segment[0] = 0xf0;
+            return TRUE;
+            break;
+        case 0xB7:
+            printf("Found device: SST_SST39SF040\r\n");
             flash_segment[0] = 0xf0;
             return TRUE;
             break;
@@ -314,12 +322,12 @@ BOOL erase_flash(uint8_t slot)
 
     printf ("Erasing flash: ");
     // sequence to activate the chip erase
-    flash_segment[0x555] = 0xaa;
-    flash_segment[0x2aa] = 0x55;
-    flash_segment[0x555] = 0x80;
-    flash_segment[0x555] = 0xaa;
-    flash_segment[0x2aa] = 0x55;
-    flash_segment[0x555] = 0x10;
+    flash_segment[0x555] = 0xaa; //ok
+    flash_segment[0x2aa] = 0x55; //ok
+    flash_segment[0x555] = 0x80; //ok
+    flash_segment[0x555] = 0xaa; //ok
+    flash_segment[0x2aa] = 0x55; //ok
+    flash_segment[0x555] = 0x10; //ok
 
     if (!flash_command_okay (0,0xff))
     {
