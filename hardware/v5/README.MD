@@ -19,6 +19,8 @@ The type 2 module can be recognized by the presence of a 3 position header on th
 
 The PCB that is suitable for the CH376S Module Type 2 has the appropriated signals configured appropriately to support the module. 
 
+**Very important:** The MSX-USB project requires modules with the CH376S firmware with at least version 0x43 (Version 3). If you have a CH376 module with a CH376S chip with versions 0x41 or 0x42 the drivers will not work. You can check the version of the firmware by issuing a CMD_GET_IC_VER command to the CH376S chip. Also some of the drivers display the version of the CH376S firmware when they are loaded.
+
 ## PCBs
 
 Two versions of the PCB were created to support the two different modules on sale at this moment. You can download the Gerber files for each version of the PCB from the folders below.
@@ -61,4 +63,21 @@ Two versions of the PCB were created to support the two different modules on sal
 
 ## CPLD
 
-The CPLD code for the MSX-USB v5 can be found in the [cpld](cpld) folder. The code is written in Verilog and can be compiled using the Quartus software from Intel. The code is compatible with the EPM7064SLC44-10 CPLD chip.
+The CPLD code for the MSX-USB v5 can be found in the [cpld](cpld) folder. The code is written in Verilog and can be compiled using the Quartus software from Intel. The code is compatible with the EPM7064STC44-10 CPLD chip.
+
+## License
+
+![Open Hardware](/images/ccans.png)
+
+This work is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/).
+
+* If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.
+* You may not use the material for commercial purposes.
+* You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
+
+**ATTENTION**
+
+This project was made for the retro community and not for commercial purposes. So only retro hardware forums and individual people can build this project.
+
+THE SALE OF ANY PART OF THIS PROJECT WITHOUT EXPRESS AUTHORIZATION IS PROHIBITED!
+

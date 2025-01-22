@@ -40,3 +40,19 @@ Info: Quartus II 32-bit Programmer was successful. 0 errors, 0 warnings
 ```
 
 And it has arrived the amazing moment where you are going to program it (you can do it with the command line quartus_pgm or with the GUI tool quartus) with the following file: [MSXUSB.pof](quartus-rev4/output_files/MSXUSB.pof)
+
+## License
+
+![Open Hardware](/images/ccans.png)
+
+This work is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/).
+
+* If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.
+* You may not use the material for commercial purposes.
+* You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
+
+**ATTENTION**
+
+This project was made for the retro community and not for commercial purposes. So only retro hardware forums and individual people can build this project.
+
+THE SALE OF ANY PART OF THIS PROJECT WITHOUT EXPRESS AUTHORIZATION IS PROHIBITED!
