@@ -50,6 +50,8 @@ If you’re comfortable with SMD soldering and want to avoid the challenges of s
 
 Please note that for v5 there are two folders for the PCBs because there are different types of CH376 modules available. Depending on the module you have, you’ll need to use a specific version of the PCB. Compare the signals of your module with those on the PCBs to ensure you select the correct one.
 
+**Very important:** The MSX-USB project requires modules with the CH376S firmware with at least version 0x43 (Version 3). If you have a CH376 module with a CH376S chip with versions 0x41 or 0x42 the drivers will not work. You can check the version of the firmware by issuing a CMD_GET_IC_VER command to the CH376S chip. Also some of the drivers display the version of the CH376S firmware when they are loaded.
+
 ## BIOS and Drivers
 
 The project has several bios and drivers that have been developed. You can use a flash programmer or the MSX itself to flash the bios options to the flash chip on the cartridge. To do that use the flash.com tool that is available in the software folder. 

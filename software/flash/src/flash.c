@@ -227,7 +227,7 @@ BOOL flash_ident ()
     // AMC_A29040B = 86
     // AMD_29F040 = A4
     // AMS_29F010 = 20
-    // SST_39SF040 = B7
+    // SST_39SF040 = B7 - still not working
 
     switch (device) {
         case 0x86:
